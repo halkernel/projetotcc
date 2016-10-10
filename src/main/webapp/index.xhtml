@@ -1,0 +1,125 @@
+<!DOCTYPE xhtml>
+    <ui:composition template="/WEB-INF/partials/basic.xhtml"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+        <ui:define name="conteudo">
+       				 <div class="ui-g">
+       				 		<div class="ui-g-12 ui-md-3 padding">
+  						    
+							    <h:form>
+	  						    	<p:growl id="messages" showDetail="false"/>
+								    <p:menu styleClass="width">
+								        <p:submenu label="Ranking de Escolas">
+								            <p:menuitem value="Município"  update="messages" icon="ui-icon-disk" />
+								            <p:menuitem value="Estado"  update="messages" icon="ui-icon-arrowrefresh-1-w"/>
+								            <p:menuitem value="Região"  update="messages" icon="ui-icon-disk" />
+								            <p:menuitem value="Brasil"  update="messages" icon="ui-icon-disk" />
+								        </p:submenu>
+								        <p:submenu label="Non-Ajax">
+								            <p:menuitem value="Delete"  update="messages" ajax="false" icon="ui-icon-close"/>
+								        </p:submenu>
+								        <p:submenu label="Navigations">
+								            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
+								            <p:menuitem value="Internal"  icon="ui-icon-star"/>
+								        </p:submenu>
+								    </p:menu>
+							 
+							
+							    </h:form>
+  						    ranking de escolas > estado, municipio, regiao, nacional
+  						    </div>						
+						    <div class="ui-g-12 ui-md-6 padding">							  		
+						  		<p:panelGrid columns="1" layout="grid" styleClass="margin-bottom-content">
+						  		<h3 class="title">O que é o site Indicadores Abertos?</h3>            
+								    <p style="text-align:justify;">O movimento de dados abertos ao redor do mundo foi impulsionado a pouco mais 
+								    de 3 anos, quando os governos dos Estados Unidos e Inglaterra começaram a constituir uma abertura de dados 
+								    governamentais. Desde então, estes movimentos vem se tornando uma das maiores iniciativas em defesa do acesso 
+								    a informação, que  um elemento importante para qualquer governo democrático. A garantia do direito ao seu
+								     acesso para a população promove não somente a transparência do Governo, mas também o estímulo às exigências
+								      de direitos, maior participação política e o controle dos atos públicos por parte da população.
+
+ 									</p> 
+								    <p style="text-align:justify;">Com o progresso na construção de uma política de dados abertos pelo mundo, 
+								    <a href="http://dados.gov.br/cartilha-publicacao-dados-abertos/" target="_blank" class="link-home"> 
+								    Brasil também tomou medidas para incentivo da abertura de dados</a>, criando um conjunto de padrões, procedimentos 
+								    e mecanismos para atender o compartilhamento desses dados no país. Tais medidas levaram a criação de leis e
+								     normas que orientam os meios pelo qual pode-se fazer a abertura dos orgãos públicos que compõem o país. E o 
+								     ponto chave nesta abertura de dados pelos nosso governantes é o fato de que ela gera estímulos ao engajamento 
+								     social e a participação ativa, pois aproxima a sociedade da gestão pública, promove um envolvimento maior da 
+								     parte dos cidadãos com as decisões governamentais. 
+								    </p>
+								    <p style="text-align:justify;">Neste contexto de abertura de dados, a educação é uma das áreas que vêm sendo
+								     beneficiadas no nosso país. A publicação dos <a href="http://dados.gov.br/dataset/microdados-do-censo-escolar" target="_blank" class="link-home"> 
+								     Dados do Censo Escolar  </a> são um exemplo desta abertura. No entanto, dados como os 
+								     <a href="http://portal.inep.gov.br/indicadores-educacionais" target="_blank" class="link-home">Indicadores Educacionais </a>
+								     ainda sofrem com problemas que impossibilitam por exemplo a análise e utilização destes dados. A falta de padrão e impossibilita 
+								     por exemplo a geração de resultados relevantes, cruzamento e análises mais complexas, mas não afasta o aspecto de melhorar a 
+								     educação através do acesso à informação. Desse modo, os Indicadores Abertos se inserem nas iniciativas de dados abertos com o objetivo
+								     de trazer informações e indicadores educacionais de maneira clara, promovendo a possibilidade de análises e estudos estatísticos.  </p>
+								</p:panelGrid>
+						  		
+								
+								<div class="ui-g">
+								    <div class="ui-g-4 padding-subdescription">								    	
+								    	<span class="fa-stack fa-lg inline">
+										  <i class="fa fa-square fa-stack-2x icon-awesome"></i>
+										  <i class="fa fa-bar-chart fa-stack-1x fa-inverse"></i>
+										</span> 
+										
+										<h3 class="inline font-three-colmuns">Estatísticas Escolares</h3>
+										
+										<p class="justify-text">Acompanhe as estatísticas da escola de seu município, estado ou região e veja 
+										quais escolas possuem maior rendimento. Compare escolas públicas e privadas quanto ao rendimento, evasão ou adequação docente.				</p>
+								 		<p:button value="Acesse">
+										    <!-- <ui:param name="productId" value="10" /> -->
+										</p:button>
+								    </div>
+								    
+								    
+								     <div class="ui-g-4 padding-subdescription">								    	
+								    	<span class="fa-stack fa-lg inline">
+										  <i class="fa fa-square fa-stack-2x icon-awesome"></i>
+										  <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+										</span> 
+										
+										<h3 class="inline font-three-colmuns">Origem dos indicadores</h3>
+										
+										<p class="justify-text">Os indicadores utilizados neste site são indicadores educacionais disponíveis 
+										no site do <a href="portal.inep.gov.br/indicadores-educacionais" class="link-home" target="_blank">INEP</a>.
+										 Os indicadores são dados públicos que podem ser utilizados por qualquer pessoa.</p>
+										 
+										 <p:button value="Entenda">
+										    <!-- <ui:param name="productId" value="10" /> -->
+										</p:button>
+								    								    
+								    </div>
+								    
+								    
+								     <div class="ui-g-4 padding-subdescription">								    	
+								    	<span class="fa-stack fa-lg inline">
+										  <i class="fa fa-square fa-stack-2x icon-awesome"></i>
+										  <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+										</span> 
+										
+										<h3 class="inline font-three-colmuns">Conversão de Dados</h3>
+										
+										<p class="justify-text">A apresentação dos dados na forma mostrada por este site só é possível graças a um
+										processo de conversão de planilhas para um banco de dados. O processo é feito por meio de um algorítimo em Python.</p>
+								    <p:button value="Conheça">
+										    <!-- <ui:param name="productId" value="10" /> -->
+										</p:button>
+								    								    
+								    </div>								    
+								</div>
+						    </div>
+						    <div class="ui-g-12 ui-md-3  padding">	
+						    	<div id="container"></div>						    	
+						    </div>
+  						    						    
+						</div> 
+        </ui:define>	  
+</ui:composition>

@@ -1,0 +1,14 @@
+#container {
+    height: 500px; 
+    min-width: 210px; 
+    max-width: 300px; 
+    margin: 0 auto;
+    font-size: 10px; 
+}
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+}
+
+
