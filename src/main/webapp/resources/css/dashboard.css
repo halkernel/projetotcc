@@ -1,6 +1,12 @@
+
+.body{
+  zoom:90%;
+}
+
 article, footer {
 	padding:2px;
 }
+
 
 .align-right{	
 	right:0;	
