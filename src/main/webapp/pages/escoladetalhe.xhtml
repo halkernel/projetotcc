@@ -25,6 +25,12 @@
 									<p class="texto">Municipio:</p>
 									<h:outputText id="escolamunicipio"
 										value="#{detalheEscolaBean.escola.municipio.municipioNome}" />
+									<p class="texto">Localização:</p>
+									<h:outputText id="escolalocalizacao"
+										value="#{detalheEscolaBean.escola.localizacao.localizacaoNome}" />
+									<p class="texto">Dependencia:</p>
+									<h:outputText id="escoladependencia"
+										value="#{detalheEscolaBean.escola.dependencia.dependenciaNome}" />
 								</div>
 							</h:form>
 						</div>
@@ -36,9 +42,7 @@
 					<p:layoutUnit position="center"
 						styleClass="height-content-indicadores">
 						<div class="search-elements">
-							<h:form>
 
-							</h:form>
 						</div>
 					</p:layoutUnit>
 				</p:layout>

@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import dao.EscolaDAO;
 import entity.Escola;
+import util.ConverteString;
 import util.Rota;
 
 @ManagedBean
@@ -31,8 +32,13 @@ public class EscolaBean {
 	
 	public void buscarPorNome(){
 		EscolaDAO escolaDao = new EscolaDAO();
-		escolas = escolaDao.listByName(nomeEscola);
+		nomeEscola = ConverteString.removeAcento(nomeEscola);
+		nomeEscola = nomeEscola.toUpperCase();
+		System.out.println(nomeEscola);
+		escolas = escolaDao.listByName(nomeEscola);		
 	}
+	
+	
 	
 	public void detalheEscola(){
 		Rota.redireciona("escoladetalhe.xhtml");

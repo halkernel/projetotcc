@@ -5,9 +5,9 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
+
+import org.primefaces.model.chart.PieChartModel;
 
 import dao.EscolaDAO;
 import entity.Escola;
@@ -18,11 +18,20 @@ public class DetalheEscolaBean {
 	
 	private Escola escola = new Escola();
 	private int idEscola;
+    
 	
 	@PostConstruct
 	public void init(){
-		
+		createPieModel();
 	}
+	
+	private void createPieModel() {
+        createModel();
+    }
+ 
+    private void createModel() {
+    
+    }	
 	
 	public void detalheEscola(){
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -47,6 +56,8 @@ public class DetalheEscolaBean {
 	public void setIdEscola(int idEscola) {
 		this.idEscola = idEscola;
 	}
+
+	
 
 	
 	

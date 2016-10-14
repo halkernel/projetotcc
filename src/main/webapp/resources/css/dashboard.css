@@ -1,6 +1,6 @@
 
 .body{
-  zoom:90%;
+  
 }
 
 article, footer {
@@ -56,6 +56,10 @@ article, footer {
 .font-logo{
     font-size: 24px;    
     
+}
+
+.font-three-coumns{
+	font-size:10px;
 }
 
 footer p{
@@ -195,6 +199,11 @@ header{
 	font-variant: small-caps;
 }
 
+.title-columns{
+	font-weight: bold;
+	font-size: 12px;		
+		
+}
 
 .ui-link, ui-widget, menu-text{
 	color: black !mportant;
