@@ -1,0 +1,12 @@
+.detalhes p{
+	margin:0px;
+	padding:0px;
+}
+
+.detalhes{
+	padding: 10px;
+}
+
+.texto{
+	font-weight: bold;
+}

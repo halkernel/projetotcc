@@ -1,10 +1,13 @@
-package bean;
+package entity;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,18 @@ public class Escola {
 	@ManyToOne
 	@JoinColumn(name = "id_municipio")	
 	private Municipio municipio;
+	
+	@ManyToOne
+	@JoinColumn(name="id_dependencia")
+	private Dependencia dependencia;
+	
+	@ManyToOne
+	@JoinColumn(name="id_localizacao")
+	private Localizacao localizacao;
+	
+	@OneToMany
+	@JoinColumn(name="id_escola", updatable=false)
+	private List<EscolaTaxa> escolaTaxa;
 
 
 	public int getId() {
@@ -61,6 +76,31 @@ public class Escola {
 		this.municipio = municipio;
 	}
 
+	public Dependencia getDependencia() {
+		return dependencia;
+	}
+
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
+	}
+
+	public Localizacao getLocalizacao() {
+		return localizacao;
+	}
+
+	public void setLocalizacao(Localizacao localizacao) {
+		this.localizacao = localizacao;
+	}
+
+	public List<EscolaTaxa> getEscolaTaxa() {
+		return escolaTaxa;
+	}
+
+	public void setEscolaTaxa(List<EscolaTaxa> escolaTaxa) {
+		this.escolaTaxa = escolaTaxa;
+	}
+
+	
 
 
 

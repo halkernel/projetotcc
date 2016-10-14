@@ -1,4 +1,4 @@
-package bean;
+package entity;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,6 +23,10 @@ public class Estado {
 	@OneToMany
 	@JoinColumn(name = "id_estado", updatable=false)	
 	private List<Municipio> municipios;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_regiao")	
+	private Regiao regiao;
 
 	public int getId() {
 		return id;

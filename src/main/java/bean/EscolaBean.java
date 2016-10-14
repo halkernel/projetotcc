@@ -1,12 +1,14 @@
-package mananged;
+package bean;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
-import bean.Escola;
 import dao.EscolaDAO;
+import entity.Escola;
 import util.Rota;
 
 @ManagedBean
@@ -15,6 +17,11 @@ public class EscolaBean {
 	
 	private List<Escola> escolas;
 	private String nomeEscola;
+	
+	@PostConstruct
+	public void init(){
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
 	
 	
 	public void buscar(){
@@ -28,7 +35,7 @@ public class EscolaBean {
 	}
 	
 	public void detalheEscola(){
-		Rota.redireciona("../pages/escoladetalhe.xhtml");
+		Rota.redireciona("escoladetalhe.xhtml");
 	}
 
 	public List<Escola> getEscolas() {

@@ -1,17 +1,18 @@
-package teste;
-
-import java.util.Properties;
-import java.util.Set;
+package config;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 
-import bean.Escola;
-import bean.Estado;
-import bean.Municipio;
+import entity.Dependencia;
+import entity.Escola;
+import entity.EscolaTaxa;
+import entity.Estado;
+import entity.Localizacao;
+import entity.Municipio;
+import entity.Regiao;
+import entity.TipoTaxa;
 
 
 public class HibernateUtil {
@@ -25,6 +26,11 @@ public class HibernateUtil {
         	config.addAnnotatedClass(Municipio.class);
         	config.addAnnotatedClass(Escola.class);
         	config.addAnnotatedClass(Estado.class);
+        	config.addAnnotatedClass(Dependencia.class);
+        	config.addAnnotatedClass(Localizacao.class);
+        	config.addAnnotatedClass(Regiao.class);
+        	config.addAnnotatedClass(TipoTaxa.class);
+        	config.addAnnotatedClass(EscolaTaxa.class);
         	
             sessionFactory = config.configure().buildSessionFactory();
             

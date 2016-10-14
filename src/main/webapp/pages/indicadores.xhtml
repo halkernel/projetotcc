@@ -56,7 +56,9 @@
 									</p:column>
 									
 									<p:column style="width:24px">
-										<p:commandLink title="Ver Escola" styleClass="ui-icon ui-icon-search" actionListener="#{escolaBean.detalheEscola}"></p:commandLink>										
+										<p:commandLink  title="Ver Escola" styleClass="ui-icon ui-icon-search" action="#{escolaBean.detalheEscola}" actionListener="#{detalheEscolaBean.detalheEscola}">																					
+									        <c:param name="escola" value="#{esc.id}" />																					
+										</p:commandLink>										
 									</p:column>									
 								</p:dataTable>
 							</h:form>							

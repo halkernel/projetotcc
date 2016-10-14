@@ -6,8 +6,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import bean.Escola;
-import teste.HibernateUtil;
+import config.HibernateUtil;
+import entity.Escola;
 
 public class EscolaDAO {
 
@@ -52,6 +52,27 @@ public class EscolaDAO {
 			List<Escola> lista = q.list();			
 			tx.commit();			
 			return lista;
+			
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}
+	}
+	
+	public Escola listById(int id){
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		 
+		try {
+			tx = session.beginTransaction();		
+			Query q = session.createQuery("from Escola e where e.id = :id");							
+			q.setInteger("id", id);			
+			Escola escola = (Escola) q.uniqueResult();			
+			tx.commit();			
+			return escola;
 			
 		} catch (RuntimeException e) {
 			tx.rollback();

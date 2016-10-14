@@ -1,15 +1,53 @@
 <!DOCTYPE xhtml>
-    <ui:composition template="/WEB-INF/partials/basic.xhtml"
-    xmlns="http://www.w3c.org/1999/xhtml"
+<ui:composition template="/WEB-INF/partials/basic.xhtml"
+	xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-        <ui:define name="conteudo">
-			<div class="ui-g">
-			    <div class="ui-g-10 grey">9</div>
-			    <div class="ui-g-2 red">3</div>			    
-			</div>		
-        </ui:define>	  
+	<ui:define name="conteudo">
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+						<div class="search-elements">
+
+							<h:form>
+								<div class="detalhes">
+									<p class="texto">Nome:</p>
+									<h:outputText id="escolanome"
+										value="#{detalheEscolaBean.escola.escolaNome}" />
+									<p class="texto">Estado:</p>
+									<h:outputText id="escolaestado"
+										value="#{detalheEscolaBean.escola.municipio.estado.estadoNome}" />
+									<p class="texto">Municipio:</p>
+									<h:outputText id="escolamunicipio"
+										value="#{detalheEscolaBean.escola.municipio.municipioNome}" />
+								</div>
+							</h:form>
+						</div>
+					</p:layoutUnit>
+				</p:layout>
+			</div>
+			<div class="ui-g-10">
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+						<div class="search-elements">
+							<h:form>
+
+							</h:form>
+						</div>
+					</p:layoutUnit>
+				</p:layout>
+			</div>
+			<!-- 
+			    
+			   		
+			    
+			     -->
+		</div>
+	</ui:define>
 </ui:composition>
