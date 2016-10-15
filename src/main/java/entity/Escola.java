@@ -26,20 +26,20 @@ public class Escola {
 	private int codEscola;
 
 	@ManyToOne
-	@JoinColumn(name = "id_municipio")	
+	@JoinColumn(name = "id_municipio", updatable=false)	
 	private Municipio municipio;
 	
 	@ManyToOne
-	@JoinColumn(name="id_dependencia")
+	@JoinColumn(name="id_dependencia", updatable=false)
 	private Dependencia dependencia;
 	
 	@ManyToOne
-	@JoinColumn(name="id_localizacao")
+	@JoinColumn(name="id_localizacao", updatable=false)
 	private Localizacao localizacao;
 	
 	@OneToMany
 	@JoinColumn(name="id_escola", updatable=false)
-	private List<EscolaTaxa> escolaTaxa;
+	private List<EscolaTaxa> escolaTaxas;
 
 
 	public int getId() {
@@ -92,13 +92,14 @@ public class Escola {
 		this.localizacao = localizacao;
 	}
 
-	public List<EscolaTaxa> getEscolaTaxa() {
-		return escolaTaxa;
+	public List<EscolaTaxa> getEscolaTaxas() {
+		return escolaTaxas;
 	}
 
-	public void setEscolaTaxa(List<EscolaTaxa> escolaTaxa) {
-		this.escolaTaxa = escolaTaxa;
+	public void setEscolaTaxas(List<EscolaTaxa> escolaTaxas) {
+		this.escolaTaxas = escolaTaxas;
 	}
+
 
 	
 

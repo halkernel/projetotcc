@@ -25,7 +25,7 @@ public class Estado {
 	private List<Municipio> municipios;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_regiao")	
+	@JoinColumn(name = "id_regiao", updatable=false)	
 	private Regiao regiao;
 
 	public int getId() {
