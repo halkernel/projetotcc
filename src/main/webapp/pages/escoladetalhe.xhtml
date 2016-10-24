@@ -6,69 +6,44 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-
 	<ui:define name="conteudo">
-		
-
 		<div class="ui-g">
 			<div class="ui-g-2">
-				<h:form>
-					<p:menu styleClass="menu-indicadores">
-						<p:menuitem value="Escola" icon="ui-icon-disk" />
-						<p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w" />
-						<p:menuitem value="External" url="http://www.primefaces.org"
-							icon="ui-icon-home" />
-						<p:menuitem value="Internal" icon="ui-icon-star" />
-					</p:menu>
-				</h:form>
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+						<div class="search-elements">
+
+							<h:form>
+								<div class="detalhes">
+									<p class="texto">Nome:</p>
+									<h:outputText id="escolanome"
+										value="#{detalheEscolaBean.escola.escolaNome}" />
+									<p class="texto">Estado:</p>
+									<h:outputText id="escolaestado"
+										value="#{detalheEscolaBean.escola.municipio.estado.estadoNome}" />
+									<p class="texto">Municipio:</p>
+									<h:outputText id="escolamunicipio"
+										value="#{detalheEscolaBean.escola.municipio.municipioNome}" />
+									<p class="texto">Localização:</p>
+									<h:outputText id="escolalocalizacao"
+										value="#{detalheEscolaBean.escola.localizacao.localizacaoNome}" />
+									<p class="texto">Dependencia:</p>
+									<h:outputText id="escoladependencia"
+										value="#{detalheEscolaBean.escola.dependencia.dependenciaNome}" />
+								</div>
+							</h:form>
+						</div>
+					</p:layoutUnit>
+				</p:layout>
 			</div>
 			<div class="ui-g-10">
 				<p:layout styleClass="height-content">
 					<p:layoutUnit position="center"
 						styleClass="height-content-indicadores">
 						<div class="search-elements">
-							<p>
-								<h:outputLabel value="Busca" styleClass="left-align" />
-							</p>
-
-
-							<h:form>
-								<p class="centered">
-									<p:inputText style="margin-right:10px"
-										value="#{escolaBean.nomeEscola}" placeholder="Search"
-										styleClass="search" />
-									<p:commandButton value="Buscar" icon="ui-icon-check"
-										actionListener="#{escolaBean.buscarPorNome}" update="escTable" />
-									<p:link outcome="/pages/buscaescolas.xhtml" styleClass="margin-busca-avancada">Busca Avancada</p:link>
-								</p>
-
-
-								<p:dataTable id="escTable" var="esc"
-									value="#{escolaBean.escolas}">
-									<p:column headerText="Nome">
-										<h:outputText value="#{esc.escolaNome}" />
-									</p:column>
-									<p:column class="width-cidade" headerText="Cidade">
-										<h:outputText value="#{esc.municipio.municipioNome}" />
-									</p:column>
-									<p:column class="width-estado" headerText="Estado">
-										<h:outputText value="#{esc.municipio.estado.estadoNome}" />
-									</p:column>
-
-									<p:column class="width-commandLink">
-										<p:commandLink title="Ver Escola"
-											styleClass="ui-icon ui-icon-search"
-											action="#{escolaBean.detalheEscola}"
-											actionListener="#{detalheEscolaBean.detalheEscola}">
-											<c:param name="escola" value="#{esc.id}" />
-										</p:commandLink>
-									</p:column>
-								</p:dataTable>
-							</h:form>
-
-
-
-
+							<p:chart type="bar" model="#{detalheEscolaBean.chartEducacaoInfantil}"
+								style="width:600px;height:200px;" />						
 						</div>
 					</p:layoutUnit>
 				</p:layout>
@@ -80,5 +55,4 @@
 			     -->
 		</div>
 	</ui:define>
-
 </ui:composition>

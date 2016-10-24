@@ -62,8 +62,9 @@ article, footer {
 	font-size:10px;
 }
 
-footer p{
-	
+.footer-center{
+	text-align:center;
+	color:#fff;
 }
 
 .footer-height{
