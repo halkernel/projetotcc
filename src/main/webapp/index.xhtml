@@ -14,23 +14,23 @@
 	  						    	<p:growl id="messages" showDetail="false"/>
 								    <p:menu styleClass="width">
 								        <p:submenu label="Ranking de Escolas">
-								            <p:menuitem value="Município"  update="messages" icon="ui-icon-disk" />
-								            <p:menuitem value="Estado"  update="messages" icon="ui-icon-arrowrefresh-1-w"/>
-								            <p:menuitem value="Região"  update="messages" icon="ui-icon-disk" />
-								            <p:menuitem value="Brasil"  update="messages" icon="ui-icon-disk" />
+								            <p:menuitem value="Taxa de Aprovação" icon="ui-icon-radio-on" />
+								            <p:menuitem value="Taxa de Reprovação" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Taxa de Evasão" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Taxa de Distorção Idade-Série" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Taxa de Média de Alunos por Turma" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Taxa de Não Resposta" icon="ui-icon-radio-on"/>
 								        </p:submenu>
-								        <p:submenu label="Non-Ajax">
-								            <p:menuitem value="Delete"  update="messages" ajax="false" icon="ui-icon-close"/>
+								         <p:submenu label="Escola Por Regiao">
+								            <p:menuitem value="Norte" icon="ui-icon-radio-on" />
+								            <p:menuitem value="Nordeste" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Centro-Oeste" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Sul" icon="ui-icon-radio-on"/>
+								            <p:menuitem value="Suldeste" icon="ui-icon-radio-on"/>
 								        </p:submenu>
-								        <p:submenu label="Navigations">
-								            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-								            <p:menuitem value="Internal"  icon="ui-icon-star"/>
-								        </p:submenu>
-								    </p:menu>
-							 
-							
-							    </h:form>
-  						    ranking de escolas > estado, municipio, regiao, nacional
+								        								        
+								    </p:menu>						 
+							    </h:form>  						    
   						    </div>						
 						    <div class="ui-g-12 ui-md-6 padding">							  		
 						  		<p:panelGrid columns="1" layout="grid" styleClass="margin-bottom-content">

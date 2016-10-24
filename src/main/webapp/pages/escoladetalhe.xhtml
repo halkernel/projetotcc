@@ -41,10 +41,14 @@
 				<p:layout styleClass="height-content">
 					<p:layoutUnit position="center"
 						styleClass="height-content-indicadores">
-						<div class="search-elements">
+						
 							<p:chart type="bar" model="#{detalheEscolaBean.chartEducacaoInfantil}"
-								style="width:600px;height:200px;" />						
-						</div>
+								style="width:1090px;height:165px;" />
+							<p:chart type="bar" model="#{detalheEscolaBean.chartEnsinoFundamental}"
+								style="width:1090px;height:165px;" />						
+							<p:chart type="bar" model="#{detalheEscolaBean.chartEnsinoMedio}"							
+								style="width:1090px;height:165px;" />						
+						
 					</p:layoutUnit>
 				</p:layout>
 			</div>
