@@ -23,7 +23,7 @@ import entity.EscolaTaxa;
  */
 @ManagedBean
 @SessionScoped
-public class DetalheEscolaBean {
+public class DetalheEscolaBean { 
 	
 	private Escola escola = new Escola();
 	private EscolaTaxa escolaTaxa = new EscolaTaxa();
