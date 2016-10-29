@@ -12,8 +12,8 @@
 
 		<div class="ui-g">
 
-			<div class="ui-g-12">
-				<div class="search-elements height-content">
+			<div class="ui-g-12 overflow-y">
+				<div class="search-elements height-content ">
 					<p>
 						<h:outputLabel value="Busca" styleClass="left-align" />
 					</p>
@@ -30,6 +30,31 @@
 							<p:link outcome="/pages/buscaescolas.xhtml"
 								styleClass="margin-busca-avancada">Busca Avancada</p:link>
 						</p>
+						
+						<div class="ui-g">
+							<div class="ui-g-8">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:outputLabel for="taxa" value="Taxa:" />
+									<p:selectOneRadio id="taxa"
+										value="#{selecionaTaxaBean.categorias}" layout="grid"
+										columns="4">
+										<c:selectItems value="#{selecionaTaxaBean.categorias}" var="c" />
+									</p:selectOneRadio>
+								</h:panelGrid>
+							</div>							
+							<div class="ui-g-4">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:outputLabel for="tipo" value="Comparar com:" />
+									<p:selectOneRadio id="tipo"
+										value="#{selecionaDimensao.dimensao}" layout="grid"
+										columns="4">
+										<c:selectItems value="#{selecionaDimensao.dimensao}" var="c" />
+									</p:selectOneRadio>
+								</h:panelGrid>
+							</div>
+						</div>
 
 						<p:layout styleClass="height-panel-busca">
 							<p:layoutUnit position="center"

@@ -1,0 +1,8 @@
+<p:column class="width-commandLink">
+	<p:commandLink title="Ver Escola"
+		styleClass="ui-icon ui-icon-search"
+		action="#{escolaBean.detalheEscola}"
+		actionListener="#{detalheEscolaBean.detalheEscola}">
+		<c:param name="escola" value="#{esc.id}" />
+	</p:commandLink>
+</p:column>

@@ -5,13 +5,12 @@
 
 
 .height-panel-busca{
-	height: 93% !important;
-	 	
+	height: 80% !important;		 
 }
 
 .height-content-busca{
 	height: 80% !important;
-	width:100% !important;
+	width:100% !important;	
 }
 
 
@@ -71,7 +70,7 @@
 
 
 .width-estado{
-	width: 30px;
+	width: 80px;
 }
 
 .width-cidade{
