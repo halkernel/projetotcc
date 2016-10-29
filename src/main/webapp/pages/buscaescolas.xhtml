@@ -7,41 +7,75 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 
+
+
+
 	<ui:define name="conteudo">
-		
+
+		<style type="text/css">
+.ui-picklist-list {
+	width: 620px !important;
+	height: 300px !important;
+}
+</style>
+
 
 		<div class="ui-g">
-			<div class="ui-g-2">
-				<h:form>
-					<p:menu styleClass="menu-indicadores">
-						<p:menuitem value="Escola" icon="ui-icon-disk" />
-						<p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w" />
-						<p:menuitem value="External" url="http://www.primefaces.org"
-							icon="ui-icon-home" />
-						<p:menuitem value="Internal" icon="ui-icon-star" />
-					</p:menu>
-				</h:form>
-			</div>
-			<div class="ui-g-10">
-				<p:layout styleClass="height-content">
-					<p:layoutUnit position="center"
-						styleClass="height-content-indicadores">
-						<div class="search-elements">
-							<p>
-								<h:outputLabel value="Busca" styleClass="left-align" />
-							</p>
+			<div class="ui-g-12">
 
-
-							<h:form>
-								
-							</h:form>
+				<div class="search-elements">
+					<h:form>
+						<p>
+							<h:outputLabel value="Busca" styleClass="left-align" />
+						</p>
+						<p class="centered">
+							<p:inputText style="margin-right:10px"
+								value="#{buscaAvancadaBean.nomeEscola}" placeholder="Search"
+								styleClass="search-avancado" />
+							<p:commandButton value="Buscar" icon="ui-icon-check"
+								actionListener="#{buscaAvancadaBean.buscarPorNome}"
+								update="mostraEscolas" />
+						</p>
 
 
 
+						<p:pickList id="mostraEscolas"
+							value="#{buscaAvancadaBean.escolasEscolha}" var="esc"
+							itemLabel="#{esc.escolaNome}" itemValue="#{esc.escolaNome}" />
 
+						<div class="ui-g">
+							<div class="ui-g-6">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:outputLabel for="taxa" value="Taxa:" />
+									<p:selectOneRadio id="taxa"
+										value="#{selecionaTaxaBean.categorias}" layout="grid"
+										columns="3">
+										<c:selectItems value="#{selecionaTaxaBean.categorias}" var="c" />
+									</p:selectOneRadio>
+								</h:panelGrid>
+							</div>
+							<div class="ui-g-1"></div>
+							<div class="ui-g-5">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:outputLabel for="tipo" value="Comparar com:" />
+									<p:selectOneRadio id="tipo"
+										value="#{selecionaDimensao.dimensao}" layout="grid"
+										columns="4">
+										<c:selectItems value="#{selecionaDimensao.dimensao}" var="c" />
+									</p:selectOneRadio>
+								</h:panelGrid>
+							</div>
 						</div>
-					</p:layoutUnit>
-				</p:layout>
+
+						<p:commandButton id="citySubmit" value="Submit"
+							style="margin-top:5px" />
+
+
+					</h:form>
+				</div>
+
 			</div>
 			<!-- 
 			    

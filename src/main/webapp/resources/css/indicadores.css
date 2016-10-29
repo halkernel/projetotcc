@@ -4,12 +4,25 @@
 
 
 
+.height-panel-busca{
+	height: 93% !important;
+	 	
+}
+
+.height-content-busca{
+	height: 80% !important;
+	width:100% !important;
+}
+
+
 .height-panel-indicadores{
-	height: 100%!important;	
+	height: 93% !important;
+	 	
 }
 
 .height-content-indicadores{
-	height: 79%;
+	height: 100% !important;
+	width:100% !important;
 }
 
 
@@ -39,6 +52,11 @@
 .search{
 	height: 30px !important;
 	width: 80%;
+}
+
+.search-avancado{
+	height: 30px !important;
+	width: 92%;
 }
 
 .search-elements{

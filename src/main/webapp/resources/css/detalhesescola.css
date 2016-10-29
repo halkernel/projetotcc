@@ -10,3 +10,7 @@
 .texto{
 	font-weight: bold;
 }
+
+.ui-picklist .ui-picklist-list{
+	width: 260px;
+}

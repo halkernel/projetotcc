@@ -8,41 +8,32 @@
 
 
 	<ui:define name="conteudo">
-		
+
 
 		<div class="ui-g">
-			<div class="ui-g-2">
-				<h:form>
-					<p:menu styleClass="menu-indicadores">
-						<p:menuitem value="Escola" icon="ui-icon-disk" />
-						<p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w" />
-						<p:menuitem value="External" url="http://www.primefaces.org"
-							icon="ui-icon-home" />
-						<p:menuitem value="Internal" icon="ui-icon-star" />
-					</p:menu>
-				</h:form>
-			</div>
-			<div class="ui-g-10">
-				<p:layout styleClass="height-content">
-					<p:layoutUnit position="center"
-						styleClass="height-content-indicadores">
-						<div class="search-elements">
-							<p>
-								<h:outputLabel value="Busca" styleClass="left-align" />
-							</p>
+
+			<div class="ui-g-12">
+				<div class="search-elements height-content">
+					<p>
+						<h:outputLabel value="Busca" styleClass="left-align" />
+					</p>
 
 
-							<h:form>
-								<p class="centered">
-									<p:inputText style="margin-right:10px"
-										value="#{escolaBean.nomeEscola}" placeholder="Search"
-										styleClass="search" />
-									<p:commandButton value="Buscar" icon="ui-icon-check"
-										actionListener="#{escolaBean.buscarPorNome}" update="escTable" />
-									<p:link outcome="/pages/buscaescolas.xhtml" styleClass="margin-busca-avancada">Busca Avancada</p:link>
-								</p>
+					<h:form>
 
+						<p class="centered">
+							<p:inputText style="margin-right:10px"
+								value="#{escolaBean.nomeEscola}" placeholder="Search"
+								styleClass="search" />
+							<p:commandButton value="Buscar" icon="ui-icon-check"
+								actionListener="#{escolaBean.buscarPorNome}" update="escTable" />
+							<p:link outcome="/pages/buscaescolas.xhtml"
+								styleClass="margin-busca-avancada">Busca Avancada</p:link>
+						</p>
 
+						<p:layout styleClass="height-panel-busca">
+							<p:layoutUnit position="center"
+								styleClass="height-content-busca">
 								<p:dataTable id="escTable" var="esc"
 									value="#{escolaBean.escolas}">
 									<p:column headerText="Nome">
@@ -64,14 +55,16 @@
 										</p:commandLink>
 									</p:column>
 								</p:dataTable>
-							</h:form>
+							</p:layoutUnit>
+						</p:layout>
+
+					</h:form>
 
 
 
 
-						</div>
-					</p:layoutUnit>
-				</p:layout>
+				</div>
+
 			</div>
 			<!-- 
 			    
