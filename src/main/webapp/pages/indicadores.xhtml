@@ -37,9 +37,9 @@
 									cellpadding="5">
 									<p:outputLabel for="taxa" value="Taxa:" />
 									<p:selectOneRadio id="taxa"
-										value="#{selecionaTaxaBean.categorias}" layout="grid"
+										value="#{buscaAvancadaBean.categorias}" layout="grid"
 										columns="4">
-										<c:selectItems value="#{selecionaTaxaBean.categorias}" var="c" />
+										<c:selectItems value="#{buscaAvancadaBean.categorias}" var="c" />
 									</p:selectOneRadio>
 								</h:panelGrid>
 							</div>							
@@ -48,9 +48,9 @@
 									cellpadding="5">
 									<p:outputLabel for="tipo" value="Comparar com:" />
 									<p:selectOneRadio id="tipo"
-										value="#{selecionaDimensao.dimensao}" layout="grid"
+										value="#{buscaAvancadaBean.dimensao}" layout="grid"
 										columns="4">
-										<c:selectItems value="#{selecionaDimensao.dimensao}" var="c" />
+										<c:selectItems value="#{buscaAvancadaBean.dimensao}" var="c" />
 									</p:selectOneRadio>
 								</h:panelGrid>
 							</div>

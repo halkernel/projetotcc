@@ -34,7 +34,7 @@
 								styleClass="search-avancado" />
 							<p:commandButton value="Buscar" icon="ui-icon-check"
 								actionListener="#{buscaAvancadaBean.buscarPorNome}"
-								update="mostraEscolas" />
+								update="mostraEscolas" />			
 						</p>
 
 
@@ -49,9 +49,9 @@
 									cellpadding="5">
 									<p:outputLabel for="taxa" value="Taxa:" />
 									<p:selectOneRadio id="taxa"
-										value="#{selecionaTaxaBean.categorias}" layout="grid"
+										value="#{buscaAvancadaBean.categorias}" layout="grid"
 										columns="3">
-										<c:selectItems value="#{selecionaTaxaBean.categorias}" var="c" />
+										<c:selectItems value="#{buscaAvancadaBean.categorias}" var="c" />
 									</p:selectOneRadio>
 								</h:panelGrid>
 							</div>
@@ -61,19 +61,20 @@
 									cellpadding="5">
 									<p:outputLabel for="tipo" value="Comparar com:" />
 									<p:selectOneRadio id="tipo"
-										value="#{selecionaDimensao.dimensao}" layout="grid"
+										value="#{buscaAvancadaBean.dimensao}" layout="grid"
 										columns="4">
-										<c:selectItems value="#{selecionaDimensao.dimensao}" var="c" />
+										<c:selectItems value="#{buscaAvancadaBean.dimensao}" var="c" />
 									</p:selectOneRadio>
 								</h:panelGrid>
 							</div>
 							<div class="ui-g-1">
 								<p>
-									    																																								
+								
+									<p:commandButton action="#{buscaAvancadaBean.checarEscola}" value="Comparar"></p:commandButton>
 
-									<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+									<p:dialog header="#{buscaAvancadaBean.dialogHeader}" widgetVar="dlg2" modal="true"
 										height="100">
-										<h:outputText value="This is a Modal Dialog." />
+										<h:outputText value="#{buscaAvancadaBean.dialogValue}" />
 									</p:dialog>
 
 								</p>
@@ -81,8 +82,7 @@
 						</div>
 
 					</h:form>
-														    <p:commandButton id="buttonsearch" type="button" value="Alert" action="#{buscaAvancadaBean.checaSelecao}" update="selecao" />									    
-					
+														
 				</div>
 
 			</div>
