@@ -18,12 +18,11 @@ public class EscolaBean {
 	
 	private List<Escola> escolas;
 	private String nomeEscola;
-	
+		
 	@PostConstruct
 	public void init(){
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	}
-	
 	
 	public void buscar(){
 		EscolaDAO escolaDao = new EscolaDAO();
@@ -38,10 +37,8 @@ public class EscolaBean {
 		escolas = escolaDao.listByName(nomeEscola);		
 	}
 	
-	
-	
 	public void detalheEscola(){
-		Rota.redireciona("escoladetalhe.xhtml");
+		Rota.redireciona("detalheSimples.xhtml");
 	}
 
 	public List<Escola> getEscolas() {
@@ -59,6 +56,9 @@ public class EscolaBean {
 	public void setNomeEscola(String nomeEscola) {
 		this.nomeEscola = nomeEscola;
 	}
+	
+	
+	
 	
 	
 	

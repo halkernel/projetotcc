@@ -16,6 +16,7 @@
 				<div class="search-elements height-content ">
 					<p>
 						<h:outputLabel value="Busca" styleClass="left-align" />
+
 					</p>
 
 
@@ -23,44 +24,47 @@
 
 						<p class="centered">
 							<p:inputText style="margin-right:10px"
-								value="#{escolaBean.nomeEscola}" placeholder="Search"
-								styleClass="search" />
+								value="#{comparaEscolaBean.nomeEscola}" placeholder="Search"
+								styleClass="search-indicadores" />
 							<p:commandButton value="Buscar" icon="ui-icon-check"
-								actionListener="#{escolaBean.buscarPorNome}" update="escTable" />
-							<p:link outcome="/pages/buscaescolas.xhtml"
-								styleClass="margin-busca-avancada">Busca Avancada</p:link>
+								actionListener="#{comparaEscolaBean.buscarPorNome}" update="escTable" />							
 						</p>
-						
+
 						<div class="ui-g">
 							<div class="ui-g-8">
 								<h:panelGrid columns="2" style="margin-bottom:10px"
 									cellpadding="5">
 									<p:outputLabel for="taxa" value="Taxa:" />
-									<p:selectOneRadio id="taxa"
-										value="#{buscaAvancadaBean.categorias}" layout="grid"
-										columns="4">
-										<c:selectItems value="#{buscaAvancadaBean.categorias}" var="c" />
-									</p:selectOneRadio>
+								<p:selectManyCheckbox id="taxa"
+									value="#{comparaEscolaBean.taxasSelecionadas}" layout="grid"
+									columns="3">
+									<c:selectItems value="#{comparaEscolaBean.taxasEscolha}" var="c" />
+								</p:selectManyCheckbox>
 								</h:panelGrid>
-							</div>							
+
+
+							</div>
 							<div class="ui-g-4">
 								<h:panelGrid columns="2" style="margin-bottom:10px"
 									cellpadding="5">
 									<p:outputLabel for="tipo" value="Comparar com:" />
 									<p:selectOneRadio id="tipo"
-										value="#{buscaAvancadaBean.dimensao}" layout="grid"
+										value="#{comparaEscolaBean.dimensaoSelecionada}" layout="grid"
 										columns="4">
-										<c:selectItems value="#{buscaAvancadaBean.dimensao}" var="c" />
+										<c:selectItems value="#{comparaEscolaBean.dimensao}" var="c" />
 									</p:selectOneRadio>
 								</h:panelGrid>
+
+
 							</div>
 						</div>
 
+
+
 						<p:layout styleClass="height-panel-busca">
-							<p:layoutUnit position="center"
-								styleClass="height-content-busca">
+							<p:layoutUnit position="center" styleClass="height-content-busca">
 								<p:dataTable id="escTable" var="esc"
-									value="#{escolaBean.escolas}">
+									value="#{comparaEscolaBean.escolas}">
 									<p:column headerText="Nome">
 										<h:outputText value="#{esc.escolaNome}" />
 									</p:column>
@@ -74,28 +78,24 @@
 									<p:column class="width-commandLink">
 										<p:commandLink title="Ver Escola"
 											styleClass="ui-icon ui-icon-search"
-											action="#{escolaBean.detalheEscola}"
-											actionListener="#{detalheEscolaBean.detalheEscola}">
+											action="#{comparaEscolaBean.detalheEscola}"
+											actionListener="#{detalheComparaEscolaBean.detalheEscola}"
+											update="dialogShowed">
 											<c:param name="escola" value="#{esc.id}" />
 										</p:commandLink>
 									</p:column>
 								</p:dataTable>
 							</p:layoutUnit>
 						</p:layout>
-
 					</h:form>
 
-
-
-
 				</div>
+				<p:dialog id="dialogShowed" header="#{comparaEscolaBean.dialogHeader}"
+					widgetVar="dlg2" modal="true" height="100">
+					<h:outputText value="#{comparaEscolaBean.dialogValue}" />
+				</p:dialog>
 
 			</div>
-			<!-- 
-			    
-			   		
-			    
-			     -->
 		</div>
 	</ui:define>
 

@@ -16,7 +16,9 @@ import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
 
 import dao.EscolaDAO;
+import dao.TipoTaxaDAO;
 import entity.Escola;
+import entity.TipoTaxa;
 import util.ConverteString;
 
 @ManagedBean
@@ -28,18 +30,21 @@ public class BuscaAvancadaBean {
 	private String nomeEscola;
 	private List<Escola> escolasSource = new ArrayList<Escola>();
 	private List<Escola> escolasTarget = new ArrayList<Escola>();
+		
+	private List<TipoTaxa> taxas;
 	
-	private LinkedList<String> dimensao = new LinkedList<>();
-	private LinkedList<String> categorias = new LinkedList<>();
+	private LinkedList<String> taxasEscolha = new LinkedList<>();
 
 
+	private String taxaSelecionada = "";
+	private String dimensaoSelecionada = "";
 	
-	private String dialogHeader;
-	private String dialogValue;
+	private String dialogHeader ="";
+	private String dialogValue ="";
 	
 	public BuscaAvancadaBean(){
-		iniciaDimensao();
-		iniciaCategorias();
+		iniciaTaxas();
+		iniciaTaxasEscolha();
 	}
 
 
@@ -69,37 +74,80 @@ public class BuscaAvancadaBean {
 
 	}
 	
-	public boolean checaTarget(){
+	public boolean checaEscolhaMenor(){
 		if(escolasEscolha.getTarget().size() < 2)
 			return true;
 		return false;
 	}
 	
-	
-	public String naoSelecionou(){		
-		return "nao selecionou";
+	public boolean checaEscolhaMaior(){
+		if(escolasEscolha.getTarget().size() > 2)
+			return true;
+		return false;
 	}
 	
-	public String selecionouMaisDeDuasEscolas(){		
-		return "selecionou mais de duas";
-	}
-	
-	public String naoSelecionouTaxaOuDimensao(){
-		return "taxa ou dimensao nao selecionada";
-	}
-	
-	
-	
-	public void checarEscola(){
-		System.out.println(escolasEscolha.getTarget().size());
-		if(checaTarget()){
-			RequestContext requestContext = RequestContext.getCurrentInstance();
-			requestContext.execute("PF('dlg2').show();");
+	public boolean checaSelecaoTaxa(){
+		if(taxaSelecionada == null || taxaSelecionada == ""){
+			System.out.println("true");
+			return true;
 		}		
-		
-		System.err.println("oioi");
+		return false;
 	}
 	
+	
+	public void naoSelecionou(){		
+		this.dialogHeader = "Número de Escolas Insifucientes";
+		this.dialogValue = "Você não selecionou o número de escolas suficientes para uma comparação";		
+	}
+	
+	public void selecionouMaisDeDuasEscolas(){		
+		this.dialogHeader = "Número de Escolas Acima do Permitido";
+		this.dialogValue = "O limite de escolas para comparação é 2. Você selecionou um número acima do permitido.";
+	}
+	
+	public void naoSelecionouTaxa(){
+		this.dialogHeader = "Taxa Não Selecionadas";
+		this.dialogValue = "A taxa não foi selecionada para comparação.";
+	}
+	
+	
+	public void showDialog(){
+		RequestContext requestContext = RequestContext.getCurrentInstance();
+		requestContext.execute("PF('dlg2').show();");
+	}
+	
+	
+	public void checarEscola(){		
+		if(checaEscolhaMenor()){
+			naoSelecionou();	
+			showDialog();
+		}		
+		else if(checaEscolhaMaior()){
+			selecionouMaisDeDuasEscolas();
+			showDialog();
+		}
+		else if(checaSelecaoTaxa()){			
+			naoSelecionouTaxa();
+			showDialog();
+			
+		}		
+	}
+	
+	
+
+	
+	public void iniciaTaxas(){
+		//pegar valor do banco
+		TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
+		taxas = tipoTaxaDao.list();					
+	}
+	
+	public void iniciaTaxasEscolha(){
+		for (TipoTaxa tt : taxas) {
+			taxasEscolha.add(tt.getTaxaNome());
+		}
+	}
+		
 
 	public void onSelect(SelectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -115,39 +163,11 @@ public class BuscaAvancadaBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
 	}
-	
-	public void iniciaDimensao(){
-		//pegar valor do banco
-		dimensao.add("MUNICÍPIO");
-		dimensao.add("ESTADO");
-		dimensao.add("REGIÃO");
-		dimensao.add("PAÍS");				
-	}
-	
-	public void iniciaCategorias(){
-		//pegar valor do banco
-		categorias.add("TAXA DE APROVAÇÃO");
-		categorias.add("TAXA DE REPROVAÇÃO");
-		categorias.add("TAXA DE EVASÃO");
-		categorias.add("TAXA DE DISTORÇÃO IDADE-SÉRIE");
-		categorias.add("TAXA DE MÉDIA DE ALUNOS POR TURMA");
-		categorias.add("TAXA DE NÃO RESPOSTA");				
-	}
 
-	public LinkedList<String> getDimensao() {
-		return dimensao;
-	}
 
-	public void setDimensao(LinkedList<String> dimensao) {
-		this.dimensao = dimensao;
-	}
 	
-	public LinkedList<String> getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(LinkedList<String> categorias) {
-		this.categorias = categorias;
+	public void setTaxas(List<TipoTaxa> taxas) {
+		this.taxas = taxas;
 	}
 
 	public List<Escola> getEscolas() {
@@ -198,6 +218,38 @@ public class BuscaAvancadaBean {
 		this.dialogValue = dialogValue;
 	}
 
+
+	public String getTaxaSelecionada() {
+		return taxaSelecionada;
+	}
+
+
+	public void setTaxaSelecionada(String taxaSelecionada) {
+		this.taxaSelecionada = taxaSelecionada;
+	}
+
+
+	public String getDimensaoSelecionada() {
+		return dimensaoSelecionada;
+	}
+
+
+	public void setDimensaoSelecionada(String dimensaoSelecionada) {
+		this.dimensaoSelecionada = dimensaoSelecionada;
+	}
+
+
+	public LinkedList<String> getTaxasEscolha() {
+		return taxasEscolha;
+	}
+
+
+	public void setTaxasEscolha(LinkedList<String> taxasEscolha) {
+		this.taxasEscolha = taxasEscolha;
+	}
+
+	
+	
 	
 
 

@@ -1,0 +1,62 @@
+<!DOCTYPE xhtml>
+<ui:composition template="/WEB-INF/partials/basic.xhtml"
+	xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="conteudo">
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+						<div class="search-elements">
+
+							<h:form>
+								<div class="detalhes">
+									<p class="texto">Nome:</p>
+									<h:outputText id="escolanome"
+										value="#{detalheComparaEscolaBean.escola.escolaNome}" />
+									<p class="texto">Estado:</p>
+									<h:outputText id="escolaestado"
+										value="#{detalheComparaEscolaBean.escola.municipio.estado.estadoNome}" />
+									<p class="texto">Municipio:</p>
+									<h:outputText id="escolamunicipio"
+										value="#{detalheComparaEscolaBean.escola.municipio.municipioNome}" />
+									<p class="texto">Localização:</p>
+									<h:outputText id="escolalocalizacao"
+										value="#{detalheComparaEscolaBean.escola.localizacao.localizacaoNome}" />
+									<p class="texto">Dependencia:</p>
+									<h:outputText id="escoladependencia"
+										value="#{detalheComparaEscolaBean.escola.dependencia.dependenciaNome}" />
+								</div>
+							</h:form>
+						</div>
+					</p:layoutUnit>
+				</p:layout>
+			</div>
+			<div class="ui-g-10">
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+						
+							<p:chart type="bar" model="#{detalheComparaEscolaBean.chartEducacaoInfantil}"
+								style="width:1090px;height:165px;" />
+							<p:chart type="bar" model="#{detalheComparaEscolaBean.chartEnsinoFundamental}"
+								style="width:1090px;height:165px;" />						
+							<p:chart type="bar" model="#{detalheComparaEscolaBean.chartEnsinoMedio}"							
+								style="width:1090px;height:165px;" />						
+						
+					</p:layoutUnit>
+				</p:layout>
+			</div>
+			<!-- 
+			    
+			   		
+			    
+			     -->
+		</div>
+	</ui:define>
+</ui:composition>

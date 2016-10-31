@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tipo_taxa")
 public class TipoTaxa {
-	
+	 
 	@Id
 	@Column(name="id")
 	private int id;
