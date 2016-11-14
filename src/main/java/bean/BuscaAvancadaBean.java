@@ -19,7 +19,7 @@ import dao.EscolaDAO;
 import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.TipoTaxa;
-import util.ConverteString;
+import util.ConverteValor;
 
 @ManagedBean
 @ViewScoped
@@ -63,7 +63,7 @@ public class BuscaAvancadaBean {
 
 	public void buscarPorNome(){
 		EscolaDAO escolaDao = new EscolaDAO();
-		nomeEscola = ConverteString.removeAcento(nomeEscola);
+		nomeEscola = ConverteValor.removeAcento(nomeEscola);
 		nomeEscola = nomeEscola.toUpperCase();
 		System.out.println(nomeEscola);
 		escolas = escolaDao.listByName(nomeEscola);					                    

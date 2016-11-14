@@ -14,7 +14,7 @@ import dao.EscolaDAO;
 import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.TipoTaxa;
-import util.ConverteString;
+import util.ConverteValor;
 import util.Rota;
 
 @ManagedBean
@@ -30,7 +30,7 @@ public class ComparaEscolaBean {
 	private LinkedList<String> taxasEscolha = new LinkedList<>();
 
 
-    private String[] taxasSelecionadas;
+    private String[] taxasSelecionadas = new String[]{};
 	private String dimensaoSelecionada = "";
 	
 	private String dialogHeader ="";
@@ -55,7 +55,7 @@ public class ComparaEscolaBean {
 	
 	public void buscarPorNome(){
 		EscolaDAO escolaDao = new EscolaDAO();
-		nomeEscola = ConverteString.removeAcento(nomeEscola);
+		nomeEscola = ConverteValor.removeAcento(nomeEscola);
 		nomeEscola = nomeEscola.toUpperCase();
 		System.out.println(nomeEscola);
 		escolas = escolaDao.listByName(nomeEscola);		
@@ -107,7 +107,7 @@ public class ComparaEscolaBean {
 	
 	public void iniciaTaxasEscolha(){
 		for (TipoTaxa tt : taxas) {
-			taxasEscolha.add(tt.getTaxaNome());
+			taxasEscolha.add(tt.getTaxaNome());			
 		}
 	}
 	
@@ -128,7 +128,6 @@ public class ComparaEscolaBean {
 	
 	public void detalheEscola(){		
 		if(checaEscola()){
-			System.out.println("\n\n\n\n\n entrou \n\n\n\n");
 			Rota.redireciona("detalheComparativo.xhtml");
 		}
 	}
@@ -144,6 +143,8 @@ public class ComparaEscolaBean {
 	public String getNomeEscola() {
 		return nomeEscola;
 	}
+	
+	
 
 	public void setNomeEscola(String nomeEscola) {
 		this.nomeEscola = nomeEscola;
@@ -196,10 +197,12 @@ public class ComparaEscolaBean {
 	public void setDialogValue(String dialogValue) {
 		this.dialogValue = dialogValue;
 	}
-
-	public String[] getTaxasSelecionadas() {
+	
+	public String[] getTaxasSelecionadas() {		
 		return taxasSelecionadas;
 	}
+	
+	
 
 	public void setTaxasSelecionadas(String[] taxasSelecionadas) {
 		this.taxasSelecionadas = taxasSelecionadas;

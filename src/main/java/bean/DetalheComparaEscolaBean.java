@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.json.JSONArray;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
@@ -14,8 +17,12 @@ import org.primefaces.model.chart.ChartSeries;
 
 import dao.EscolaDAO;
 import dao.EscolaTaxaDAO;
+import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.EscolaTaxa;
+import entity.TipoTaxa;
+import util.ConverteValor;
+import util.PegaValores;
 
 /**
  * @author halkernel
@@ -24,20 +31,30 @@ import entity.EscolaTaxa;
 @ManagedBean
 @SessionScoped
 public class DetalheComparaEscolaBean { 
-	
+
 	private Escola escola = new Escola();
 	private EscolaTaxa escolaTaxa = new EscolaTaxa();
 	private int idEscola;
+	private JSONArray taxasJson;
+	private String[] taxas;
+	private String dimensao;
 	private BarChartModel chartEducacaoInfantil;
 	private BarChartModel chartEnsinoFundamental;
 	private BarChartModel chartEnsinoMedio;
-    
-	
+
+	private LinkedList<TipoTaxa> taxasList;
+	private LinkedList<Integer> valoresParametro = new LinkedList<>();
+
+	private EscolaDAO escolaDao = new EscolaDAO();
+	private EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
+	private TipoTaxaDAO tipoTaxa = new TipoTaxaDAO();
+
+
 	@PostConstruct
 	public void init(){
-				
+
 	}
-	
+
 	public BarChartModel preencheModeloEducacaoInfantil(){
 		BarChartModel educacaoInfantilModelo = new BarChartModel();
 		ChartSeries series = new ChartSeries();
@@ -51,7 +68,7 @@ public class DetalheComparaEscolaBean {
 	public BarChartModel preencheModeloEnsinoFundamental(){
 		BarChartModel ensinoFundamentalModelo = new BarChartModel();
 		ChartSeries series = new ChartSeries();
-		
+
 		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
 		series.set("Anos Iniciais", escolaTaxa.getPrimeiroAoQuinto());
 		series.set("Anos Finais", escolaTaxa.getSextoAoNono());
@@ -80,7 +97,7 @@ public class DetalheComparaEscolaBean {
 		ensinoMedioModelo.addSeries(series);
 		return ensinoMedioModelo;
 	}	
-	
+
 	public void criaModeloEducacaoInfantil(){
 		chartEducacaoInfantil = preencheModeloEducacaoInfantil();
 		chartEducacaoInfantil.setTitle("Educação Infantil");
@@ -105,20 +122,46 @@ public class DetalheComparaEscolaBean {
 		yAxis.setMin(0);
 		yAxis.setMax(100);
 	}
-	
-		
+
+
+	public void pegaParametrosDeConsulta(){		
+		for(int i = 0; i < taxas.length; i++){
+			for(int j = 0; j < taxasList.size(); j++){
+				if(taxasList.get(j).getTaxaNome().equals(taxas[i])){					
+					valoresParametro.add(taxasList.get(j).getId());
+				}
+			}
+		}
+	}
+
+
 	public void detalheEscola(){
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		Map<String, String []> requestParamValues =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();		
 		idEscola = Integer.parseInt(params.get("escola"));
-		EscolaDAO escolaDao = new EscolaDAO();
+		dimensao = params.get("dimensao");	
+		taxas = PegaValores.getTaxas(requestParamValues);		
+		taxasList = ConverteValor.toLinkedList(tipoTaxa.list());
+		
+		this.pegaParametrosDeConsulta();
+		Integer[] valores = valoresParametro.toArray(new Integer[valoresParametro.size()]);		
+		List<Escola> nova = escolaDao.listEscolasMunicipioJoin(valores);
+
+		LinkedList<Escola> nova2 = ConverteValor.toLinkedList(nova);
+		for (Escola escola : nova2) {
+			System.out.println(escola.getEscolaNome());
+			for (EscolaTaxa escolataxa : escola.getEscolaTaxas()) {
+				System.out.println("O QQQ VC QUER MONSTRAO: " + escolataxa.getTipoTaxa().getId());
+			}			
+		}
+
 		escola = escolaDao.listById(idEscola);
-		EscolaTaxaDAO daotest = new EscolaTaxaDAO();
-		escolaTaxa = daotest.list(escola.getId());		
+		escolaTaxa = escolaTaxaDao.list(escola.getId());		
 		criaModeloEducacaoInfantil();
 		criaModeloEnsinoFundamental();
 		criaModeloEnsinoMedio();
 	}
-			
+
 	public Escola getEscola() {
 		return escola;
 	}
@@ -155,6 +198,6 @@ public class DetalheComparaEscolaBean {
 	public void setChartEnsinoMedio(BarChartModel chartEnsinoMedio) {
 		this.chartEnsinoMedio = chartEnsinoMedio;
 	}
-	
+
 
 }

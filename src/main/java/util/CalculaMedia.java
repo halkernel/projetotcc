@@ -14,5 +14,17 @@ public class CalculaMedia {
 			}			
 			return soma/quantidade;
 	}
+	
+	//calculo do município
+	//somar todas as escolas 
+	
+	//cálculo do estado
+	//somar todas os municípios
+	
+	//cálculo da região
+	//somar todos os estados
+	
+	//calculo do país
+	//soma todos os estados
 
 }

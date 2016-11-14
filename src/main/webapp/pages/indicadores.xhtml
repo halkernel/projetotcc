@@ -34,12 +34,12 @@
 							<div class="ui-g-8">
 								<h:panelGrid columns="2" style="margin-bottom:10px"
 									cellpadding="5">
-									<p:outputLabel for="taxa" value="Taxa:" />
-								<p:selectManyCheckbox id="taxa"
+									<p:outputLabel for="taxas" value="Taxa:" />
+								<p:selectManyCheckbox id="taxas"
 									value="#{comparaEscolaBean.taxasSelecionadas}" layout="grid"
 									columns="3">
-									<c:selectItems value="#{comparaEscolaBean.taxasEscolha}" var="c" />
-								</p:selectManyCheckbox>
+									<c:selectItems value="#{comparaEscolaBean.taxasEscolha}" var="taxa" itemValue="#{taxa}" itemLabel="#{taxa}" />
+								</p:selectManyCheckbox>																
 								</h:panelGrid>
 
 
@@ -47,8 +47,8 @@
 							<div class="ui-g-4">
 								<h:panelGrid columns="2" style="margin-bottom:10px"
 									cellpadding="5">
-									<p:outputLabel for="tipo" value="Comparar com:" />
-									<p:selectOneRadio id="tipo"
+									<p:outputLabel for="dimensao" value="Comparar com:" />
+									<p:selectOneRadio id="dimensao"
 										value="#{comparaEscolaBean.dimensaoSelecionada}" layout="grid"
 										columns="4">
 										<c:selectItems value="#{comparaEscolaBean.dimensao}" var="c" />
@@ -82,6 +82,8 @@
 											actionListener="#{detalheComparaEscolaBean.detalheEscola}"
 											update="dialogShowed">
 											<c:param name="escola" value="#{esc.id}" />
+											<c:param name="taxas" value="#{comparaEscolaBean.taxasSelecionadas}"/>											
+											<c:param name="dimensao" value="#{comparaEscolaBean.dimensaoSelecionada}" />
 										</p:commandLink>
 									</p:column>
 								</p:dataTable>
