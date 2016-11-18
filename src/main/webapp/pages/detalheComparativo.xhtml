@@ -15,6 +15,7 @@
 						<div class="search-elements">
 
 							<h:form>
+
 								<div class="detalhes">
 									<p class="texto">Nome:</p>
 									<h:outputText id="escolanome"
@@ -41,14 +42,12 @@
 				<p:layout styleClass="height-content">
 					<p:layoutUnit position="center"
 						styleClass="height-content-indicadores">
-						
-							<p:chart type="bar" model="#{detalheComparaEscolaBean.chartEducacaoInfantil}"
-								style="width:1090px;height:165px;" />
-							<p:chart type="bar" model="#{detalheComparaEscolaBean.chartEnsinoFundamental}"
-								style="width:1090px;height:165px;" />						
-							<p:chart type="bar" model="#{detalheComparaEscolaBean.chartEnsinoMedio}"							
-								style="width:1090px;height:165px;" />						
-						
+
+						<p:chart type="bar"
+							model="#{detalheComparaEscolaBean.chartEducacaoInfantil}"
+							style="width:1090px;height:165px;" />
+
+
 					</p:layoutUnit>
 				</p:layout>
 			</div>

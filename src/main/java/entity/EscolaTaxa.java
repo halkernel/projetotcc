@@ -13,73 +13,73 @@ public class EscolaTaxa {
 	
 	@Id
 	@Column(name="id")
-	private int id;
+	private int id = 0;
 	
 	@Column(name="primeiro_ano_m")
-	private Double primeiroAnoMedio;
+	private Double primeiroAnoMedio = 0.0;
 	
 	@Column(name="segundo_ano_m")
-	private Double segundoAnoMedio;
+	private Double segundoAnoMedio = 0.0;
 	
 	@Column(name="terceiro_ano_m")
-	private Double terceiroAnoMedio;
+	private Double terceiroAnoMedio = 0.0;
 	
 	@Column(name="quarto_ano_m")
-	private Double quartoAnoMedio;
+	private Double quartoAnoMedio = 0.0;
 	
 	@Column(name="primeiro_ano")
-	private Double primeiroAnoFundamental;
+	private Double primeiroAnoFundamental = 0.0;
 	
 	@Column(name="segundo_ano")
-	private Double segundoAnoFundamental;
+	private Double segundoAnoFundamental = 0.0;
 	
 	@Column(name="terceiro_ano")
-	private Double terceiroAnoFundamental;
+	private Double terceiroAnoFundamental = 0.0;
 	
 	@Column(name="quarto_ano")
-	private Double quartoAnoFundamental;
+	private Double quartoAnoFundamental = 0.0;
 	
 	@Column(name="quinto_ano")
-	private Double quintoAnoFundamental;
+	private Double quintoAnoFundamental = 0.0;
 	
 	@Column(name="sexto_ano")
-	private Double sextoAnoFundamental;
+	private Double sextoAnoFundamental = 0.0;
 	
 	@Column(name="setimo_ano")
-	private Double setimoAnoFundamental;
+	private Double setimoAnoFundamental = 0.0;
 	
 	@Column(name="oitavo_ano")	
-	private Double oitavoAnoFundamental;
+	private Double oitavoAnoFundamental = 0.0;
 	
 	@Column(name="nono_ano")
-	private Double nonoAnoFundamental;
+	private Double nonoAnoFundamental = 0.0;
 	
 	@Column(name="creche")
-	private Double creche;
+	private Double creche = 0.0;
 	
 	@Column(name="pre_escola")
-	private Double preEscola;
+	private Double preEscola = 0.0;
 	
 	@Column(name="primeiro_ao_quinto")
-	private Double primeiroAoQuinto;
+	private Double primeiroAoQuinto = 0.0;
 	
 	@Column(name="sexto_ao_nono")
-	private Double sextoAoNono;
+	private Double sextoAoNono = 0.0;
 	
 	@Column(name="turmas_unificadas")
-	private Double turmasUnificadas;
+	private Double turmasUnificadas = 0.0;
 	
 	@Column(name="medio_nao_seriado")
-	private Double medioNaoSeriado;
+	private Double medioNaoSeriado = 0.0;
 	
 	@Column(name="total_medio")
-	private Double totalMedio;
+	private Double totalMedio = 0.0;
 	
 	@Column(name="total_fundamental")	
-	private Double totalFundamental;
+	private Double totalFundamental = 0.0;
 	
 	@Column(name="total_infantil")
-	private Double totalInfantil;
+	private Double totalInfantil = 0.0;
 	
 	@ManyToOne
 	@JoinColumn(name="id_escola", updatable=false)

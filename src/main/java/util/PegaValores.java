@@ -4,14 +4,32 @@ import java.util.Map;
 
 public class PegaValores {
 
-	public static String[] getTaxas(Map<String, String[]> params){
+	public static String getTaxa(Map<String, String> params){
 		for(String s : params.keySet()){			
-			String[] values = params.get(s);			
-			for(int i = 0; i < values.length; i++){		
-				if(values[i].contains("TAXA") || values[i].contains("MEDIA")){
-					return values;
-				}
-			}			
+			String values = params.get(s);		
+			if(s.contains("taxa")){
+				return values;
+			}
+		}
+		return null;
+	}
+	
+	public static String getDimensao(Map<String, String> params){
+		for(String s : params.keySet()){			
+			String values = params.get(s);		
+			if(s.contains("dimensao")){
+				return values;
+			}
+		}
+		return null;
+	}
+	
+	public static String getEscola(Map<String, String> params){
+		for(String s : params.keySet()){			
+			String values = params.get(s);		
+			if(s.contains("escola")){
+				return values;
+			}
 		}
 		return null;
 	}

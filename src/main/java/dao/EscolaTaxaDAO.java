@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -53,24 +54,20 @@ public class EscolaTaxaDAO {
 			session.close();
 		}
 	}
-	
-	
-	public List<EscolaTaxa> listMunicipio(Integer[] values){
+
+
+	public EscolaTaxa listByIdAndSchool(int id_taxa, int id_escola) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
-		List<Integer> ids = Arrays.asList(values);		
+		 
 		try {
 			tx = session.beginTransaction();			
-			Query q = session.createSQLQuery("SELECT escola_taxa.id, escola_taxa.id_escola, escola_taxa.id_taxa, primeiro_ano_m, segundo_ano_m, terceiro_ano_m, quarto_ano_m "
-					+ "primeiro_ano, segundo_ano, terceiro_ano, quarto_ano, quinto_ano,"
-					+ "sexto_ano, setimo_ano, oitavo_ano, nono_ano, creche, pre_escola, primeiro_ao_quinto,"
-					+ "sexto_ao_nono, turmas_unificadas, medio_nao_seriado, total_medio,"
-					+ "total_fundamental, total_infantil FROM escola_taxa INNER JOIN escola "
-					+ "ON(escola_taxa.id_escola = escola.id) WHERE escola.id_municipio in :values");		
-			q.setParameterList("values", ids);
-			List<EscolaTaxa> escolasTaxas = q.list();				
+			Query q = session.createQuery("from EscolaTaxa e where e.escola.id = :idEscola and e.tipoTaxa.id = :idTaxa");						
+			q.setInteger("idTaxa", id_taxa);
+			q.setInteger("idEscola", id_escola);			
+			EscolaTaxa escolaTaxa = (EscolaTaxa) q.uniqueResult();			
 			tx.commit();			
-			return escolasTaxas;
+			return escolaTaxa;
 			
 		} catch (RuntimeException e) {
 			tx.rollback();
@@ -78,26 +75,20 @@ public class EscolaTaxaDAO {
 		} finally {
 			session.clear();
 			session.close();
-		}	
+		}
 	}
-	
-	public List<EscolaTaxa> listMunicipioJoin(int id){
+
+	public List<EscolaTaxa> listByMunicipioAndTaxa(int id_municipio, int id_taxa) {
 		Session session = HibernateUtil.getSession();
-		Integer[] v = new Integer[]{1,2};		
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();			
-			Query q = session.createQuery("from EscolaTaxa as est where est.escola.id = :id and est.tipoTaxa.id in (:valores)");		
+			Query q = session.createQuery("from EscolaTaxa as est inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id = :idMunicipio and est.tipoTaxa.id = :idTaxa");		
 			//inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id in :id");
-			q.setParameter("id", 45934);
-			q.setParameterList("valores", Arrays.asList(v));
+			q.setParameter("idMunicipio", id_municipio);
+			q.setParameter("idTaxa", id_taxa);
 			//45934
 			List<EscolaTaxa> escolasTaxas = q.list();
-			for(EscolaTaxa e :escolasTaxas){
-				System.out.println(e.getTipoTaxa().getId());
-			}
-			System.out.println("foi");
-			
 			tx.commit();			
 			return escolasTaxas;
 			

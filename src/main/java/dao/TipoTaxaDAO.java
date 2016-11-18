@@ -30,5 +30,28 @@ public class TipoTaxaDAO {
 		}
 
 	}
+	
+	
+	public TipoTaxa listByName(String nome) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("from TipoTaxa t where t.taxaNome like :taxaNome");									
+			q.setString("taxaNome", "%"+nome+"%");
+			TipoTaxa tipoTaxa = (TipoTaxa) q.uniqueResult();
+			tx.commit();
+			return tipoTaxa;
+
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}
+
+	}
+	
 
 }

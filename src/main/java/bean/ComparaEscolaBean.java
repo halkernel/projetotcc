@@ -44,7 +44,12 @@ public class ComparaEscolaBean {
 	
 	@PostConstruct
 	public void init(){
+		try{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		}
+		catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -112,21 +117,26 @@ public class ComparaEscolaBean {
 	}
 	
 	
-	public boolean checaEscola(){
+	public boolean checaEscola(){		
+		System.out.println("ENTROU");
 		if(!checaSelecaoTaxa()){
+			System.out.println("ENTROU EM TAXA");
 			naoSelecionouTaxa();
 			showDialog();
 			return false;
 		}
 		else if(!checaSelecaoDimensao()){
+			System.out.println("ENTROU EM DIMENSAO");
 			naoSelecionouDimensao();
 			showDialog();
 			return false;
 		}				
+		System.out.println("ACABOU");
 		return true;
 	}
 	
-	public void detalheEscola(){		
+	public void detalheEscola(){	
+		System.out.println("ENTROU DETALHE");
 		if(checaEscola()){
 			Rota.redireciona("detalheComparativo.xhtml");
 		}

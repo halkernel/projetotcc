@@ -36,7 +36,7 @@
 									cellpadding="5">
 									<p:outputLabel for="taxas" value="Taxa:" />
 								<p:selectOneRadio id="taxas"
-									value="#{comparaEscolaBean.taxasSelecionadas}" layout="grid"
+									value="#{comparaEscolaBean.taxaSelecionada}" layout="grid"
 									columns="3">
 									<c:selectItems value="#{comparaEscolaBean.taxasEscolha}" var="taxa" itemValue="#{taxa}" itemLabel="#{taxa}" />
 								</p:selectOneRadio>																
@@ -77,13 +77,13 @@
 
 									<p:column class="width-commandLink">
 										<p:commandLink title="Ver Escola"
-											styleClass="ui-icon ui-icon-search"
-											action="#{comparaEscolaBean.detalheEscola}"
-											actionListener="#{detalheComparaEscolaBean.detalheEscola}"
+											styleClass="ui-icon ui-icon-search"											
+											actionListener="#{comparaEscolaBean.detalheEscola}"
+											action="#{detalheComparaEscolaBean.detalheEscola}"
 											update="dialogShowed">
-											<c:param name="escola" value="#{esc.id}" />
-											<c:param name="taxa" value="#{comparaEscolaBean.taxaSelecionada}"/>											
-											<c:param name="dimensao" value="#{comparaEscolaBean.dimensaoSelecionada}" />
+											<c:param name="escola" value="#{esc.id}"  required="true"/>
+											<c:param name="taxa"  value="#{comparaEscolaBean.taxaSelecionada}"  required="true"/>											
+											<c:param name="dimensao"  value="#{comparaEscolaBean.dimensaoSelecionada}"  required="true" />
 										</p:commandLink>
 									</p:column>
 								</p:dataTable>
