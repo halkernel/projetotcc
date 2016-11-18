@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,7 +8,6 @@ import org.hibernate.Transaction;
 
 import config.HibernateUtil;
 import entity.Escola;
-import entity.EscolaTaxa;
 
 public class EscolaDAO {
 
@@ -85,18 +83,13 @@ public class EscolaDAO {
 		}
 	}
 	
-	public List<Escola> listEscolasMunicipioJoin(Integer[] values){
+	public List<Escola> listEscolasMunicipioJoin(int id){
 		Session session = HibernateUtil.getSession();
-		Transaction tx = null;
-		List<Integer> ids = Arrays.asList(values);		
-		System.out.println(values[0]);
-		for (Integer integer : ids) {
-			System.out.println(integer);
-		}
+		Transaction tx = null;				
 		try {
 			tx = session.beginTransaction();			
-			Query q = session.createQuery("from Escola as esc inner join fetch esc.escolaTaxas as est inner join fetch esc.municipio as mun WHERE mun.id in :values");		
-			q.setParameterList("values", ids);
+			Query q = session.createQuery("from Escola as esc inner join fetch esc.escolaTaxas as est where esc.id = 45934 and est.tipoTaxa.id in(1,2)");		
+			//q.setParameter("id",id);
 			List<Escola> escolas = q.list();				
 			tx.commit();			
 			return escolas;

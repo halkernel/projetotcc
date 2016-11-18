@@ -20,7 +20,7 @@ public class EscolaTaxaDAO {
 			tx = session.beginTransaction();			
 			Query q = session.createQuery("from EscolaTaxa e where e.escola.id =:id");						
 			q.setInteger("id", id);			
-			EscolaTaxa escolaTaxa = (EscolaTaxa) q.uniqueResult();		
+			EscolaTaxa escolaTaxa = (EscolaTaxa) q.uniqueResult();			
 			tx.commit();			
 			return escolaTaxa;
 			
@@ -32,6 +32,28 @@ public class EscolaTaxaDAO {
 			session.close();
 		}
 	}
+	
+	public List<EscolaTaxa> listTaxas(int id_escola){
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		 
+		try {
+			tx = session.beginTransaction();			
+			Query q = session.createQuery("from EscolaTaxa e where e.escola.id =:id");						
+			q.setInteger("id", id_escola);			
+			List<EscolaTaxa> escolasTaxas = q.list();				
+			tx.commit();			
+			return escolasTaxas;
+			
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}
+	}
+	
 	
 	public List<EscolaTaxa> listMunicipio(Integer[] values){
 		Session session = HibernateUtil.getSession();
@@ -59,19 +81,23 @@ public class EscolaTaxaDAO {
 		}	
 	}
 	
-	public List<EscolaTaxa> listMunicipioJoin(Integer[] values){
+	public List<EscolaTaxa> listMunicipioJoin(int id){
 		Session session = HibernateUtil.getSession();
+		Integer[] v = new Integer[]{1,2};		
 		Transaction tx = null;
-		List<Integer> ids = Arrays.asList(values);		
-		System.out.println(values[0]);
-		for (Integer integer : ids) {
-			System.out.println(integer);
-		}
 		try {
 			tx = session.beginTransaction();			
-			Query q = session.createQuery("from EscolaTaxa as est inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id in :values");		
-			q.setParameterList("values", ids);
-			List<EscolaTaxa> escolasTaxas = q.list();				
+			Query q = session.createQuery("from EscolaTaxa as est where est.escola.id = :id and est.tipoTaxa.id in (:valores)");		
+			//inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id in :id");
+			q.setParameter("id", 45934);
+			q.setParameterList("valores", Arrays.asList(v));
+			//45934
+			List<EscolaTaxa> escolasTaxas = q.list();
+			for(EscolaTaxa e :escolasTaxas){
+				System.out.println(e.getTipoTaxa().getId());
+			}
+			System.out.println("foi");
+			
 			tx.commit();			
 			return escolasTaxas;
 			

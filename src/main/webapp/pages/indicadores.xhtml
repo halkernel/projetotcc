@@ -35,11 +35,11 @@
 								<h:panelGrid columns="2" style="margin-bottom:10px"
 									cellpadding="5">
 									<p:outputLabel for="taxas" value="Taxa:" />
-								<p:selectManyCheckbox id="taxas"
+								<p:selectOneRadio id="taxas"
 									value="#{comparaEscolaBean.taxasSelecionadas}" layout="grid"
 									columns="3">
 									<c:selectItems value="#{comparaEscolaBean.taxasEscolha}" var="taxa" itemValue="#{taxa}" itemLabel="#{taxa}" />
-								</p:selectManyCheckbox>																
+								</p:selectOneRadio>																
 								</h:panelGrid>
 
 
@@ -82,7 +82,7 @@
 											actionListener="#{detalheComparaEscolaBean.detalheEscola}"
 											update="dialogShowed">
 											<c:param name="escola" value="#{esc.id}" />
-											<c:param name="taxas" value="#{comparaEscolaBean.taxasSelecionadas}"/>											
+											<c:param name="taxa" value="#{comparaEscolaBean.taxaSelecionada}"/>											
 											<c:param name="dimensao" value="#{comparaEscolaBean.dimensaoSelecionada}" />
 										</p:commandLink>
 									</p:column>

@@ -1,5 +1,6 @@
 package bean;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import dao.EscolaDAO;
 import dao.EscolaTaxaDAO;
 import entity.Escola;
 import entity.EscolaTaxa;
+import util.ConverteValor;
 
 /**
  * @author halkernel
@@ -26,7 +28,7 @@ import entity.EscolaTaxa;
 public class DetalheEscolaBean { 
 	
 	private Escola escola = new Escola();
-	private EscolaTaxa escolaTaxa = new EscolaTaxa();
+	private LinkedList<EscolaTaxa> escolaTaxa = new LinkedList<>();
 	private int idEscola;
 	private BarChartModel chartEducacaoInfantil;
 	private BarChartModel chartEnsinoFundamental;
@@ -39,45 +41,55 @@ public class DetalheEscolaBean {
 	}
 	
 	public BarChartModel preencheModeloEducacaoInfantil(){
-		BarChartModel educacaoInfantilModelo = new BarChartModel();
-		ChartSeries series = new ChartSeries();
-		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-		series.set("Creche",  escolaTaxa.getCreche());
-		series.set("Pré-Escola", escolaTaxa.getPreEscola());
-		series.set("Total", escolaTaxa.getTotalInfantil());		
-		educacaoInfantilModelo.addSeries(series);
+		BarChartModel educacaoInfantilModelo = new BarChartModel();		
+		for (EscolaTaxa e : escolaTaxa) {
+			ChartSeries series = new ChartSeries();
+			series.setLabel(e.getTipoTaxa().getTaxaNome());
+			series.set("Creche",  e.getCreche());
+			series.set("Pré-Escola", e.getPreEscola());
+			series.set("Total", e.getTotalInfantil());		
+			educacaoInfantilModelo.addSeries(series);			
+		}		
 		return educacaoInfantilModelo;
 	}
 	public BarChartModel preencheModeloEnsinoFundamental(){
-		BarChartModel ensinoFundamentalModelo = new BarChartModel();
-		ChartSeries series = new ChartSeries();
-		
-		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-		series.set("Anos Iniciais", escolaTaxa.getPrimeiroAoQuinto());
-		series.set("Anos Finais", escolaTaxa.getSextoAoNono());
-		series.set("1º Ano", escolaTaxa.getPrimeiroAnoFundamental());
-		series.set("2º Ano", escolaTaxa.getSegundoAnoFundamental());
-		series.set("3º Ano", escolaTaxa.getTerceiroAnoFundamental());
-		series.set("4º Ano", escolaTaxa.getQuartoAnoFundamental());
-		series.set("5º Ano", escolaTaxa.getQuintoAnoFundamental());
-		series.set("6º Ano", escolaTaxa.getSextoAnoFundamental());
-		series.set("7º Ano", escolaTaxa.getSetimoAnoFundamental());
-		series.set("8º Ano", escolaTaxa.getOitavoAnoFundamental());		
-		series.set("9º Ano", escolaTaxa.getNonoAnoFundamental());
-		series.set("Turmas Unificadas", escolaTaxa.getTurmasUnificadas());		
-		ensinoFundamentalModelo.addSeries(series);
+		BarChartModel ensinoFundamentalModelo = new BarChartModel();		
+		for (EscolaTaxa e : escolaTaxa) {
+			ChartSeries series = new ChartSeries();
+			series.setLabel(e.getTipoTaxa().getTaxaNome());
+			series.set("Anos Iniciais", e.getPrimeiroAoQuinto());
+			series.set("Anos Finais", e.getSextoAoNono());
+			series.set("1º Ano", e.getPrimeiroAnoFundamental());
+			series.set("2º Ano", e.getSegundoAnoFundamental());
+			series.set("3º Ano", e.getTerceiroAnoFundamental());
+			series.set("4º Ano", e.getQuartoAnoFundamental());
+			series.set("5º Ano", e.getQuintoAnoFundamental());
+			series.set("6º Ano", e.getSextoAnoFundamental());
+			series.set("7º Ano", e.getSetimoAnoFundamental());
+			series.set("8º Ano", e.getOitavoAnoFundamental());		
+			series.set("9º Ano", e.getNonoAnoFundamental());
+			series.set("Turmas Unificadas", e.getTurmasUnificadas());				
+			ensinoFundamentalModelo.addSeries(series);			
+		}		
 		return ensinoFundamentalModelo;
 	}	
 	public BarChartModel preencheModeloEnsinoMedio(){
-		BarChartModel ensinoMedioModelo = new BarChartModel();
-		ChartSeries series = new ChartSeries();
-		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-		series.set("1º Ano", escolaTaxa.getPrimeiroAnoMedio());
-		series.set("2º Ano", escolaTaxa.getSegundoAnoMedio());
-		series.set("3º Ano", escolaTaxa.getTerceiroAnoMedio());
-		series.set("4º Ano", escolaTaxa.getQuartoAnoMedio());
-		series.set("Medio Não Seriado", escolaTaxa.getMedioNaoSeriado());		
-		ensinoMedioModelo.addSeries(series);
+		BarChartModel ensinoMedioModelo = new BarChartModel();		
+		for(int i = 0; i < 1; i++){
+			ChartSeries seriesEscola = new ChartSeries();
+			ChartSeries seriesMunicipio = new ChartSeries();
+			seriesEscola.setLabel("ESCOLA");
+			seriesEscola.set("1º Ano", escolaTaxa.get(i).getPrimeiroAnoMedio());
+			seriesMunicipio.set("1º Ano Mun", escolaTaxa.get(i).getTerceiroAnoMedio());
+			seriesEscola.set("2º Ano", escolaTaxa.get(i).getSegundoAnoMedio());
+			seriesMunicipio.set("2º Ano Mun", escolaTaxa.get(i).getPrimeiroAnoMedio());
+			seriesMunicipio.setLabel("MUNICIPIO");
+//			series.set("3º Ano", e.getTerceiroAnoMedio());
+//			series.set("4º Ano", e.getQuartoAnoMedio());
+//			series.set("Medio Não Seriado", e.getMedioNaoSeriado());		
+			ensinoMedioModelo.addSeries(seriesEscola);	
+			ensinoMedioModelo.addSeries(seriesMunicipio);
+		}		
 		return ensinoMedioModelo;
 	}	
 	
@@ -112,8 +124,8 @@ public class DetalheEscolaBean {
 		idEscola = Integer.parseInt(params.get("escola"));
 		EscolaDAO escolaDao = new EscolaDAO();
 		escola = escolaDao.listById(idEscola);
-		EscolaTaxaDAO daotest = new EscolaTaxaDAO();
-		escolaTaxa = daotest.list(escola.getId());		
+		EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
+		escolaTaxa = ConverteValor.toLinkedList(escolaTaxaDao.listTaxas(escola.getId()));		
 		criaModeloEducacaoInfantil();
 		criaModeloEnsinoFundamental();
 		criaModeloEnsinoMedio();

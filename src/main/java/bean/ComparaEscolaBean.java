@@ -30,7 +30,7 @@ public class ComparaEscolaBean {
 	private LinkedList<String> taxasEscolha = new LinkedList<>();
 
 
-    private String[] taxasSelecionadas = new String[]{};
+    private String taxaSelecionada = "";
 	private String dimensaoSelecionada = "";
 	
 	private String dialogHeader ="";
@@ -63,7 +63,7 @@ public class ComparaEscolaBean {
 	
 	
 	public boolean checaSelecaoTaxa(){
-		if(taxasSelecionadas == null || taxasSelecionadas.length == 0)			
+		if(taxaSelecionada == null || taxaSelecionada == "")			
 			return false;		
 		return true;
 	}
@@ -197,17 +197,17 @@ public class ComparaEscolaBean {
 	public void setDialogValue(String dialogValue) {
 		this.dialogValue = dialogValue;
 	}
-	
-	public String[] getTaxasSelecionadas() {		
-		return taxasSelecionadas;
-	}
-	
-	
 
-	public void setTaxasSelecionadas(String[] taxasSelecionadas) {
-		this.taxasSelecionadas = taxasSelecionadas;
+	public String getTaxaSelecionada() {
+		return taxaSelecionada;
 	}
-	
+
+	public void setTaxaSelecionada(String taxaSelecionada) {
+		this.taxaSelecionada = taxaSelecionada;
+	}
+
+
+
 	
 	
 	

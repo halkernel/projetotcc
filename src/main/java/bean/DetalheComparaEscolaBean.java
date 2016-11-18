@@ -20,7 +20,11 @@ import dao.EscolaTaxaDAO;
 import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.EscolaTaxa;
+import entity.Estado;
+import entity.Municipio;
 import entity.TipoTaxa;
+import model.CalculoMunicipio;
+import util.CalculaMedia;
 import util.ConverteValor;
 import util.PegaValores;
 
@@ -34,13 +38,17 @@ public class DetalheComparaEscolaBean {
 
 	private Escola escola = new Escola();
 	private EscolaTaxa escolaTaxa = new EscolaTaxa();
-	private int idEscola;
-	private JSONArray taxasJson;
-	private String[] taxas;
+	private int idEscola;	
+	private String taxa;
 	private String dimensao;
-	private BarChartModel chartEducacaoInfantil;
-	private BarChartModel chartEnsinoFundamental;
-	private BarChartModel chartEnsinoMedio;
+
+	
+	private Municipio municipio;
+	private Estado estado;
+	
+	private LinkedList<Municipio> cidades;
+	private LinkedList<Estado> estados;
+	
 
 	private LinkedList<TipoTaxa> taxasList;
 	private LinkedList<Integer> valoresParametro = new LinkedList<>();
@@ -48,118 +56,62 @@ public class DetalheComparaEscolaBean {
 	private EscolaDAO escolaDao = new EscolaDAO();
 	private EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
 	private TipoTaxaDAO tipoTaxa = new TipoTaxaDAO();
-
+	
+	private Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+	private Map<String, String []> requestParamValues =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();
+	
+	private CalculoMunicipio calculoMunicipio = new CalculoMunicipio();
+	
+	private BarChartModel chartEducacaoInfantil;
+	private BarChartModel chartEnsinoFundamental;
+	private BarChartModel chartEnsinoMedio;
 
 	@PostConstruct
 	public void init(){
 
 	}
 
-	public BarChartModel preencheModeloEducacaoInfantil(){
-		BarChartModel educacaoInfantilModelo = new BarChartModel();
-		ChartSeries series = new ChartSeries();
-		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-		series.set("Creche",  escolaTaxa.getCreche());
-		series.set("Pré-Escola", escolaTaxa.getPreEscola());
-		series.set("Total", escolaTaxa.getTotalInfantil());		
-		educacaoInfantilModelo.addSeries(series);
-		return educacaoInfantilModelo;
-	}
-	public BarChartModel preencheModeloEnsinoFundamental(){
-		BarChartModel ensinoFundamentalModelo = new BarChartModel();
-		ChartSeries series = new ChartSeries();
 
-		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-		series.set("Anos Iniciais", escolaTaxa.getPrimeiroAoQuinto());
-		series.set("Anos Finais", escolaTaxa.getSextoAoNono());
-		series.set("1º Ano", escolaTaxa.getPrimeiroAnoFundamental());
-		series.set("2º Ano", escolaTaxa.getSegundoAnoFundamental());
-		series.set("3º Ano", escolaTaxa.getTerceiroAnoFundamental());
-		series.set("4º Ano", escolaTaxa.getQuartoAnoFundamental());
-		series.set("5º Ano", escolaTaxa.getQuintoAnoFundamental());
-		series.set("6º Ano", escolaTaxa.getSextoAnoFundamental());
-		series.set("7º Ano", escolaTaxa.getSetimoAnoFundamental());
-		series.set("8º Ano", escolaTaxa.getOitavoAnoFundamental());		
-		series.set("9º Ano", escolaTaxa.getNonoAnoFundamental());
-		series.set("Turmas Unificadas", escolaTaxa.getTurmasUnificadas());		
-		ensinoFundamentalModelo.addSeries(series);
-		return ensinoFundamentalModelo;
-	}	
-	public BarChartModel preencheModeloEnsinoMedio(){
-		BarChartModel ensinoMedioModelo = new BarChartModel();
-		ChartSeries series = new ChartSeries();
-		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-		series.set("1º Ano", escolaTaxa.getPrimeiroAnoMedio());
-		series.set("2º Ano", escolaTaxa.getSegundoAnoMedio());
-		series.set("3º Ano", escolaTaxa.getTerceiroAnoMedio());
-		series.set("4º Ano", escolaTaxa.getQuartoAnoMedio());
-		series.set("Medio Não Seriado", escolaTaxa.getMedioNaoSeriado());		
-		ensinoMedioModelo.addSeries(series);
-		return ensinoMedioModelo;
-	}	
-
-	public void criaModeloEducacaoInfantil(){
-		chartEducacaoInfantil = preencheModeloEducacaoInfantil();
-		chartEducacaoInfantil.setTitle("Educação Infantil");
-		chartEducacaoInfantil.setLegendPosition("ne");
-		Axis yAxis = chartEducacaoInfantil.getAxis(AxisType.Y);
-		yAxis.setMin(0);
-		yAxis.setMax(100);
-	}
-	public void criaModeloEnsinoFundamental(){
-		chartEnsinoFundamental = preencheModeloEnsinoFundamental();
-		chartEnsinoFundamental.setTitle("Ensino Fundamental");
-		chartEnsinoFundamental.setLegendPosition("ne");
-		Axis yAxis = chartEnsinoFundamental.getAxis(AxisType.Y);
-		yAxis.setMin(0);
-		yAxis.setMax(100);
-	}
-	public void criaModeloEnsinoMedio(){
-		chartEnsinoMedio = preencheModeloEnsinoMedio();
-		chartEnsinoMedio.setTitle("Ensino Médio");
-		chartEnsinoMedio.setLegendPosition("ne");
-		Axis yAxis = chartEnsinoMedio.getAxis(AxisType.Y);
-		yAxis.setMin(0);
-		yAxis.setMax(100);
-	}
-
-
-	public void pegaParametrosDeConsulta(){		
-		for(int i = 0; i < taxas.length; i++){
-			for(int j = 0; j < taxasList.size(); j++){
-				if(taxasList.get(j).getTaxaNome().equals(taxas[i])){					
-					valoresParametro.add(taxasList.get(j).getId());
-				}
-			}
-		}
-	}
 
 
 	public void detalheEscola(){
-		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		Map<String, String []> requestParamValues =	FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();		
+				
 		idEscola = Integer.parseInt(params.get("escola"));
+		escola = escolaDao.listById(idEscola);
+		municipio = escola.getMunicipio();
+		
 		dimensao = params.get("dimensao");	
-		taxas = PegaValores.getTaxas(requestParamValues);		
+		taxa = params.get("taxa");
+		dimensao = ConverteValor.removeAcento(dimensao);
+		
+		if(dimensao.equals("MUNICIPIO")){
+			//chartEducacaoInfantil = calculoMunicipio.
+		}
+		else if(dimensao.equals("ESTADO")){
+			
+		}else if(dimensao.equals("REGIAO")){
+			
+		}else if (dimensao.equals("PAIS")){
+			
+		}
+				
 		taxasList = ConverteValor.toLinkedList(tipoTaxa.list());
 		
-		this.pegaParametrosDeConsulta();
-		Integer[] valores = valoresParametro.toArray(new Integer[valoresParametro.size()]);		
-		List<Escola> nova = escolaDao.listEscolasMunicipioJoin(valores);
+//		this.pegaParametrosDeConsulta();
+//		Integer[] valores = valoresParametro.toArray(new Integer[valoresParametro.size()]);		
+		
+		List<EscolaTaxa> nova = escolaTaxaDao.listMunicipioJoin(municipio.getId());
 
-		LinkedList<Escola> nova2 = ConverteValor.toLinkedList(nova);
-		for (Escola escola : nova2) {
-			System.out.println(escola.getEscolaNome());
-			for (EscolaTaxa escolataxa : escola.getEscolaTaxas()) {
-				System.out.println("O QQQ VC QUER MONSTRAO: " + escolataxa.getTipoTaxa().getId());
-			}			
+		LinkedList<EscolaTaxa> nova2 = ConverteValor.toLinkedList(nova);
+		for (EscolaTaxa escolattx: nova2) {
+				System.out.println(escolattx.getTipoTaxa().getTaxaNome());
 		}
 
-		escola = escolaDao.listById(idEscola);
+		
 		escolaTaxa = escolaTaxaDao.list(escola.getId());		
-		criaModeloEducacaoInfantil();
-		criaModeloEnsinoFundamental();
-		criaModeloEnsinoMedio();
+//		criaModeloEducacaoInfantil();
+//		criaModeloEnsinoFundamental();
+//		criaModeloEnsinoMedio();
 	}
 
 	public Escola getEscola() {
