@@ -40,6 +40,10 @@ public class DetalheEscolaBean {
 				
 	}
 	
+	//plotar os dados do municipio num boxplot 
+	//
+	//
+	
 	public BarChartModel preencheModeloEducacaoInfantil(){
 		BarChartModel educacaoInfantilModelo = new BarChartModel();		
 		for (EscolaTaxa e : escolaTaxa) {

@@ -176,13 +176,7 @@ header {
 	margin-right: auto;
 }
 
-.overflow {
-	overflow-x: hidden;
-}
 
-.overflow-y {
-	overflow-y: hidden;
-}
 
 .principal-panel {
 	height: 100%;
@@ -208,7 +202,7 @@ header {
 	text-decoration: none !important;
 	padding: 10px !important;
 	font-weight: 500 !important;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .ui-link:hover, ui-widget:hover, menu-text:hover {

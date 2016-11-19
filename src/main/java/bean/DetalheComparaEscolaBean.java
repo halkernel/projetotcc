@@ -70,7 +70,7 @@ public class DetalheComparaEscolaBean {
 		if(dimensao.equals("MUNICIPIO")){
 			calculoMunicipio = new CalculoMunicipio(taxa, escola, dimensao);
 			chartEducacaoInfantil = calculoMunicipio.calculaInfantilComparandoMunicipio();
-//			chartEnsinoFundamental = calculoMunicipio.calculaFundamentalComparandoMunicipio();
+			chartEnsinoFundamental = calculoMunicipio.calculaFundamentalComparandoMunicipio();
 //			chartEnsinoFundamental = calculoMunicipio.calculaMedioComparandoMunicipio();
 		}
 		else if(dimensao.equals("ESTADO")){

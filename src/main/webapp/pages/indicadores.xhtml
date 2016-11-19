@@ -58,6 +58,7 @@
 
 							</div>
 						</div>
+						
 
 
 
@@ -77,13 +78,10 @@
 
 									<p:column class="width-commandLink">
 										<p:commandLink title="Ver Escola"
-											styleClass="ui-icon ui-icon-search"											
-											actionListener="#{comparaEscolaBean.detalheEscola}"
-											action="#{detalheComparaEscolaBean.detalheEscola}"
+											styleClass="ui-icon ui-icon-search"																																
+											action="#{comparaEscolaBean.checaEscola}"
 											update="dialogShowed">
-											<c:param name="escola" value="#{esc.id}"  required="true"/>
-											<c:param name="taxa"  value="#{comparaEscolaBean.taxaSelecionada}"  required="true"/>											
-											<c:param name="dimensao"  value="#{comparaEscolaBean.dimensaoSelecionada}"  required="true" />
+											<c:setPropertyActionListener value="#{esc.id}" target="#{comparaEscolaBean.escolaSelecionada}" />																																										
 										</p:commandLink>
 									</p:column>
 								</p:dataTable>
@@ -92,10 +90,22 @@
 					</h:form>
 
 				</div>
-				<p:dialog id="dialogShowed" header="#{comparaEscolaBean.dialogHeader}"
-					widgetVar="dlg2" modal="true" height="100">
-					<h:outputText value="#{comparaEscolaBean.dialogValue}" />
-				</p:dialog>
+				<p:confirmDialog global ="true" showEffec="fade" hideEffect="fade" id="dialogShowed" header="#{comparaEscolaBean.dialogHeader}"
+					widgetVar="dlg2" modal="true" height="30"> 
+					<c:facet name="message">
+				        <h:outputFormat value="#{comparaEscolaBean.dialogValue}" escape="false"/> 
+				    </c:facet>
+					<p:commandButton rendered="#{comparaEscolaBean.renderedConfirm}" value="#{comparaEscolaBean.buttonValue}" action="#{detalheComparaEscolaBean.detalheEscola}" actionListener="#{comparaEscolaBean.redirecionaDetalhes}">
+						<c:param name="escola" value="#{comparaEscolaBean.escolaSelecionada}"  required="true"/>
+						<c:param name="taxa"  value="#{comparaEscolaBean.taxaSelecionada}"  required="true"/>											
+						<c:param name="dimensao"  value="#{comparaEscolaBean.dimensaoSelecionada}"  required="true" />					
+					</p:commandButton>
+					
+					<p:commandButton  rendered="#{comparaEscolaBean.renderedCancel}" value="#{comparaEscolaBean.buttonValue}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+																
+				</p:confirmDialog>
+				
+				
 
 			</div>
 		</div>

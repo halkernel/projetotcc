@@ -33,7 +33,7 @@ public class ConverteValor {
             String nString = "";
             for (String w : words) {
             	String value = w.toUpperCase().replace(w.substring(1), w.substring(1).toLowerCase());
-            	nString += value;
+            	nString += " " + value;
             }           
             return nString;
     }
