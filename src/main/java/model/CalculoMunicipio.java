@@ -28,8 +28,7 @@ public class CalculoMunicipio {
 	
 	private EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
 	private TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
-	
-	private String taxa;
+		
 	
 	
 	public CalculoMunicipio(String taxa, Escola escola, String dimensao){		
@@ -55,8 +54,9 @@ public class CalculoMunicipio {
 		serieMunicipio.set("Pré-Escola", taxaMunicipioMedia.getPreEscola());
 		serieEscola.set("Total", taxaEscola.getTotalInfantil());
 		serieMunicipio.set("Total", taxaMunicipioMedia.getTotalInfantil());
-		educacaoInfantilModelo.addSeries(serieEscola);
+		educacaoInfantilModelo.addSeries(serieEscola);		
 		educacaoInfantilModelo.addSeries(serieMunicipio);
+		educacaoInfantilModelo.setSeriesColors("579575, 4BB2C5");
 		return educacaoInfantilModelo;
 	}
 	
@@ -65,11 +65,7 @@ public class CalculoMunicipio {
 		ChartSeries serieEscola = new ChartSeries();
 		ChartSeries serieMunicipio = new ChartSeries();
 		serieEscola.setLabel(taxaEscola.getEscola().getEscolaNome());
-		serieMunicipio.setLabel(taxaMunicipioMedia.getTipoTaxa().getTaxaNome().toUpperCase());
-		serieEscola.set("Anos Iniciais", taxaEscola.getPrimeiroAoQuinto());
-		serieMunicipio.set("Anos Iniciais", taxaMunicipioMedia.getPrimeiroAoQuinto());
-		serieEscola.set("Anos Finais", taxaEscola.getPrimeiroAoQuinto());
-		serieMunicipio.set("Anos Finais", taxaMunicipioMedia.getSextoAoNono());
+		serieMunicipio.setLabel(taxaMunicipioMedia.getTipoTaxa().getTaxaNome().toUpperCase());		
 		serieEscola.set("1º Ano", taxaEscola.getPrimeiroAnoFundamental());
 		serieMunicipio.set("1º Ano", taxaMunicipioMedia.getPrimeiroAnoFundamental());		
 		serieEscola.set("2º Ano", taxaEscola.getSegundoAnoFundamental());
@@ -92,29 +88,37 @@ public class CalculoMunicipio {
 		serieEscola.set("Turmas Unificadas", taxaMunicipioMedia.getTurmasUnificadas());
 		ensinoFundamentalModelo.addSeries(serieEscola);
 		ensinoFundamentalModelo.addSeries(serieMunicipio);
+		ensinoFundamentalModelo.setSeriesColors("579575, 4BB2C5");
 		return ensinoFundamentalModelo;
 	}	
 	
-//	public BarChartModel preencheModeloEnsinoMedio(){
-//		BarChartModel ensinoMedioModelo = new BarChartModel();
-//		ChartSeries series = new ChartSeries();
-//		series.setLabel(escolaTaxa.getTipoTaxa().getTaxaNome());
-//		series.set("1º Ano", escolaTaxa.getPrimeiroAnoMedio());
-//		series.set("2º Ano", escolaTaxa.getSegundoAnoMedio());
-//		series.set("3º Ano", escolaTaxa.getTerceiroAnoMedio());
-//		series.set("4º Ano", escolaTaxa.getQuartoAnoMedio());
-//		series.set("Medio Não Seriado", escolaTaxa.getMedioNaoSeriado());		
-//		ensinoMedioModelo.addSeries(series);
-//		return ensinoMedioModelo;
-//	}	
-//
+	public BarChartModel preencheModeloEnsinoMedio(){
+		BarChartModel ensinoMedioModelo = new BarChartModel();
+		ChartSeries serieEscola = new ChartSeries();
+		ChartSeries serieMunicipio = new ChartSeries();
+		serieEscola.setLabel(taxaEscola.getEscola().getEscolaNome());
+		serieMunicipio.setLabel(taxaMunicipioMedia.getTipoTaxa().getTaxaNome().toUpperCase());
+		serieEscola.set("1º Ano", taxaEscola.getPrimeiroAnoMedio());
+		serieMunicipio.set("1º Ano", taxaMunicipioMedia.getPrimeiroAnoMedio());		
+		serieEscola.set("2º Ano", taxaEscola.getSegundoAnoMedio());
+		serieMunicipio.set("2º Ano", taxaMunicipioMedia.getSegundoAnoMedio());
+		serieEscola.set("3º Ano", taxaEscola.getTerceiroAnoMedio());
+		serieMunicipio.set("3º Ano", taxaMunicipioMedia.getTerceiroAnoMedio());
+		serieEscola.set("4º Ano", taxaEscola.getQuartoAnoMedio());
+		serieMunicipio.set("4º Ano", taxaMunicipioMedia.getQuartoAnoMedio());
+		ensinoMedioModelo.addSeries(serieEscola);
+		ensinoMedioModelo.addSeries(serieMunicipio);		
+		ensinoMedioModelo.setSeriesColors("579575, 4BB2C5");
+		return ensinoMedioModelo;
+	}	
+
 	public void criaModeloEducacaoInfantil(){
 		chartEducacaoInfantil = preencheModeloEducacaoInfantil();
 		chartEducacaoInfantil.setTitle("Educação Infantil - Comparação com: " + taxaMunicipioMedia.getTipoTaxa().getTaxaNome() + " - " + ConverteValor.captalize(tipoTaxa.getTaxaNome()));		
 		chartEducacaoInfantil.setLegendPosition("ne");
 		Axis yAxis = chartEducacaoInfantil.getAxis(AxisType.Y);
 		yAxis.setMin(0);
-		yAxis.setMax(100);
+		yAxis.setMax(110);
 	}
 	
 	public void criaModeloEnsinoFundamental(){
@@ -123,18 +127,18 @@ public class CalculoMunicipio {
 		chartEnsinoFundamental.setLegendPosition("ne");
 		Axis yAxis = chartEnsinoFundamental.getAxis(AxisType.Y);
 		yAxis.setMin(0);
+		yAxis.setMax(110);
+	}
+	
+	public void criaModeloEnsinoMedio(){
+		chartEnsinoMedio = preencheModeloEnsinoMedio();
+		chartEnsinoMedio.setTitle("Ensino Médio - Comparação com: " + taxaMunicipioMedia.getTipoTaxa().getTaxaNome() + " - " + ConverteValor.captalize(tipoTaxa.getTaxaNome()));
+		chartEnsinoMedio.setLegendPosition("ne");
+		Axis yAxis = chartEnsinoMedio.getAxis(AxisType.Y);
+		yAxis.setMin(0);
 		yAxis.setMax(100);
 	}
 	
-//	public void criaModeloEnsinoMedio(){
-//		chartEnsinoMedio = preencheModeloEnsinoMedio();
-//		chartEnsinoMedio.setTitle("Ensino Médio");
-//		chartEnsinoMedio.setLegendPosition("ne");
-//		Axis yAxis = chartEnsinoMedio.getAxis(AxisType.Y);
-//		yAxis.setMin(0);
-//		yAxis.setMax(100);
-//	}
-//	
 	
 	
 	public BarChartModel calculaInfantilComparandoMunicipio() {
@@ -145,10 +149,11 @@ public class CalculoMunicipio {
 		criaModeloEnsinoFundamental();
 		return chartEnsinoFundamental;
 	}
-//	public BarChartModel calculaMedioComparandoMunicipio() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	
+	public BarChartModel calculaMedioComparandoMunicipio() {
+		criaModeloEnsinoMedio();
+		return chartEnsinoMedio;
+	}
 
 
 }

@@ -1,5 +1,6 @@
 package bean;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -29,8 +30,7 @@ public class DetalheComparaEscolaBean {
 	private EscolaTaxa escolaTaxa = new EscolaTaxa();
 	private int idEscola;	
 	private String taxa;
-	private String dimensao;
- 
+	private String dimensao; 
 
 	private EscolaDAO escolaDao = new EscolaDAO();
 
@@ -39,6 +39,23 @@ public class DetalheComparaEscolaBean {
 	private BarChartModel chartEducacaoInfantil;
 	private BarChartModel chartEnsinoFundamental;
 	private BarChartModel chartEnsinoMedio;
+	private LinkedList<Escola> escolasColocacao = new LinkedList<>();
+		
+	public void initvalues(){
+		
+		Escola e = new Escola();
+		e.setId(1);
+		e.setEscolaNome("nome");
+		escolasColocacao.add(e);
+		for(int i = 2; i < 18; i++){
+			e = new Escola();
+			e.setId(i);
+			e.setEscolaNome("casa");		
+			escolasColocacao.add(e);			
+		}
+		
+	}
+	
 	
 	
 	public  DetalheComparaEscolaBean() {
@@ -47,8 +64,9 @@ public class DetalheComparaEscolaBean {
 
 	@PostConstruct
 	public void init(){
-		
+		initvalues();
 	}
+
 
 
 
@@ -71,7 +89,7 @@ public class DetalheComparaEscolaBean {
 			calculoMunicipio = new CalculoMunicipio(taxa, escola, dimensao);
 			chartEducacaoInfantil = calculoMunicipio.calculaInfantilComparandoMunicipio();
 			chartEnsinoFundamental = calculoMunicipio.calculaFundamentalComparandoMunicipio();
-//			chartEnsinoFundamental = calculoMunicipio.calculaMedioComparandoMunicipio();
+			chartEnsinoMedio = calculoMunicipio.calculaMedioComparandoMunicipio();
 		}
 		else if(dimensao.equals("ESTADO")){
 
@@ -81,14 +99,6 @@ public class DetalheComparaEscolaBean {
 
 		}
 
-
-		//		this.pegaParametrosDeConsulta();
-		//		Integer[] valores = valoresParametro.toArray(new Integer[valoresParametro.size()]);		
-
-
-		//		criaModeloEducacaoInfantil();
-		//		criaModeloEnsinoFundamental();
-		//		criaModeloEnsinoMedio();
 	}
 
 	public Escola getEscola() {
@@ -128,5 +138,47 @@ public class DetalheComparaEscolaBean {
 		this.chartEnsinoMedio = chartEnsinoMedio;
 	}
 
+	public EscolaTaxa getEscolaTaxa() {
+		return escolaTaxa;
+	}
+
+	public void setEscolaTaxa(EscolaTaxa escolaTaxa) {
+		this.escolaTaxa = escolaTaxa;
+	}
+
+	public String getTaxa() {
+		return taxa;
+	}
+
+	public void setTaxa(String taxa) {
+		this.taxa = taxa;
+	}
+
+	public String getDimensao() {
+		return dimensao;
+	}
+
+	public void setDimensao(String dimensao) {
+		this.dimensao = dimensao;
+	}
+
+
+
+	public LinkedList<Escola> getEscolasColocacao() {
+		return escolasColocacao;
+	}
+
+
+
+	public void setEscolasColocacao(LinkedList<Escola> escolasColocacao) {
+		this.escolasColocacao = escolasColocacao;
+	}
+
+
+
+
+
+	
+	
 
 }

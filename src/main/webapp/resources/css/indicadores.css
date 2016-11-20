@@ -24,6 +24,7 @@
 }
 
 
+
 .left-align{
 	text-align:left !important;
 }
@@ -31,6 +32,10 @@
 .margin-busca-avancada{
 	margin-left:30px !important;
 	text-decoration: none !important;	
+}
+
+.margin-top-chart{
+	margin-top:10px;	
 }
 
 .margin-busca-avancada{
@@ -45,6 +50,10 @@
 
 .menu-indicadores{
 	width:99% !important;
+}
+
+.padding-panel{
+	padding:5px;	
 }
 
 .search-indicadores{

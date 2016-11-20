@@ -16,6 +16,10 @@ article, footer {
 	display: table;
 }
 
+.align-middle{
+	vertical-align: middle;
+}
+
 .align-right .ui-link .ui-widget .menu-text {
 	color: #63b5e2 !important;
 }
@@ -46,6 +50,7 @@ article, footer {
 .center {
 	text-align: center;
 }
+
 
 .fa.facebook {
 	color: #3B5998 !important;
@@ -79,13 +84,10 @@ article, footer {
 	color: #fff;
 }
 
-footer {
-	vertical-align: bottom;
+.font-size-footer{
+	font-size: 13px;		
 }
 
-.footer-height {
-	display: block;
-}
 
 .footer-title {
 	margin: 0px auto !important;
@@ -111,7 +113,7 @@ footer {
 }
 
 .height-content-main {
-	height: 80% !important;
+	min-height: 80% !important;
 }
 
 header {
@@ -172,6 +174,9 @@ header {
 .margin-left-menu{
 	margin-left:40px;	
 }
+.margin-top-menu{
+	margin-top:10px;
+}
 
 .margin-top{
 	margin-top:25px;
@@ -179,6 +184,10 @@ header {
 
 .margin-bottom-content {
 	margin-bottom: 2px !important;
+}
+
+.margin-footer{
+	margin-top:5px;		
 }
 
 .menu-content {

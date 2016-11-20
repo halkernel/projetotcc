@@ -1,3 +1,9 @@
+
+.align-button-export{
+	margin:5px;
+	margin-left:20px;
+}
+
 .detalhes p{
 	margin:0px;
 	padding:0px;
@@ -7,6 +13,10 @@
 	padding: 10px;
 }
 
+.padding-chart{
+	margin:20px !important;	
+}
+
 .texto{
 	font-weight: bold;
 }
@@ -14,3 +24,17 @@
 .ui-picklist .ui-picklist-list{
 	width: 260px;
 }
+
+.width-posicao{
+	width:5px;
+}
+
+.width-nome{
+	width:90px;
+}
+
+.cor-escola{
+	 background-color:#579575;
+	 color: #fff;
+}
+

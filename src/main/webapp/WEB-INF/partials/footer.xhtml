@@ -8,11 +8,12 @@
 
 		<hr class="divisor" />
 		<footer class="background-color">
-		<div class="ui-g background-color">
-			<div class="ui-g-6">
-				<b>Indicadores Abertos</b> | Criado por <a
-					href="http://kennet.com.br" target="_blank">Kennet Emerson</a> - <span
-					class="fa fa-envelope-o"></span> kennet.emerson@gmail.com
+		<div class="ui-g background-color margin-footer">
+			<div class="ui-g-6 font-size-footer ">
+				<span class="bold font-footer">Indicadores Abertos</span> | Criado
+				por <a href="http://kennet.com.br" class="font-size-footer"
+					target="_blank">Kennet Emerson</a> - <span class="fa fa-envelope-o"></span>
+				kennet.emerson@gmail.com
 			</div>
 			<div class="ui-g-5"></div>
 			<div class="ui-g-1">
@@ -22,6 +23,16 @@
 			</div>
 		</div>
 		</footer>
+		<script type="text/javascript">
+			function exportChart(chartParameter) {
+				//export image
+				$('#output').empty().append(PF(chartParameter).exportAsImage());
+
+				//show the dialog
+				PF('dlg').show();
+			}
+		</script>
+
 	</ui:composition>
 </body>
 </html>
