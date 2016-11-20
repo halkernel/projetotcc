@@ -7,7 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<ui:define name="conteudo">
-		<div class="ui-g">
+		<div class="ui-g padding-panel">
 			<div class="ui-g-2">
 				<p:layout styleClass="height-content">
 					<p:layoutUnit position="center"
@@ -32,6 +32,13 @@
 									<h:outputText id="escoladependencia"
 										value="#{detalheEscolaBean.escola.dependencia.dependenciaNome}" />
 								</div>
+
+								<div class="detalhes">
+									<p class="texto">Indicador Analisado:</p>
+									<h:outputText id="taxanome"
+										value="#{detalheEscolaBean.taxa}" />									
+								</div>
+
 							</h:form>
 						</div>
 					</p:layoutUnit>
@@ -41,22 +48,40 @@
 				<p:layout styleClass="height-content">
 					<p:layoutUnit position="center"
 						styleClass="height-content-indicadores">
-						
-							<p:chart type="bar" model="#{detalheEscolaBean.chartEducacaoInfantil}"
-								style="width:1090px;height:165px;" />
-							<p:chart type="bar" model="#{detalheEscolaBean.chartEnsinoFundamental}"
-								style="width:1090px;height:165px;" />						
-							<p:chart type="bar" model="#{detalheEscolaBean.chartEnsinoMedio}"							
-								style="width:1090px;height:165px;" />						
-						
+
+						<p:chart type="bar"
+							model="#{detalheEscolaBean.chartEducacaoInfantil}"
+							style="width:1050px;height:205px;"
+							class="margin-top-chart padding-chart" widgetVar="infantil" />
+						<p:commandButton styleClass="align-button-export" type="button"
+							value="Exportar" icon="ui-icon-extlink"
+							onclick="exportChart('infantil')" />
+						<p:chart type="bar"
+							model="#{detalheEscolaBean.chartEnsinoFundamental}"
+							style="width:1050px;height:205px;"
+							class="margin-top-chart padding-chart" widgetVar="fundamental" />
+						<p:commandButton styleClass="align-button-export" type="button"
+							value="Exportar" icon="ui-icon-extlink"
+							onclick="exportChart('fundamental')" />
+						<p:chart type="bar" model="#{detalheEscolaBean.chartEnsinoMedio}"
+							style="width:1050px;height:205px;"
+							class="margin-top-chart padding-chart" widgetVar="medio" />
+						<p:commandButton styleClass="align-button-export" type="button"
+							value="Exportar" icon="ui-icon-extlink"
+							onclick="exportChart('medio')" />
+
+
+
 					</p:layoutUnit>
 				</p:layout>
 			</div>
-			<!-- 
-			    
-			   		
-			    
-			     -->
+
+			<p:dialog widgetVar="dlg" showEffect="fade" modal="true"
+				header="Gráfico como imagem:" resizable="false">
+				<p:outputPanel id="output" layout="block"
+					style="width:1060px;height:300px" />
+			</p:dialog>
+
 		</div>
 	</ui:define>
 </ui:composition>

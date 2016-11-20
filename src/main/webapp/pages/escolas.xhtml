@@ -27,14 +27,27 @@
 								value="#{escolaBean.nomeEscola}" placeholder="Search"
 								styleClass="search" />
 							<p:commandButton value="Buscar" icon="ui-icon-check"
-								actionListener="#{escolaBean.buscarPorNome}" update="escTable" />	
-								<p:link outcome="/pages/buscaescolas.xhtml"
-								styleClass="margin-busca-avancada">Busca Avancada</p:link>						
+								actionListener="#{escolaBean.buscarPorNome}" update="escTable" />
+							<p:link outcome="/pages/buscaescolas.xhtml"
+								styleClass="margin-busca-avancada">Busca Avancada</p:link>
 						</p>
+						<div class="ui-g">
+							<div class="ui-g-10">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="0" cellspacing="5">
+									<p:outputLabel for="taxas" value="Taxa:" />
+									<p:selectOneRadio id="taxas"
+										value="#{escolaBean.taxaSelecionada}" layout="grid"
+										columns="9">
+										<c:selectItems value="#{escolaBean.taxasEscolha}" var="taxa"
+											itemValue="#{taxa}" itemLabel="#{taxa}" />
+									</p:selectOneRadio>
+								</h:panelGrid>
 
+							</div>
+						</div>
 
-
-						<p:layout styleClass="height-panel-busca-escola">
+						<p:layout styleClass="height-panel-busca">
 							<p:layoutUnit position="center" styleClass="height-content-busca">
 								<p:dataTable id="escTable" var="esc"
 									value="#{escolaBean.escolas}">
@@ -47,22 +60,45 @@
 									<p:column class="width-estado" headerText="Estado">
 										<h:outputText value="#{esc.municipio.estado.estadoNome}" />
 									</p:column>
-
+									
 									<p:column class="width-commandLink">
 										<p:commandLink title="Ver Escola"
-											styleClass="ui-icon ui-icon-search"
-											action="#{escolaBean.detalheEscola}"
-											actionListener="#{detalheEscolaBean.detalheEscola}">
-											<c:param name="escola" value="#{esc.id}" />
+											styleClass="ui-icon ui-icon-search"																																
+											action="#{escolaBean.checaEscola}"
+											update="dialogShowed">
+											<c:setPropertyActionListener value="#{esc.id}" target="#{escolaBean.escolaSelecionada}" />																																										
 										</p:commandLink>
 									</p:column>
 								</p:dataTable>
 							</p:layoutUnit>
 						</p:layout>
-					</h:form>
-
+					</h:form> 
 				</div>
+
+				<p:confirmDialog global="true" showEffec="fade" hideEffect="fade"
+					id="dialogShowed" header="#{escolaBean.dialogHeader}"
+					widgetVar="dlg2" modal="true" height="30">  
+					<c:facet name="message">
+						<h:outputFormat value="#{escolaBean.dialogValue}"
+							escape="false" />
+					</c:facet>
+					<p:commandButton rendered="#{escolaBean.renderedConfirm}" 
+						value="#{escolaBean.buttonValue}"
+						action="#{detalheEscolaBean.detalheEscola}"
+						actionListener="#{escolaBean.redirecionaDetalheEscola}">
+						<c:param name="escola"
+							value="#{escolaBean.escolaSelecionada}" required="true" />							
+						<c:param name="taxa" value="#{escolaBean.taxaSelecionada}"
+							required="true" />						
+					</p:commandButton>
+
+					<p:commandButton rendered="#{escolaBean.renderedCancel}"
+						value="#{escolaBean.buttonValue}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
 			</div>
+
 		</div>
 	</ui:define>
 

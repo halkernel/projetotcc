@@ -47,7 +47,7 @@ public class DetalheComparaEscolaBean {
 		e.setId(1);
 		e.setEscolaNome("nome");
 		escolasColocacao.add(e);
-		for(int i = 2; i < 18; i++){
+		for(int i = 2; i < 15; i++){
 			e = new Escola();
 			e.setId(i);
 			e.setEscolaNome("casa");		

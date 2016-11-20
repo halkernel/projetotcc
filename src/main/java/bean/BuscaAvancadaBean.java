@@ -24,12 +24,16 @@ import util.ConverteValor;
 @ManagedBean
 @ViewScoped
 public class BuscaAvancadaBean {
-
-	private DualListModel<Escola> escolasEscolha = new DualListModel<>();
+	
 	private List<Escola> escolas;
 	private String nomeEscola;
+	
 	private List<Escola> escolasSource = new ArrayList<Escola>();
 	private List<Escola> escolasTarget = new ArrayList<Escola>();
+	private DualListModel<Escola> escolasEscolha = new DualListModel<>(escolasSource,escolasTarget);
+	
+	private List<Escola> targetKeeper  = new ArrayList<Escola>();
+
 		
 	private List<TipoTaxa> taxas;
 	
@@ -50,28 +54,31 @@ public class BuscaAvancadaBean {
 
 	@PostConstruct
 	public void init() {
-
 	}
 
-	public DualListModel<Escola> getEscolasEscolha() {
-		return escolasEscolha;
-	}
-
-	public void setEscolasEscolha(DualListModel<Escola> escolasEscolha) {
-		this.escolasEscolha = escolasEscolha;
-	}
 
 	public void buscarPorNome(){
 		EscolaDAO escolaDao = new EscolaDAO();
 		nomeEscola = ConverteValor.removeAcento(nomeEscola);
 		nomeEscola = nomeEscola.toUpperCase();
-		System.out.println(nomeEscola);
-		escolas = escolaDao.listByName(nomeEscola);					                    
+		escolas = escolaDao.listByName(nomeEscola);
+		
+		System.out.println("OLHAAAA" + escolasEscolha.getTarget().size());
+		targetKeeper.addAll(escolasEscolha.getTarget());
+		
+		escolasSource.clear();
+		//escolasTarget.clear();
+				
+		escolasSource.addAll(escolas);		
+		escolasTarget.addAll(escolas);
+		
+		escolasEscolha = new DualListModel<>(escolasSource, escolasTarget);
+		
 
-		escolasSource.addAll(escolas);         
-		escolasEscolha = new DualListModel<Escola>(escolasSource, escolasTarget);
-
-
+//		
+		
+//		
+		
 	}
 	
 	public boolean checaEscolhaMenor(){
@@ -247,6 +254,15 @@ public class BuscaAvancadaBean {
 	public void setTaxasEscolha(LinkedList<String> taxasEscolha) {
 		this.taxasEscolha = taxasEscolha;
 	}
+	
+	public DualListModel<Escola> getEscolasEscolha() {
+		return escolasEscolha;
+	}
+
+	public void setEscolasEscolha(DualListModel<Escola> escolasEscolha) {
+		this.escolasEscolha = escolasEscolha;
+	}
+
 
 	
 	

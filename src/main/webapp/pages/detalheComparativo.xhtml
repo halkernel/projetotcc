@@ -42,16 +42,22 @@
 									<h:outputText id="dimensao"
 										value="#{detalheComparaEscolaBean.dimensao}" />
 								</div>
- 
-			
-								<p:dataTable var="num" value="#{detalheComparaEscolaBean.escolasColocacao}" rowStyleClass="#{num.escolaNome eq 'nome' ? 'cor-escola' : null}">
-									<p:column headerText="Nº" class="width-posicao">
-										<h:outputText value="#{num.id}" />										
-									</p:column>
-									<p:column headerText="Nome" class="width-nome">
-										<h:outputText value="#{num.escolaNome}" /> 										
-									</p:column>																	
-								</p:dataTable>
+
+
+								<div class="detalhes">
+									<p:dataTable var="num"
+										value="#{detalheComparaEscolaBean.escolasColocacao}"
+										rowStyleClass="#{num.escolaNome eq 'nome' ? 'cor-escola' : null}">
+										<p:column headerText="Nº" class="width-posicao">
+											<h:outputText value="#{num.id}" />
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{num.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+
+
 							</h:form>
 						</div>
 					</p:layoutUnit>
@@ -88,9 +94,9 @@
 			</div>
 
 			<p:dialog widgetVar="dlg" showEffect="fade" modal="true"
-				header="Chart as an Image" resizable="false">
+				header="Gráfico como imagem:" resizable="false">
 				<p:outputPanel id="output" layout="block"
-					style="width:600px;height:400px" />
+					style="width:1060px;height:300px" />
 			</p:dialog>
 
 

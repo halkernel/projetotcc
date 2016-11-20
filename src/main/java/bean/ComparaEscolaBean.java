@@ -1,4 +1,4 @@
-package bean;
+	package bean;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -126,7 +126,6 @@ public class ComparaEscolaBean {
 	}
 
 	public void iniciaDimensao(){
-		//pegar valor do banco
 		dimensao.add("MUNICÍPIO");
 		dimensao.add("ESTADO");
 		dimensao.add("REGIÃO");
@@ -134,7 +133,6 @@ public class ComparaEscolaBean {
 	}
 
 	public void iniciaTaxas(){
-		//pegar valor do banco
 		TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
 		taxas = tipoTaxaDao.list();					
 	}
@@ -165,7 +163,6 @@ public class ComparaEscolaBean {
 	}
 	
 	public void redirecionaDetalhes(){
-		System.out.println("FOI");
 		Rota.redireciona("detalheComparativo.xhtml");
 	}
 
