@@ -1,10 +1,13 @@
-.body {
-	
+.everything, hr {
+	margin: 0px !important;
+	padding: 0px !important;
 }
 
 article, footer {
 	padding: 2px;
 }
+
+
 
 .align-right {
 	right: 0;
@@ -29,6 +32,10 @@ article, footer {
 .align-middle {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.background-color {
+	background-color: #F7F9FA !important;
 }
 
 .body {
@@ -60,7 +67,7 @@ article, footer {
 }
 
 .font-logo {
-	font-size: 24px;
+	font-size: 28px;
 }
 
 .font-three-coumns {
@@ -70,6 +77,10 @@ article, footer {
 .footer-center {
 	text-align: center;
 	color: #fff;
+}
+
+footer {
+	vertical-align: bottom;
 }
 
 .footer-height {
@@ -82,7 +93,7 @@ article, footer {
 }
 
 .font-subtitle {
-	font-size: 11px;
+	font-size: 16px;
 	display: block;
 }
 
@@ -105,8 +116,7 @@ article, footer {
 
 header {
 	position: relative;
-	height: 60px;
-	max-height: 60px;
+	height: 14%;
 	width: 100%;
 	min-width: 100%;
 	max-width: 100%;
@@ -118,7 +128,7 @@ header {
 }
 
 .img-logo {
-	width: 55px;
+	width: 80px;
 }
 
 .inline {
@@ -144,11 +154,27 @@ header {
 .link-home {
 	text-decoration: none;
 	font-weight: bold;
-	color: #a9c942 !important;
+	color: #4CAF50 !important;
 }
 
 .link-home:hover {
 	text-decoration: underline !important;
+}
+
+.margin-left {
+	margin-left: 25px;
+}
+
+.margin-left-sobre{
+	margin-left:40px;
+}
+
+.margin-left-menu{
+	margin-left:40px;	
+}
+
+.margin-top{
+	margin-top:25px;
 }
 
 .margin-bottom-content {
@@ -176,8 +202,6 @@ header {
 	margin-right: auto;
 }
 
-
-
 .principal-panel {
 	height: 100%;
 	width: 100%;
@@ -185,6 +209,10 @@ header {
 
 .padding {
 	padding: 10px !important;
+}
+
+.bold{
+	font-weight: bold;
 }
 
 .title {
@@ -202,11 +230,11 @@ header {
 	text-decoration: none !important;
 	padding: 10px !important;
 	font-weight: 500 !important;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .ui-link:hover, ui-widget:hover, menu-text:hover {
-	background-color: #a9c942 !important;
+	background-color: #4CAF50 !important;
 	color: white !important;
 }
 
@@ -227,12 +255,8 @@ header {
 	width: 15% !important;
 }
 
-<!--
-a9c942
-	 63b5e2
-	f7ad1a
-	ef9920 
--->.red {
+
+.red {
 	background-color: red;
 }
 

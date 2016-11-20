@@ -23,75 +23,9 @@
 
 </h:head>
 
-<h:body styleClass="height-content body ">
-	<header>
-		<div class="align-left">
-			<div class="align-middle">
-				<span class="middle"> <h:graphicImage
-						value="/resources/images/logo.svg" styleClass="img-logo" />
-				</span>
-			</div>
-			<div class="align-middle">
-				<h:outputText value="Indicadores Abertos" styleClass="font-logo" />
-				<h:outputText value="Uma nova maneira de ver a educação Brasileira"
-					styleClass="font-subtitle" />
-			</div>
-		</div>
-
-
-		<div class="align-right">
-			<div class="menu-content">
-				<p:link value="Inicio" styleClass="menu-text" outcome="/index.xhtml">
-				</p:link>
-				<p:link value="Indicadores" styleClass="menu-text"
-					outcome="/pages/indicadores.xhtml">
-				</p:link>
-				<p:link value="Escolas" styleClass="menu-text"
-					outcome="/pages/escolas.xhtml">
-				</p:link>
-				<p:link value="API" styleClass="menu-text"
-					outcome="/pages/api.xhtml">
-				</p:link>
-				<p:link value="Sobre" styleClass="menu-text"
-					outcome="/pages/sobre.xhtml">
-				</p:link>
-				<!--
-							<p:link value="Social" styleClass="menu-text" outcome="/pages/dados.xhtml">
-							    <c:param name="productId" value="10" />
-							</p:link>									
-							 -->
-			</div>
-
-		</div>
-
-	</header>
-
-	<hr class="divisor" />
-
-	<article>
-		<section class="height-content-main">
-			<ui:insert name="conteudo">
-			</ui:insert>
-		</section>
-	</article>
-
-	<hr class="divisor" />
-	<!-- class="grey footer-height width footer-padding" -->
-	<footer>
-		<div class="ui-g">
-			<div class="ui-g-6">
-				<b>Indicadores Abertos</b> | Criado por <a
-					href="http://kennet.com.br" target="_blank">Kennet Emerson</a> - <span
-					class="fa fa-envelope-o"></span> kennet.emerson@gmail.com
-			</div>
-			<div class="ui-g-5"></div>
-			<div class="ui-g-1">
-				<span class="fa fa-facebook-square fa-2x facebook"></span> <span
-					class="fa fa-twitter-square fa-2x twitter"></span> <span
-					class="fa fa-youtube-square fa-2x youtube"></span>
-			</div>
-		</div>
-	</footer>
-
+<h:body styleClass="height-content everything ">
+	<ui:include src="/WEB-INF/partials/header.xhtml"></ui:include>
+	<ui:insert name="conteudo"></ui:insert>
+	<ui:include src="/WEB-INF/partials/footer.xhtml"></ui:include>
 </h:body>
 </html>

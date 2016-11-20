@@ -1,70 +1,102 @@
 <!DOCTYPE xhtml>
-    <ui:composition template="/WEB-INF/partials/basic.xhtml"
-    xmlns="http://www.w3c.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:c="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/partials/basic.xhtml"
+	xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-        <ui:define name="conteudo">
-       				 <div class="ui-g">
-       				 		<div class="ui-g-3 padding">  						    
-							    <h:form>
-	  						    	<p:growl id="messages" showDetail="false"/>
-								    <p:menu styleClass="width">
-								        <p:submenu label="Ranking de Escolas">
-								            <p:menuitem value="Taxa de Aprovação" icon="ui-icon-radio-on" />
-								            <p:menuitem value="Taxa de Reprovação" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Taxa de Evasão" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Taxa de Distorção Idade-Série" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Taxa de Média de Alunos por Turma" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Taxa de Não Resposta" icon="ui-icon-radio-on"/>
-								        </p:submenu>
-								         <p:submenu label="Escola Por Regiao">
-								            <p:menuitem value="Norte" icon="ui-icon-radio-on" />
-								            <p:menuitem value="Nordeste" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Centro-Oeste" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Sul" icon="ui-icon-radio-on"/>
-								            <p:menuitem value="Suldeste" icon="ui-icon-radio-on"/>
-								        </p:submenu>
-								        								        
-								    </p:menu>						 
-							    </h:form>  						    
-  						    </div>						
-						    <div class="ui-g-6 padding">							  		
-						  		<div class="margin-bottom-content p-font-changes">
-						  		<h3 class="title">O que é o site Indicadores Abertos?</h3>            
-								    <p class="justify-text">O movimento de dados abertos ao redor do mundo foi impulsionado a pouco mais 
-								    de 3 anos, quando os governos dos Estados Unidos e Inglaterra começaram a constituir uma abertura de dados 
-								    governamentais. Desde então, estes movimentos vem se tornando uma das maiores iniciativas em defesa do acesso 
-								    a informação, que  um elemento importante para qualquer governo democrático. A garantia do direito ao seu
-								     acesso para a população promove não somente a transparência do Governo, mas também o estímulo às exigências
-								      de direitos, maior participação política e o controle dos atos públicos por parte da população.
+	<ui:define name="conteudo">
+		<div class="ui-g height-content-main">
+			<div class="ui-g-8 padding margin-left">
+				<div class="margin-bottom-content p-font-changes">
+					<h3 class="title">O que é o site Indicadores Abertos?</h3>					
+					<p class="justify-text">O movimento de dados abertos ao redor
+						do mundo foi impulsionado a pouco mais de 3 anos, quando os
+						governos dos Estados Unidos e Inglaterra começaram a constituir
+						uma abertura de dados governamentais. Desde então, estes
+						movimentos vem se tornando uma das maiores iniciativas em defesa
+						do acesso a informação, que um elemento importante para qualquer
+						governo democrático. A garantia do direito ao seu acesso para a
+						população promove não somente a transparência do Governo, mas
+						também o estímulo às exigências de direitos, maior participação
+						política e o controle dos atos públicos por parte da população.</p>
+					<p class="justify-text p-font-changes">
+						Com o progresso na construção de uma política de dados abertos
+						pelo mundo, <a
+							href="http://dados.gov.br/cartilha-publicacao-dados-abertos/"
+							target="_blank" class="link-home"> Brasil também tomou
+							medidas para incentivo da abertura de dados</a>, criando um conjunto
+						de padrões, procedimentos e mecanismos para atender o
+						compartilhamento desses dados no país. Tais medidas levaram a
+						criação de leis e normas que orientam os meios pelo qual pode-se
+						fazer a abertura dos orgãos públicos que compõem o país. E o ponto
+						chave nesta abertura de dados pelos nosso governantes é o fato de
+						que ela gera estímulos ao engajamento social e a participação
+						ativa, pois aproxima a sociedade da gestão pública, promove um
+						envolvimento maior da parte dos cidadãos com as decisões
+						governamentais.
+					</p>
+					<p class="justify-text">
+						Neste contexto de abertura de dados, a educação é uma das áreas
+						que vêm sendo beneficiadas no nosso país. A publicação dos <a
+							href="http://dados.gov.br/dataset/microdados-do-censo-escolar"
+							target="_blank" class="link-home"> Dados do Censo Escolar </a>
+						são um exemplo desta abertura. No entanto, dados como os <a
+							href="http://portal.inep.gov.br/indicadores-educacionais"
+							target="_blank" class="link-home">Indicadores Educacionais </a>
+						ainda sofrem com problemas que impossibilitam por exemplo a
+						análise e utilização destes dados. A falta de padrão e
+						impossibilita por exemplo a geração de resultados relevantes,
+						cruzamento e análises mais complexas, mas não afasta o aspecto de
+						melhorar a educação através do acesso à informação. Desse modo, os
+						Indicadores Abertos se inserem nas iniciativas de dados abertos
+						com o objetivo de trazer informações e indicadores educacionais de
+						maneira clara, promovendo a possibilidade de análises e estudos
+						estatísticos.
+					</p>
+					<p class="justify-text">O site foi construído utilizando os
+						indicadores educacionais do ano de 2015. Uma explicação mais
+						minuciosa sobre os objetivos desta aplicação e a origem dos dados pode
+						ser encontrada na seção <span class="bold">Sobre</span> do site,
+						onde são apresentadas as devidas fontes, os indicadores utilizados 
+						até então e uma lista de observações referentes aos próximos passos
+						que o projeto vai tomar.
+					</p>
+				</div>
+			</div>
+			<div class="ui-g-3 padding margin-left-menu ">
+				<h:form>
+					<h3 class="title">Acesso Rápido:</h3>
+					<p:growl id="messages" showDetail="false" />
+					<p:menu styleClass="width">
+						<p:submenu label="Ranking de Escolas">
+							<p:menuitem value="Taxa de Aprovação" icon="ui-icon-radio-on" />
+							<p:menuitem value="Taxa de Reprovação" icon="ui-icon-radio-on" />
+							<p:menuitem value="Taxa de Evasão" icon="ui-icon-radio-on" />
+							<p:menuitem value="Taxa de Distorção Idade-Série"
+								icon="ui-icon-radio-on" />
+							<p:menuitem value="Taxa de Média de Alunos por Turma"
+								icon="ui-icon-radio-on" />
+							<p:menuitem value="Taxa de Não Resposta" icon="ui-icon-radio-on" />
+						</p:submenu>
+						<p:submenu label="Escola Por Regiao">
+							<p:menuitem value="Norte" icon="ui-icon-radio-on" />
+							<p:menuitem value="Nordeste" icon="ui-icon-radio-on" />
+							<p:menuitem value="Centro-Oeste" icon="ui-icon-radio-on" />
+							<p:menuitem value="Sul" icon="ui-icon-radio-on" />
+							<p:menuitem value="Suldeste" icon="ui-icon-radio-on" />
+						</p:submenu>
+					</p:menu>
+					<br></br>
+					<p:menu styleClass="width">						
+						<p:submenu label="Contato">
+							<p:menuitem value="Norte" icon="ui-icon-radio-on" />							
+						</p:submenu>
+					</p:menu>
+				</h:form>
+			</div>
 
- 									</p> 
-								    <p class="justify-text p-font-changes">Com o progresso na construção de uma política de dados abertos pelo mundo, 
-								    <a href="http://dados.gov.br/cartilha-publicacao-dados-abertos/" target="_blank" class="link-home"> 
-								    Brasil também tomou medidas para incentivo da abertura de dados</a>, criando um conjunto de padrões, procedimentos 
-								    e mecanismos para atender o compartilhamento desses dados no país. Tais medidas levaram a criação de leis e
-								     normas que orientam os meios pelo qual pode-se fazer a abertura dos orgãos públicos que compõem o país. E o 
-								     ponto chave nesta abertura de dados pelos nosso governantes é o fato de que ela gera estímulos ao engajamento 
-								     social e a participação ativa, pois aproxima a sociedade da gestão pública, promove um envolvimento maior da 
-								     parte dos cidadãos com as decisões governamentais. 
-								    </p>
-								    <p class="justify-text">Neste contexto de abertura de dados, a educação é uma das áreas que vêm sendo
-								     beneficiadas no nosso país. A publicação dos <a href="http://dados.gov.br/dataset/microdados-do-censo-escolar" target="_blank" class="link-home"> 
-								     Dados do Censo Escolar  </a> são um exemplo desta abertura. No entanto, dados como os 
-								     <a href="http://portal.inep.gov.br/indicadores-educacionais" target="_blank" class="link-home">Indicadores Educacionais </a>
-								     ainda sofrem com problemas que impossibilitam por exemplo a análise e utilização destes dados. A falta de padrão e impossibilita 
-								     por exemplo a geração de resultados relevantes, cruzamento e análises mais complexas, mas não afasta o aspecto de melhorar a 
-								     educação através do acesso à informação. Desse modo, os Indicadores Abertos se inserem nas iniciativas de dados abertos com o objetivo
-								     de trazer informações e indicadores educacionais de maneira clara, promovendo a possibilidade de análises e estudos estatísticos.  </p>
-								</div>						  																	
-						    </div>
-						    <div class="ui-g-12 ui-md-3  padding">	
-						    	<div id="container"></div>						    	
-						    </div>  						    						   
-						</div> 
-						
-        </ui:define>	  
+		</div>
+	</ui:define>
 </ui:composition>
