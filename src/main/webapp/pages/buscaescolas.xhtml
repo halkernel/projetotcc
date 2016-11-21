@@ -68,7 +68,7 @@
 								<p>
 
 									<p:commandButton action="#{buscaAvancadaBean.checarEscola}"
-										value="Comparar" update="dialogShowed"></p:commandButton>
+										value="Comparar" update="dialogNextPage"></p:commandButton>
 
 									<p:dialog id="dialogShowed"
 										header="#{buscaAvancadaBean.dialogHeader}" widgetVar="dlg2"
@@ -98,8 +98,32 @@
 											styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 
 									</p:confirmDialog>
-									
-									
+
+									<p:confirmDialog global="true" showEffec="fade"
+										hideEffect="fade" id="dialogNextPage"
+										header="#{buscaAvancadaBean.dialogHeader}" widgetVar="dlg3"
+										modal="true" height="40">
+										<c:facet name="message">
+											<h:outputFormat value="#{buscaAvancadaBean.dialogValue}"
+												escape="false" />
+										</c:facet>
+
+										<p:commandButton
+											rendered="#{buscaAvancadaBean.renderedConfirm}"
+											action="#{detalheComparaDuasEscolasBean.detalhesEscolas}"
+											actionListener="#{buscaAvancadaBean.redirecionaDetalhes}"
+											value="#{buscaAvancadaBean.buttonValue}"
+											styleClass="ui-confirmdialog-no"> 
+
+
+										</p:commandButton>
+
+										<p:commandButton
+											rendered="#{buscaAvancadaBean.renderedCancel}"
+											value="#{buscaAvancadaBean.buttonValue}" type="button"
+											styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+									</p:confirmDialog>
 
 								</p>
 							</div>

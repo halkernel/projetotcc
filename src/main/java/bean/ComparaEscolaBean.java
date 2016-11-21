@@ -41,6 +41,8 @@ public class ComparaEscolaBean {
 	private boolean renderedConfirm = false;
 	private boolean renderedCancel = false;
 	
+
+	
 	private int escolaSelecionada;
 
 
@@ -86,8 +88,7 @@ public class ComparaEscolaBean {
 			return false;		
 		return true;
 	}
-
-
+	
 
 	public void naoSelecionouTaxa(){
 		this.dialogHeader = "Taxa Não Selecionadas";
@@ -269,7 +270,8 @@ public class ComparaEscolaBean {
 	public void setEscolaSelecionada(int escolaSelecionada) {
 		this.escolaSelecionada = escolaSelecionada;
 	}
-	
+
+
 	
 
 

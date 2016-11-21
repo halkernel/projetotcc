@@ -21,36 +21,40 @@ import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.TipoTaxa;
 import util.ConverteValor;
+import util.PegaValores;
+import util.Rota;
 
 @ManagedBean
 @ViewScoped
 public class BuscaAvancadaBean {
-	
+
 	private List<Escola> escolas;
 	private String nomePrimeiraEscola = "";
 	private String nomeSegundaEscola = "";
-	
+
 	private List<Escola> escolasSource = new ArrayList<Escola>();
 	private List<Escola> escolasTarget = new ArrayList<Escola>();
 	private DualListModel<Escola> escolasEscolha = new DualListModel<>();
-	
 
-		
+
+
 	private List<TipoTaxa> taxas;
-	
+
 	private LinkedList<String> taxasEscolha = new LinkedList<>();
 
+	private String primeiraEscola ="";
+	private String segundaEscola ="";
 
 	private String taxaSelecionada = "";
 	private String dimensaoSelecionada = "";
-	
+
 	private String dialogHeader ="";
 	private String dialogValue ="";
 	private String buttonValue ="";
 
 	private boolean renderedConfirm = false;
 	private boolean renderedCancel = false;
-	
+
 	public BuscaAvancadaBean(){
 		iniciaTaxas();
 		iniciaTaxasEscolha();
@@ -65,7 +69,7 @@ public class BuscaAvancadaBean {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 
 	public void buscarPorNome(){
@@ -77,46 +81,58 @@ public class BuscaAvancadaBean {
 		escolas = escolaDao.listByNameOneNameTwo(nomePrimeiraEscola, nomeSegundaEscola);						
 		escolasSource.addAll(escolas);				
 		escolasEscolha = new DualListModel<>(escolasSource, escolasTarget);
-	
 
-		
 	}
-	
+
+	public void redirecionaDetalhes(){
+		Rota.redireciona("detalheDuasEscolas.xhtml");
+	}
+
 	public boolean checaEscolhaMenor(){
 		if(escolasEscolha.getTarget().size() < 2)
 			return true;
 		return false;
 	}
-	
+
 	public boolean checaEscolhaMaior(){
 		if(escolasEscolha.getTarget().size() > 2)
 			return true;
 		return false;
 	}
-	
+
 	public boolean checaSelecaoTaxa(){
 		if(taxaSelecionada == null || taxaSelecionada == ""){			
 			return true;
 		}		
 		return false;
 	}
-	
-	
+
+
 	public void naoSelecionou(){		
 		this.dialogHeader = "Número De Escolas Insifucientes";
-		this.dialogValue = "Você não selecionou o número de escolas suficientes para uma comparação";		
+		this.dialogValue = "Você não selecionou o número de escolas suficientes para uma comparação";
+		this.buttonValue = "Cancelar";
+		renderedConfirm = false;
+		renderedCancel = true;
 	}
-	
+
 	public void selecionouMaisDeDuasEscolas(){		
 		this.dialogHeader = "Número De Escolas Acima Do Permitido";
 		this.dialogValue = "O limite de escolas para comparação é 2. Você selecionou um número acima do permitido.";
+		this.buttonValue = "Cancelar";
+		renderedConfirm = false;
+		renderedCancel = true;
 	}
-	
+
 	public void naoSelecionouTaxa(){
 		this.dialogHeader = "Taxa Não Selecionadas";
 		this.dialogValue = "A taxa não foi selecionada para comparação.";
+		this.buttonValue = "Cancelar";
+		renderedConfirm = false;
+		renderedCancel = true;
+		
 	}
-	
+
 	public void confirmarValores(){
 		this.dialogHeader = "Você Selecionou Os Seguintes Valores";
 		this.dialogValue = "Primeira Escola: " + nomePrimeiraEscola + "</br>" + "Segunda Escola: " + nomeSegundaEscola;
@@ -124,7 +140,7 @@ public class BuscaAvancadaBean {
 		renderedConfirm = true;
 		renderedCancel = false;
 	}
-	
+
 	public void preencherTudo(){
 		this.dialogHeader = "Você Não Preencheu A Primeira Escola E/Ou A Segunda Escola";
 		this.dialogValue = "Você não selecionou o número de escolas suficientes para a pesquisa";
@@ -132,17 +148,25 @@ public class BuscaAvancadaBean {
 		renderedConfirm = false;
 		renderedCancel = true;
 	}
-	
+
+	public void confirmarValoresFinais(){
+		this.dialogHeader = "Você Selecionou Os Seguintes Valores";
+		this.dialogValue = "Primeira Escola: " + "oii" + "</br>" + "Segunda Escola: " + "ola" + "</br>" + "Indicador: " + taxaSelecionada;
+		this.buttonValue = "Confirmar";
+		renderedConfirm = true;
+		renderedCancel = false;
+	}
+
 	public void showDialog(){
 		RequestContext requestContext = RequestContext.getCurrentInstance();
-		requestContext.execute("PF('dlg2').show();");
+		requestContext.execute("PF('dlg3').show();");
 	}
-	
+
 	public void showDialogBusca(){
 		RequestContext requestContext = RequestContext.getCurrentInstance();
 		requestContext.execute("PF('dlg').show();");
 	}
-	
+
 
 	public boolean checaPrimeiraEscola(){
 		if(nomePrimeiraEscola == null || nomePrimeiraEscola.isEmpty()){			
@@ -150,15 +174,15 @@ public class BuscaAvancadaBean {
 		}		
 		return true;
 	}
-	
+
 	public boolean checaSegundaEscola(){
 		if(nomeSegundaEscola == null || nomeSegundaEscola.isEmpty()){			
 			return false;
 		}		
 		return true;
 	}
-	
-	
+
+
 	public void checarNomes(){
 		if(!checaPrimeiraEscola() || !checaSegundaEscola()){			
 			preencherTudo();
@@ -168,41 +192,52 @@ public class BuscaAvancadaBean {
 			confirmarValores();
 			showDialogBusca();
 		}
-				
 	}
-	
-	
+
+
 	public void checarEscola(){		
 		if(checaEscolhaMenor()){
+			System.out.println("menor");
 			naoSelecionou();	
 			showDialog();
 		}		
 		else if(checaEscolhaMaior()){
+			System.out.println("maior");
 			selecionouMaisDeDuasEscolas();
 			showDialog();
 		}
 		else if(checaSelecaoTaxa()){			
+			System.out.println("taxa");
 			naoSelecionouTaxa();
 			showDialog();			
 		}		
 		else{
-			
+			confirmarValoresFinais();
+			pegaEscolas();
+			showDialog();
 		}
 	}
-	
-		
+
+
 	public void iniciaTaxas(){
 		//pegar valor do banco
 		TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
 		taxas = tipoTaxaDao.list();					
 	}
-	
+
 	public void iniciaTaxasEscolha(){
 		for (TipoTaxa tt : taxas) {
 			taxasEscolha.add(tt.getTaxaNome());
 		}
 	}
-		
+	
+	public void pegaEscolas(){
+		for (Escola e : escolasEscolha.getTarget()) {
+			System.out.println(e.getEscolaNome());
+		}
+	}
+
+
 
 	public void onSelect(SelectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -220,7 +255,7 @@ public class BuscaAvancadaBean {
 	}
 
 
-	
+
 	public void setTaxas(List<TipoTaxa> taxas) {
 		this.taxas = taxas;
 	}
@@ -233,7 +268,7 @@ public class BuscaAvancadaBean {
 		this.escolas = escolas;
 	}
 
-	
+
 
 	public String getNomePrimeiraEscola() {
 		return nomePrimeiraEscola;
@@ -316,7 +351,7 @@ public class BuscaAvancadaBean {
 	public void setTaxasEscolha(LinkedList<String> taxasEscolha) {
 		this.taxasEscolha = taxasEscolha;
 	}
-	
+
 	public DualListModel<Escola> getEscolasEscolha() {
 		return escolasEscolha;
 	}
@@ -355,10 +390,27 @@ public class BuscaAvancadaBean {
 		this.renderedCancel = renderedCancel;
 	}
 
+	public String getPrimeiraEscola() {
+		return primeiraEscola;
+	}
+
+	public void setPrimeiraEscola(String primeiraEscola) {
+		this.primeiraEscola = primeiraEscola;
+	}
+
+	public String getSegundaEscola() {
+		return segundaEscola;
+	}
+
+	public void setSegundaEscola(String segundaEscola) {
+		this.segundaEscola = segundaEscola;
+	}
 
 	
-	
-	
+
+
+
+
 
 
 
