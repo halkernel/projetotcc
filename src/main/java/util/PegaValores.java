@@ -33,6 +33,26 @@ public class PegaValores {
 		}
 		return null;
 	}
+	
+	public static String getPrimeiraEscola(Map<String, String> params){
+		for(String s : params.keySet()){			
+			String values = params.get(s);		
+			if(s.contains("primeiraEscola")){
+				return values;
+			}
+		}
+		return null;
+	}
+	
+	public static String getSegundaEscola(Map<String, String> params){
+		for(String s : params.keySet()){			
+			String values = params.get(s);		
+			if(s.contains("segundaEscola")){
+				return values;
+			}
+		}
+		return null;
+	}
 
 
 }

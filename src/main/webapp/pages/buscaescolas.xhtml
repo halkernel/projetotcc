@@ -48,7 +48,8 @@
 						<p:pickList id="mostraEscolas"
 							value="#{buscaAvancadaBean.escolasEscolha}" var="esc"
 							itemLabel="#{esc.escolaNome}" showSourceFilter="true"
-							filterMatchMode="contains" itemValue="#{esc.escolaNome}" />
+							converter="escolaConverter" filterMatchMode="contains"
+							itemValue="#{esc}" />
 
 						<div class="ui-g">
 							<div class="ui-g-11">
@@ -113,8 +114,15 @@
 											action="#{detalheComparaDuasEscolasBean.detalhesEscolas}"
 											actionListener="#{buscaAvancadaBean.redirecionaDetalhes}"
 											value="#{buscaAvancadaBean.buttonValue}"
-											styleClass="ui-confirmdialog-no"> 
-
+											styleClass="ui-confirmdialog-no">
+											
+											<c:param name="primeiraEscola"
+												value="#{buscaAvancadaBean.idPrimeiraEscola}"
+												required="true" />
+											<c:param name="segundaEscola"
+												value="#{buscaAvancadaBean.idSegundaEscola}" required="true" />
+											<c:param name="taxa"
+												value="#{buscaAvancadaBean.taxaSelecionada}" required="true" />
 
 										</p:commandButton>
 

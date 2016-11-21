@@ -1,0 +1,70 @@
+<!DOCTYPE xhtml>
+    <ui:composition template="/WEB-INF/partials/basic.xhtml"
+    xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+        <ui:define name="conteudo">
+			<div class="ui-g padding-panel">
+			<div class="ui-g-2">
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+						<div class="search-elements">
+
+							<h:form>
+								<div class="detalhes"><p class="texto">PRIMEIRA ESCOLA</p></div>
+								<div class="detalhes">
+									
+									<p class="texto">Nome:</p>
+									<h:outputText id="escolanome"
+										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.escolaNome}" />
+									<p class="texto">Estado:</p>
+									<h:outputText id="escolaestado"
+										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.municipio.estado.estadoNome}" />
+									<p class="texto">Municipio:</p>
+									<h:outputText id="escolamunicipio"
+										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.municipio.municipioNome}" />
+									<p class="texto">Localização:</p>
+									<h:outputText id="escolalocalizacao"
+										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.localizacao.localizacaoNome}" />
+									<p class="texto">Dependencia:</p>
+									<h:outputText id="escoladependencia"
+										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.dependencia.dependenciaNome}" />
+								</div>
+
+								<div class="detalhes">
+									<p class="texto">Indicador Analisado:</p>
+									<h:outputText id="taxanome" 
+										value="#{detalheComparaDuasEscolasBean.taxa}" />									
+								</div>
+
+							</h:form>
+						</div>
+					</p:layoutUnit>
+				</p:layout>
+			</div>
+			<div class="ui-g-10">
+				<p:layout styleClass="height-content">
+					<p:layoutUnit position="center"
+						styleClass="height-content-indicadores">
+
+
+
+
+
+					</p:layoutUnit>
+				</p:layout>
+			</div>
+
+			<p:dialog widgetVar="dlg" showEffect="fade" modal="true"
+				header="Gráfico como imagem:" resizable="false">
+				<p:outputPanel id="output" layout="block"
+					style="width:1060px;height:300px" />
+			</p:dialog>
+
+		</div>
+        </ui:define>	  
+</ui:composition>

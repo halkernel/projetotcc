@@ -44,6 +44,9 @@ public class BuscaAvancadaBean {
 
 	private String primeiraEscola ="";
 	private String segundaEscola ="";
+	
+	private int idPrimeiraEscola = 0;
+	private int idSegundaEscola = 0;
 
 	private String taxaSelecionada = "";
 	private String dimensaoSelecionada = "";
@@ -151,7 +154,7 @@ public class BuscaAvancadaBean {
 
 	public void confirmarValoresFinais(){
 		this.dialogHeader = "Você Selecionou Os Seguintes Valores";
-		this.dialogValue = "Primeira Escola: " + "oii" + "</br>" + "Segunda Escola: " + "ola" + "</br>" + "Indicador: " + taxaSelecionada;
+		this.dialogValue = "Primeira Escola: " + primeiraEscola + "</br>" + "Segunda Escola: " + segundaEscola + "</br>" + "Indicador: " + taxaSelecionada;
 		this.buttonValue = "Confirmar";
 		renderedConfirm = true;
 		renderedCancel = false;
@@ -212,8 +215,8 @@ public class BuscaAvancadaBean {
 			showDialog();			
 		}		
 		else{
-			confirmarValoresFinais();
 			pegaEscolas();
+			confirmarValoresFinais();			
 			showDialog();
 		}
 	}
@@ -232,9 +235,16 @@ public class BuscaAvancadaBean {
 	}
 	
 	public void pegaEscolas(){
-		for (Escola e : escolasEscolha.getTarget()) {
-			System.out.println(e.getEscolaNome());
-		}
+		for(int i =0; i < escolasEscolha.getTarget().size(); i++){
+			if(primeiraEscola.isEmpty()){
+				primeiraEscola = escolasEscolha.getTarget().get(i).getEscolaNome();
+				idPrimeiraEscola = escolasEscolha.getTarget().get(i).getId();
+			}
+			else{
+				segundaEscola = escolasEscolha.getTarget().get(i).getEscolaNome();
+				idSegundaEscola = escolasEscolha.getTarget().get(i).getId();
+			}
+		}		
 	}
 
 
@@ -406,6 +416,23 @@ public class BuscaAvancadaBean {
 		this.segundaEscola = segundaEscola;
 	}
 
+	public int getIdPrimeiraEscola() {
+		return idPrimeiraEscola;
+	}
+
+	public void setIdPrimeiraEscola(int idPrimeiraEscola) {
+		this.idPrimeiraEscola = idPrimeiraEscola;
+	}
+
+	public int getIdSegundaEscola() {
+		return idSegundaEscola;
+	}
+
+	public void setIdSegundaEscola(int idSegundaEscola) {
+		this.idSegundaEscola = idSegundaEscola;
+	}
+
+	
 	
 
 
