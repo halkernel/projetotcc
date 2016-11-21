@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.primefaces.model.DualListModel;
 
-public class DynamicDualListModel<T> extends DualListModel<T> {
+public class DynamicDualListModel<Escola> extends DualListModel<Escola> {
 
 /**
  * 
  */
     private static final long serialVersionUID = 1L;
 
-    private List<T> sourceBuffer;
+    private List<Escola> sourceBuffer;
 
     private boolean view = false;
     
@@ -20,19 +20,19 @@ public class DynamicDualListModel<T> extends DualListModel<T> {
     	super();
     }
 
-    public DynamicDualListModel(List<T> source, ArrayList<T> target) {
+    public DynamicDualListModel(List<Escola> source, ArrayList<Escola> target) {
             super(source, target);
             this.setSource(source);
     }
 
     @Override
-    public void setTarget(List<T> target) {
+    public void setTarget(List<Escola> target) {
             super.setTarget(target);
             updateSourceView();
     }
 
     @Override
-    public void setSource(List<T> source) {
+    public void setSource(List<Escola> source) {
             if (!view) {
                     sourceBuffer = source;
                     updateSourceView();
@@ -40,14 +40,40 @@ public class DynamicDualListModel<T> extends DualListModel<T> {
                     super.setSource(source);
             }
     }
-
+    
     private void updateSourceView() {
-            List<T> sourceView = new ArrayList<T>();
-            for (T obj : sourceBuffer) {
+            List<Escola> sourceView = new ArrayList<Escola>();
+            for (Escola obj : sourceBuffer) {
                     if (getTarget() != null && !getTarget().contains(obj))
                             sourceView.add(obj);
             }
             view = true;
             this.setSource(sourceView);
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
+	@Override
+	public List<Escola> getSource() {
+		// TODO Auto-generated method stub
+		return super.getSource();
+	}
+
+	@Override
+	public List<Escola> getTarget() {
+		// TODO Auto-generated method stub
+		return super.getTarget();
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+    
+    
 }

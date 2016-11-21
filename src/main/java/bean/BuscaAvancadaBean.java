@@ -14,6 +14,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
+import org.primefaces.push.PrimeAtmosphereHandler;
 
 import dao.EscolaDAO;
 import dao.TipoTaxaDAO;
@@ -26,13 +27,13 @@ import util.ConverteValor;
 public class BuscaAvancadaBean {
 	
 	private List<Escola> escolas;
-	private String nomeEscola;
+	private String nomePrimeiraEscola = "";
+	private String nomeSegundaEscola = "";
 	
 	private List<Escola> escolasSource = new ArrayList<Escola>();
 	private List<Escola> escolasTarget = new ArrayList<Escola>();
-	private DualListModel<Escola> escolasEscolha = new DualListModel<>(escolasSource,escolasTarget);
+	private DualListModel<Escola> escolasEscolha = new DualListModel<>();
 	
-	private List<Escola> targetKeeper  = new ArrayList<Escola>();
 
 		
 	private List<TipoTaxa> taxas;
@@ -45,39 +46,39 @@ public class BuscaAvancadaBean {
 	
 	private String dialogHeader ="";
 	private String dialogValue ="";
+	private String buttonValue ="";
+
+	private boolean renderedConfirm = false;
+	private boolean renderedCancel = false;
 	
 	public BuscaAvancadaBean(){
 		iniciaTaxas();
 		iniciaTaxasEscolha();
 	}
 
-
 	@PostConstruct
-	public void init() {
+	public void init(){
+		try{
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		}
+		catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
 	}
+	
 
 
 	public void buscarPorNome(){
 		EscolaDAO escolaDao = new EscolaDAO();
-		nomeEscola = ConverteValor.removeAcento(nomeEscola);
-		nomeEscola = nomeEscola.toUpperCase();
-		escolas = escolaDao.listByName(nomeEscola);
-		
-		System.out.println("OLHAAAA" + escolasEscolha.getTarget().size());
-		targetKeeper.addAll(escolasEscolha.getTarget());
-		
-		escolasSource.clear();
-		//escolasTarget.clear();
-				
-		escolasSource.addAll(escolas);		
-		escolasTarget.addAll(escolas);
-		
+		nomePrimeiraEscola = ConverteValor.removeAcento(nomePrimeiraEscola);
+		nomeSegundaEscola = ConverteValor.removeAcento(nomeSegundaEscola);
+		nomePrimeiraEscola = nomePrimeiraEscola.toUpperCase();
+		nomeSegundaEscola = nomeSegundaEscola.toUpperCase();
+		escolas = escolaDao.listByNameOneNameTwo(nomePrimeiraEscola, nomeSegundaEscola);						
+		escolasSource.addAll(escolas);				
 		escolasEscolha = new DualListModel<>(escolasSource, escolasTarget);
-		
+	
 
-//		
-		
-//		
 		
 	}
 	
@@ -94,8 +95,7 @@ public class BuscaAvancadaBean {
 	}
 	
 	public boolean checaSelecaoTaxa(){
-		if(taxaSelecionada == null || taxaSelecionada == ""){
-			System.out.println("true");
+		if(taxaSelecionada == null || taxaSelecionada == ""){			
 			return true;
 		}		
 		return false;
@@ -103,12 +103,12 @@ public class BuscaAvancadaBean {
 	
 	
 	public void naoSelecionou(){		
-		this.dialogHeader = "Número de Escolas Insifucientes";
+		this.dialogHeader = "Número De Escolas Insifucientes";
 		this.dialogValue = "Você não selecionou o número de escolas suficientes para uma comparação";		
 	}
 	
 	public void selecionouMaisDeDuasEscolas(){		
-		this.dialogHeader = "Número de Escolas Acima do Permitido";
+		this.dialogHeader = "Número De Escolas Acima Do Permitido";
 		this.dialogValue = "O limite de escolas para comparação é 2. Você selecionou um número acima do permitido.";
 	}
 	
@@ -117,10 +117,58 @@ public class BuscaAvancadaBean {
 		this.dialogValue = "A taxa não foi selecionada para comparação.";
 	}
 	
+	public void confirmarValores(){
+		this.dialogHeader = "Você Selecionou Os Seguintes Valores";
+		this.dialogValue = "Primeira Escola: " + nomePrimeiraEscola + "</br>" + "Segunda Escola: " + nomeSegundaEscola;
+		this.buttonValue = "Confirmar";
+		renderedConfirm = true;
+		renderedCancel = false;
+	}
+	
+	public void preencherTudo(){
+		this.dialogHeader = "Você Não Preencheu A Primeira Escola E/Ou A Segunda Escola";
+		this.dialogValue = "Você não selecionou o número de escolas suficientes para a pesquisa";
+		this.buttonValue = "Cancelar";
+		renderedConfirm = false;
+		renderedCancel = true;
+	}
 	
 	public void showDialog(){
 		RequestContext requestContext = RequestContext.getCurrentInstance();
 		requestContext.execute("PF('dlg2').show();");
+	}
+	
+	public void showDialogBusca(){
+		RequestContext requestContext = RequestContext.getCurrentInstance();
+		requestContext.execute("PF('dlg').show();");
+	}
+	
+
+	public boolean checaPrimeiraEscola(){
+		if(nomePrimeiraEscola == null || nomePrimeiraEscola.isEmpty()){			
+			return false;
+		}		
+		return true;
+	}
+	
+	public boolean checaSegundaEscola(){
+		if(nomeSegundaEscola == null || nomeSegundaEscola.isEmpty()){			
+			return false;
+		}		
+		return true;
+	}
+	
+	
+	public void checarNomes(){
+		if(!checaPrimeiraEscola() || !checaSegundaEscola()){			
+			preencherTudo();
+			showDialogBusca();
+		}
+		else{
+			confirmarValores();
+			showDialogBusca();
+		}
+				
 	}
 	
 	
@@ -135,14 +183,14 @@ public class BuscaAvancadaBean {
 		}
 		else if(checaSelecaoTaxa()){			
 			naoSelecionouTaxa();
-			showDialog();
-			
+			showDialog();			
 		}		
+		else{
+			
+		}
 	}
 	
-	
-
-	
+		
 	public void iniciaTaxas(){
 		//pegar valor do banco
 		TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
@@ -185,13 +233,27 @@ public class BuscaAvancadaBean {
 		this.escolas = escolas;
 	}
 
-	public String getNomeEscola() {
-		return nomeEscola;
+	
+
+	public String getNomePrimeiraEscola() {
+		return nomePrimeiraEscola;
 	}
 
-	public void setNomeEscola(String nomeEscola) {
-		this.nomeEscola = nomeEscola;
+
+	public void setNomePrimeiraEscola(String nomePrimeiraEscola) {
+		this.nomePrimeiraEscola = nomePrimeiraEscola;
 	}
+
+
+	public String getNomeSegundaEscola() {
+		return nomeSegundaEscola;
+	}
+
+
+	public void setNomeSegundaEscola(String nomeSegundaEscola) {
+		this.nomeSegundaEscola = nomeSegundaEscola;
+	}
+
 
 	public List<Escola> getEscolasSource() {
 		return escolasSource;
@@ -261,6 +323,36 @@ public class BuscaAvancadaBean {
 
 	public void setEscolasEscolha(DualListModel<Escola> escolasEscolha) {
 		this.escolasEscolha = escolasEscolha;
+	}
+
+
+	public String getButtonValue() {
+		return buttonValue;
+	}
+
+
+	public void setButtonValue(String buttonValue) {
+		this.buttonValue = buttonValue;
+	}
+
+
+	public boolean isRenderedConfirm() {
+		return renderedConfirm;
+	}
+
+
+	public void setRenderedConfirm(boolean renderedConfirm) {
+		this.renderedConfirm = renderedConfirm;
+	}
+
+
+	public boolean isRenderedCancel() {
+		return renderedCancel;
+	}
+
+
+	public void setRenderedCancel(boolean renderedCancel) {
+		this.renderedCancel = renderedCancel;
 	}
 
 

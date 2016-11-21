@@ -40,7 +40,7 @@ public class EscolaDAO {
 		}
 
 	}
-
+	
 	public List<Escola> listByName(String nome) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
@@ -49,6 +49,28 @@ public class EscolaDAO {
 			tx = session.beginTransaction();		
 			Query q = session.createQuery("from Escola e where e.escolaNome like :escolaNome");							
 			q.setString("escolaNome", "%"+nome+"%");			
+			List<Escola> lista = q.list();			
+			tx.commit();			
+			return lista;
+			
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}
+	}
+	
+	public List<Escola> listByNameOneNameTwo(String primeiraEscola, String segundaEscola) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		 
+		try {
+			tx = session.beginTransaction();		
+			Query q = session.createQuery("from Escola e where e.escolaNome like :primeiraEscola or e.escolaNome like :segundaEscola");							
+			q.setString("primeiraEscola", "%"+primeiraEscola+"%");
+			q.setString("segundaEscola", "%"+segundaEscola+"%");	
 			List<Escola> lista = q.list();			
 			tx.commit();			
 			return lista;

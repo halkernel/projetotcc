@@ -1,10 +1,10 @@
 package util;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import antlr.StringUtils;
 import entity.EscolaTaxa;
 import entity.TipoTaxa;
 
@@ -20,6 +20,14 @@ public class ConverteValor {
 	
 	public static <T> LinkedList<T> toLinkedList(List<T> list){
 		LinkedList<T> newList = new LinkedList<>();
+		for (T t : list) {
+			newList.add(t);
+		}
+		return newList;
+	}
+	
+	public static <T> ArrayList<T> toArrayList(List<T> list){
+		ArrayList<T> newList = new ArrayList<>();
 		for (T t : list) {
 			newList.add(t);
 		}

@@ -58,7 +58,7 @@ public class DetalheComparaEscolaBean {
 	
 	
 	
-	public  DetalheComparaEscolaBean() {
+	public DetalheComparaEscolaBean() {
 
 	}
 
