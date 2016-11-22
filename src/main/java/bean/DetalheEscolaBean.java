@@ -12,8 +12,10 @@ import org.primefaces.model.chart.BarChartModel;
 
 import dao.EscolaDAO;
 import dao.EscolaTaxaDAO;
+import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.EscolaTaxa;
+import entity.TipoTaxa;
 import model.CalculoEscola;
 import util.ConverteValor;
 import util.PegaValores;
@@ -39,6 +41,9 @@ public class DetalheEscolaBean {
 	private BarChartModel chartEnsinoMedio;
 	
 	private CalculoEscola calculoEscola;
+	private TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
+	private EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
+	private LinkedList<Escola> escolasColocacao = new LinkedList<Escola>();
     
 	
 	@PostConstruct
@@ -56,6 +61,39 @@ public class DetalheEscolaBean {
 		chartEducacaoInfantil = calculoEscola.calculaInfantil();
 		chartEnsinoFundamental = calculoEscola.calculaFundamental();
 		chartEnsinoMedio = calculoEscola.calculaMedio();
+		
+		initvalues();
+		
+	}
+	
+	public void initvalues(){
+		int indexOf = 0;
+		TipoTaxa tipoTaxa = tipoTaxaDao.listByName(taxa);
+		LinkedList<EscolaTaxa> taxasMunicipio = ConverteValor.toLinkedList(escolaTaxaDao.listByMunicipioAndTaxa(escola.getMunicipio().getId(), tipoTaxa.getId()));
+		for(int i = 0; i < taxasMunicipio.size(); i++){
+			escolasColocacao.add(taxasMunicipio.get(i).getEscola());
+		}
+		for(Escola e : escolasColocacao){
+			if(e.getEscolaNome().equals(escola.getEscolaNome())){
+				indexOf = escolasColocacao.indexOf(e);
+			}
+		}
+		LinkedList<Escola> escolasFinal = new LinkedList<>();
+		for(int i = indexOf; i < indexOf+3; i++){
+			escolasFinal.add(escolasColocacao.get(i));
+		}
+		escolasColocacao.clear();
+		escolasColocacao.addAll(escolasFinal);
+		
+	}
+	
+	public String indexOf(String esNome){
+		for (Escola escola : escolasColocacao) {
+			if(escola.getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacao.indexOf(escola) + 37).toString();
+			}
+		}
+		return null;
 	}
 			
 	public Escola getEscola() {
@@ -102,6 +140,15 @@ public class DetalheEscolaBean {
 	public void setTaxa(String taxa) {
 		this.taxa = taxa;
 	}
+
+	public LinkedList<Escola> getEscolasColocacao() {
+		return escolasColocacao;
+	}
+
+	public void setEscolasColocacao(LinkedList<Escola> escolasColocacao) {
+		this.escolasColocacao = escolasColocacao;
+	}
+	
 	
 	
 	

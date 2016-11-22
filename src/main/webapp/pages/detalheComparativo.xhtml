@@ -43,16 +43,41 @@
 										value="#{detalheComparaEscolaBean.dimensao}" />
 								</div>
 
-
-								<div class="detalhes">
-									<p:dataTable var="num"
-										value="#{detalheComparaEscolaBean.escolasColocacao}"
-										rowStyleClass="#{num.escolaNome eq 'nome' ? 'cor-escola' : null}">
-										<p:column headerText="Nº" class="width-posicao">
-											<h:outputText value="#{num.id}" />
+								<div class="detalhes"><p class="texto">Ranking Infantil:</p></div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheComparaEscolaBean.escolasColocacao}">
+										<p:column headerText="Nº" class="width-posicao"> 
+											<h:outputText value="#{detalheComparaEscolaBean.indexOf(es.escolaNome)}" />    
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{num.escolaNome}" />
+											<h:outputText value="#{es.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+								
+								<div class="detalhes"><p class="texto">Ranking Fundamental:</p></div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheComparaEscolaBean.escolasColocacao}">
+										<p:column headerText="Nº" class="width-posicao"> 
+											<h:outputText value="#{detalheComparaEscolaBean.indexOf(es.escolaNome)}" />    
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{es.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+								
+								<div class="detalhes"><p class="texto">Ranking Medio:</p></div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheComparaEscolaBean.escolasColocacao}">
+										<p:column headerText="Nº" class="width-posicao"> 
+											<h:outputText value="#{detalheComparaEscolaBean.indexOf(es.escolaNome)}" />    
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{es.escolaNome}" />
 										</p:column>
 									</p:dataTable>
 								</div>

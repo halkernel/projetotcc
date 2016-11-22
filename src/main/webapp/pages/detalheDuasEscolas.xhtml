@@ -1,13 +1,13 @@
 <!DOCTYPE xhtml>
-    <ui:composition template="/WEB-INF/partials/basic.xhtml"
-    xmlns="http://www.w3c.org/1999/xhtml"
+<ui:composition template="/WEB-INF/partials/basic.xhtml"
+	xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-        <ui:define name="conteudo">
-			<div class="ui-g padding-panel">
+	<ui:define name="conteudo">
+		<div class="ui-g padding-panel">
 			<div class="ui-g-2">
 				<p:layout styleClass="height-content">
 					<p:layoutUnit position="center"
@@ -15,30 +15,55 @@
 						<div class="search-elements">
 
 							<h:form>
-								<div class="detalhes"><p class="texto">PRIMEIRA ESCOLA</p></div>
 								<div class="detalhes">
-									
+									<p class="texto">PRIMEIRA ESCOLA</p>
+								</div>
+								<div class="detalhes">
+
 									<p class="texto">Nome:</p>
-									<h:outputText id="escolanome"
+									<h:outputText id="pescolanome"
 										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.escolaNome}" />
 									<p class="texto">Estado:</p>
-									<h:outputText id="escolaestado"
+									<h:outputText id="pescolaestado"
 										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.municipio.estado.estadoNome}" />
 									<p class="texto">Municipio:</p>
-									<h:outputText id="escolamunicipio"
+									<h:outputText id="pescolamunicipio"
 										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.municipio.municipioNome}" />
 									<p class="texto">Localização:</p>
-									<h:outputText id="escolalocalizacao"
+									<h:outputText id="pescolalocalizacao"
 										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.localizacao.localizacaoNome}" />
 									<p class="texto">Dependencia:</p>
-									<h:outputText id="escoladependencia"
+									<h:outputText id="pescoladependencia"
 										value="#{detalheComparaDuasEscolasBean.primeiraEscola.escola.dependencia.dependenciaNome}" />
 								</div>
 
 								<div class="detalhes">
+									<p class="texto">SEGUNDA ESCOLA</p>
+								</div>
+								<div class="detalhes">
+
+									<p class="texto">Nome:</p>
+									<h:outputText id="sescolanome"
+										value="#{detalheComparaDuasEscolasBean.segundaEscola.escola.escolaNome}" />
+									<p class="texto">Estado:</p>
+									<h:outputText id="sescolaestado"
+										value="#{detalheComparaDuasEscolasBean.segundaEscola.escola.municipio.estado.estadoNome}" />
+									<p class="texto">Municipio:</p>
+									<h:outputText id="sescolamunicipio"
+										value="#{detalheComparaDuasEscolasBean.segundaEscola.escola.municipio.municipioNome}" />
+									<p class="texto">Localização:</p>
+									<h:outputText id="sescolalocalizacao"
+										value="#{detalheComparaDuasEscolasBean.segundaEscola.escola.localizacao.localizacaoNome}" />
+									<p class="texto">Dependencia:</p>
+									<h:outputText id="sescoladependencia"
+										value="#{detalheComparaDuasEscolasBean.segundaEscola.escola.dependencia.dependenciaNome}" />
+
+								</div>
+
+								<div class="detalhes">
 									<p class="texto">Indicador Analisado:</p>
-									<h:outputText id="taxanome" 
-										value="#{detalheComparaDuasEscolasBean.taxa}" />									
+									<h:outputText id="taxanome"
+										value="#{detalheComparaDuasEscolasBean.taxa}" />
 								</div>
 
 							</h:form>
@@ -51,8 +76,27 @@
 					<p:layoutUnit position="center"
 						styleClass="height-content-indicadores">
 
-
-
+						<p:chart type="bar" 
+							model="#{detalheComparaDuasEscolasBean.chartEducacaoInfantil}"
+							style="width:1050px;height:205px;"
+							class="margin-top-chart padding-chart" widgetVar="infantil" />
+						<p:commandButton styleClass="align-button-export" type="button"
+							value="Exportar" icon="ui-icon-extlink"
+							onclick="exportChart('infantil')" />
+						<p:chart type="bar"
+							model="#{detalheComparaDuasEscolasBean.chartEnsinoFundamental}"
+							style="width:1050px;height:205px;"
+							class="margin-top-chart padding-chart" widgetVar="fundamental" />
+						<p:commandButton styleClass="align-button-export" type="button"
+							value="Exportar" icon="ui-icon-extlink"
+							onclick="exportChart('fundamental')" />
+						<p:chart type="bar"
+							model="#{detalheComparaDuasEscolasBean.chartEnsinoMedio}"
+							style="width:1050px;height:205px;"
+							class="margin-top-chart padding-chart" widgetVar="medio" />
+						<p:commandButton styleClass="align-button-export" type="button"
+							value="Exportar" icon="ui-icon-extlink"
+							onclick="exportChart('medio')" />
 
 
 					</p:layoutUnit>
@@ -66,5 +110,5 @@
 			</p:dialog>
 
 		</div>
-        </ui:define>	  
+	</ui:define>
 </ui:composition>

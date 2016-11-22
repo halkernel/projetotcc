@@ -12,8 +12,10 @@ import org.primefaces.model.chart.BarChartModel;
 
 import dao.EscolaDAO;
 import dao.EscolaTaxaDAO;
+import dao.TipoTaxaDAO;
 import entity.Escola;
 import entity.EscolaTaxa;
+import entity.TipoTaxa;
 import model.CalculoMunicipio;
 import util.ConverteValor;
 import util.PegaValores;
@@ -33,6 +35,8 @@ public class DetalheComparaEscolaBean {
 	private String dimensao; 
 
 	private EscolaDAO escolaDao = new EscolaDAO();
+	private EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
+	private TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
 
 	private CalculoMunicipio calculoMunicipio;
 
@@ -40,31 +44,16 @@ public class DetalheComparaEscolaBean {
 	private BarChartModel chartEnsinoFundamental;
 	private BarChartModel chartEnsinoMedio;
 	private LinkedList<Escola> escolasColocacao = new LinkedList<>();
-		
-	public void initvalues(){
-		
-		Escola e = new Escola();
-		e.setId(1);
-		e.setEscolaNome("nome");
-		escolasColocacao.add(e);
-		for(int i = 2; i < 15; i++){
-			e = new Escola();
-			e.setId(i);
-			e.setEscolaNome("casa");		
-			escolasColocacao.add(e);			
-		}
-		
-	}
-	
-	
-	
+
+
+
 	public DetalheComparaEscolaBean() {
 
 	}
 
 	@PostConstruct
 	public void init(){
-		initvalues();
+		
 	}
 
 
@@ -75,13 +64,13 @@ public class DetalheComparaEscolaBean {
 
 
 		idEscola = Integer.parseInt(PegaValores.getEscola(params));
-		
-		
+
+
 		dimensao = PegaValores.getDimensao(params);
 		dimensao = ConverteValor.removeAcento(dimensao);
-		
+
 		taxa = PegaValores.getTaxa(params);		
-		
+
 
 		escola = escolaDao.listById(idEscola);
 
@@ -98,8 +87,42 @@ public class DetalheComparaEscolaBean {
 		}else if (dimensao.equals("PAIS")){
 
 		}
+		
+		initvalues();
 
 	}
+
+
+	public void initvalues(){
+		int indexOf = 0;
+		TipoTaxa tipoTaxa = tipoTaxaDao.listByName(taxa);
+		LinkedList<EscolaTaxa> taxasMunicipio = ConverteValor.toLinkedList(escolaTaxaDao.listByMunicipioAndTaxa(escola.getMunicipio().getId(), tipoTaxa.getId()));
+		for(int i = 0; i < taxasMunicipio.size(); i++){
+			escolasColocacao.add(taxasMunicipio.get(i).getEscola());
+		}
+		for(Escola e : escolasColocacao){
+			if(e.getEscolaNome().equals(escola.getEscolaNome())){
+				indexOf = escolasColocacao.indexOf(e);
+			}
+		}
+		LinkedList<Escola> escolasFinal = new LinkedList<>();
+		for(int i = indexOf; i < indexOf+3; i++){
+			escolasFinal.add(escolasColocacao.get(i));
+		}
+		escolasColocacao.clear();
+		escolasColocacao.addAll(escolasFinal);
+		
+	}
+	
+	public String indexOf(String esNome){
+		for (Escola escola : escolasColocacao) {
+			if(escola.getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacao.indexOf(escola) + 37).toString();
+			}
+		}
+		return null;
+	}
+
 
 	public Escola getEscola() {
 		return escola;
@@ -178,7 +201,7 @@ public class DetalheComparaEscolaBean {
 
 
 
-	
-	
+
+
 
 }

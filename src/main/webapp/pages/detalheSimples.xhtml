@@ -38,6 +38,47 @@
 									<h:outputText id="taxanome" 
 										value="#{detalheEscolaBean.taxa}" />									
 								</div>
+								
+								<div class="detalhes"><p class="texto">Dimensão do Ranking: </p>MUNICÍPIO</div>
+								
+								<div class="detalhes"><p class="texto">Ranking Infantil:</p></div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheEscolaBean.escolasColocacao}">
+										<p:column headerText="Nº" class="width-posicao"> 
+											<h:outputText value="#{detalheEscolaBean.indexOf(es.escolaNome)}" />    
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{es.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+								
+								<div class="detalhes"><p class="texto">Ranking Fundamental:</p></div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheEscolaBean.escolasColocacao}">
+										<p:column headerText="Nº" class="width-posicao"> 
+											<h:outputText value="#{detalheEscolaBean.indexOf(es.escolaNome)}" />    
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{es.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+								
+								<div class="detalhes"><p class="texto">Ranking Medio:</p></div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheEscolaBean.escolasColocacao}"> 
+										<p:column headerText="Nº" class="width-posicao"> 
+											<h:outputText value="#{detalheEscolaBean.indexOf(es.escolaNome)}" />    
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{es.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
 
 							</h:form>
 						</div>

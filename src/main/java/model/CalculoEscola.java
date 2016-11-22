@@ -1,7 +1,5 @@
 package model;
 
-import java.util.LinkedList;
-
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
