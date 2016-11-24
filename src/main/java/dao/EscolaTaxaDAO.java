@@ -83,7 +83,8 @@ public class EscolaTaxaDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();			
-			Query q = session.createQuery("from EscolaTaxa as est inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id = :idMunicipio and est.tipoTaxa.id = :idTaxa");		
+//			Query q = session.createQuery("from EscolaTaxa as est inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id = :idMunicipio and est.tipoTaxa.id = :idTaxa");
+			Query q = session.createQuery("from EscolaTaxa as est  WHERE est.escola.municipio.id = :idMunicipio and est.tipoTaxa.id = :idTaxa");
 			//inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id in :id");
 			q.setParameter("idMunicipio", id_municipio);
 			q.setParameter("idTaxa", id_taxa);

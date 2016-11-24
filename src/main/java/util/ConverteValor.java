@@ -5,27 +5,26 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import entity.Escola;
 import entity.EscolaTaxa;
 import entity.TipoTaxa;
 
 public class ConverteValor {
-	
-	
-		
+
+
+
 	public static String removeAcento(String st){
 		st = Normalizer.normalize(st,Normalizer.Form.NFD);
 		st = st.replaceAll("[^\\p{ASCII}]", "");
 		return st;		
 	}
-	
+
 	public static <T> LinkedList<T> toLinkedList(List<T> list){
 		LinkedList<T> newList = new LinkedList<>();
-		for (T t : list) {
-			newList.add(t);
-		}
+		newList.addAll(list);
 		return newList;
 	}
-	
+
 	public static <T> ArrayList<T> toArrayList(List<T> list){
 		ArrayList<T> newList = new ArrayList<>();
 		for (T t : list) {
@@ -33,21 +32,21 @@ public class ConverteValor {
 		}
 		return newList;
 	}
-	
 
 
-    public static String captalize(String s) {            
-    		String words[] = s.split(" ");
-            String nString = "";
-            for (String w : words) {
-            	String value = w.toUpperCase().replace(w.substring(1), w.substring(1).toLowerCase());
-            	nString += " " + value;
-            }           
-            return nString;
-    }
 
-	
-	
+	public static String captalize(String s) {            
+		String words[] = s.split(" ");
+		String nString = "";
+		for (String w : words) {
+			String value = w.toUpperCase().replace(w.substring(1), w.substring(1).toLowerCase());
+			nString += " " + value;
+		}           
+		return nString;
+	}
+
+
+
 	public static EscolaTaxa converteEscolaTaxa(LinkedList<EscolaTaxa> escolaTaxaList, String dimensao){
 		EscolaTaxa escolaTaxa = new EscolaTaxa();
 		for (EscolaTaxa iterator : escolaTaxaList) {
@@ -73,7 +72,7 @@ public class ConverteValor {
 			escolaTaxa.setMedioNaoSeriado(escolaTaxa.getMedioNaoSeriado() + iterator.getMedioNaoSeriado());
 			escolaTaxa.setTotalMedio(escolaTaxa.getTotalMedio() + iterator.getTotalMedio());									
 		}
-		
+
 		escolaTaxa.setCreche(escolaTaxa.getCreche()/escolaTaxaList.size());
 		escolaTaxa.setPreEscola(escolaTaxa.getPreEscola()/escolaTaxaList.size());
 		escolaTaxa.setTotalInfantil(escolaTaxa.getTotalFundamental()/escolaTaxaList.size());			
@@ -95,13 +94,53 @@ public class ConverteValor {
 		escolaTaxa.setQuartoAnoMedio(escolaTaxa.getQuartoAnoMedio() /escolaTaxaList.size());			
 		escolaTaxa.setMedioNaoSeriado(escolaTaxa.getMedioNaoSeriado()/escolaTaxaList.size());
 		escolaTaxa.setTotalMedio(escolaTaxa.getTotalMedio() /escolaTaxaList.size());
-		
+
 		escolaTaxa.setTipoTaxa(new TipoTaxa());
 		escolaTaxa.getTipoTaxa().setTaxaNome(captalize(dimensao));
-		
-		
-		
+
+
+
 		return escolaTaxa; 
+	}
+
+	public static Double divisao(Double valores, int n){
+		return valores/n;
+	}
+
+	public static List<EscolaTaxa> mediaDeCadaNivel(List<EscolaTaxa> taxas){
+		List<EscolaTaxa> taxasConvertidas = new LinkedList<>();
+		List<EscolaTaxa> taxasConverter = taxas;
+
+		EscolaTaxa escolaConversao;
+		for (EscolaTaxa iterator : taxasConverter) {
+			escolaConversao = new EscolaTaxa();			
+			escolaConversao.setEscola(iterator.getEscola());
+			escolaConversao.setTotalInfantil(iterator.getCreche() + iterator.getPreEscola());
+			escolaConversao.setTotalFundamental(iterator.getPrimeiroAnoFundamental() + iterator.getSegundoAnoFundamental() + iterator.getTerceiroAnoFundamental());
+			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getQuartoAnoFundamental() + iterator.getQuintoAnoFundamental());
+			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getSextoAnoFundamental() + iterator.getSetimoAnoFundamental());
+			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getOitavoAnoFundamental() + iterator.getNonoAnoFundamental());
+			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getTurmasUnificadas());
+			escolaConversao.setTotalMedio(iterator.getPrimeiroAnoMedio() + iterator.getSegundoAnoMedio() + iterator.getTerceiroAnoMedio());
+			escolaConversao.setTotalMedio(escolaConversao.getTotalMedio() + iterator.getQuartoAnoMedio());
+
+			//faz a media pra calcular o ranking depois
+			
+			escolaConversao.setTotalInfantil(divisao(escolaConversao.getTotalInfantil(), 2));
+			if(!(escolaConversao.getTurmasUnificadas() == 0.0))
+				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 10));
+			else
+				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 9));
+			if(!(escolaConversao.getQuartoAnoMedio() == 0.0))
+				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 4));
+			else
+				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 3));
+			
+			taxasConvertidas.add(escolaConversao);
+		}
+
+
+		return taxasConvertidas;
 	}
 
 }

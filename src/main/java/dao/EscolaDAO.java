@@ -103,15 +103,15 @@ public class EscolaDAO {
 			session.clear();
 			session.close();
 		}
-	}
+	}	
 	
-	public List<Escola> listEscolasMunicipioJoin(int id){
+	public List<Escola> listByList(List<Integer> values){
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;				
 		try {
 			tx = session.beginTransaction();			
-			Query q = session.createQuery("from Escola as esc inner join fetch esc.escolaTaxas as est where esc.id = 45934 and est.tipoTaxa.id in(1,2)");		
-			//q.setParameter("id",id);
+			Query q = session.createQuery("select esc.escolaNome from Escola as esc where esc.id in (:valuesList)");		
+			q.setParameterList("valuesList", values);
 			List<Escola> escolas = q.list();				
 			tx.commit();			
 			return escolas;
@@ -124,5 +124,7 @@ public class EscolaDAO {
 			session.close();
 		}	
 	}
+	
+	
 	
 }

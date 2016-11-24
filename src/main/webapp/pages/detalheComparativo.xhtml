@@ -43,41 +43,34 @@
 										value="#{detalheComparaEscolaBean.dimensao}" />
 								</div>
 
-								<div class="detalhes"><p class="texto">Ranking Infantil:</p></div>
+								<div class="detalhes">
+									<p class="texto">Ranking Infantil:</p>
+								</div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheComparaEscolaBean.escolasColocacao}">
-										<p:column headerText="Nº" class="width-posicao"> 
-											<h:outputText value="#{detalheComparaEscolaBean.indexOf(es.escolaNome)}" />    
+										value="#{detalheComparaEscolaBean.escolasColocacaoInfantil}">
+										<p:column headerText="Nº" class="width-posicao">
+											<h:outputText
+												value="#{detalheComparaEscolaBean.indexOfInfantil(es.escola.escolaNome)}" />
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{es.escolaNome}" />
+											<h:outputText value="#{es.escola.escolaNome}" />
 										</p:column>
 									</p:dataTable>
 								</div>
 								
-								<div class="detalhes"><p class="texto">Ranking Fundamental:</p></div>
-								<div class="margin-top-rank">
-									<p:dataTable var="es"
-										value="#{detalheComparaEscolaBean.escolasColocacao}">
-										<p:column headerText="Nº" class="width-posicao"> 
-											<h:outputText value="#{detalheComparaEscolaBean.indexOf(es.escolaNome)}" />    
-										</p:column>
-										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{es.escolaNome}" />
-										</p:column>
-									</p:dataTable>
+								<div class="detalhes">
+									<p class="texto">Ranking Fundamental:</p>
 								</div>
-								
-								<div class="detalhes"><p class="texto">Ranking Medio:</p></div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheComparaEscolaBean.escolasColocacao}">
-										<p:column headerText="Nº" class="width-posicao"> 
-											<h:outputText value="#{detalheComparaEscolaBean.indexOf(es.escolaNome)}" />    
+										value="#{detalheComparaEscolaBean.escolasColocacaoFundamental}">
+										<p:column headerText="Nº" class="width-posicao">
+											<h:outputText
+												value="#{detalheComparaEscolaBean.indexOfFundamental(es.escola.escolaNome)}" />
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{es.escolaNome}" />
+											<h:outputText value="#{es.escola.escolaNome}" />
 										</p:column>
 									</p:dataTable>
 								</div>
