@@ -52,7 +52,7 @@ public class ConverteValor {
 		for (EscolaTaxa iterator : escolaTaxaList) {
 			escolaTaxa.setCreche(escolaTaxa.getCreche() + iterator.getCreche());
 			escolaTaxa.setPreEscola(escolaTaxa.getPreEscola()+ iterator.getPreEscola());
-			escolaTaxa.setTotalInfantil(escolaTaxa.getTotalFundamental() + iterator.getTotalInfantil());			
+			escolaTaxa.setTotalInfantil(escolaTaxa.getTotalInfantil() + iterator.getTotalInfantil());			
 			escolaTaxa.setPrimeiroAoQuinto(escolaTaxa.getPrimeiroAoQuinto() + iterator.getPrimeiroAoQuinto());
 			escolaTaxa.setSextoAoNono(escolaTaxa.getSextoAoNono() + iterator.getSextoAoNono());
 			escolaTaxa.setPrimeiroAnoFundamental(escolaTaxa.getPrimeiroAnoFundamental()+iterator.getPrimeiroAnoFundamental());
@@ -75,7 +75,8 @@ public class ConverteValor {
 
 		escolaTaxa.setCreche(escolaTaxa.getCreche()/escolaTaxaList.size());
 		escolaTaxa.setPreEscola(escolaTaxa.getPreEscola()/escolaTaxaList.size());
-		escolaTaxa.setTotalInfantil(escolaTaxa.getTotalFundamental()/escolaTaxaList.size());			
+		escolaTaxa.setTotalInfantil(escolaTaxa.getTotalInfantil()/escolaTaxaList.size());		
+		
 		escolaTaxa.setPrimeiroAoQuinto(escolaTaxa.getPrimeiroAoQuinto()/escolaTaxaList.size());
 		escolaTaxa.setSextoAoNono(escolaTaxa.getSextoAoNono()/escolaTaxaList.size());
 		escolaTaxa.setPrimeiroAnoFundamental(escolaTaxa.getPrimeiroAnoFundamental()/escolaTaxaList.size());
@@ -87,13 +88,14 @@ public class ConverteValor {
 		escolaTaxa.setSetimoAnoFundamental(escolaTaxa.getSetimoAnoFundamental() /escolaTaxaList.size());
 		escolaTaxa.setOitavoAnoFundamental(escolaTaxa.getOitavoAnoFundamental()/escolaTaxaList.size());
 		escolaTaxa.setNonoAnoFundamental(escolaTaxa.getNonoAnoFundamental() /escolaTaxaList.size());
+		
 		escolaTaxa.setTotalFundamental(escolaTaxa.getTotalFundamental() /escolaTaxaList.size());			
 		escolaTaxa.setPrimeiroAnoMedio(escolaTaxa.getPrimeiroAnoMedio()/escolaTaxaList.size());
 		escolaTaxa.setSegundoAnoMedio(escolaTaxa.getSegundoAnoMedio() /escolaTaxaList.size());
 		escolaTaxa.setTerceiroAnoMedio(escolaTaxa.getTerceiroAnoMedio() /escolaTaxaList.size());
 		escolaTaxa.setQuartoAnoMedio(escolaTaxa.getQuartoAnoMedio() /escolaTaxaList.size());			
 		escolaTaxa.setMedioNaoSeriado(escolaTaxa.getMedioNaoSeriado()/escolaTaxaList.size());
-		escolaTaxa.setTotalMedio(escolaTaxa.getTotalMedio() /escolaTaxaList.size());
+				escolaTaxa.setTotalMedio(escolaTaxa.getTotalMedio() /escolaTaxaList.size());
 
 		escolaTaxa.setTipoTaxa(new TipoTaxa());
 		escolaTaxa.getTipoTaxa().setTaxaNome(captalize(dimensao));

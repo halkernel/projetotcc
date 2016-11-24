@@ -113,18 +113,16 @@ public class DetalheComparaEscolaBean {
 
 		escolasColocacaoInfantil = ranking.getColocacaoInfantil();
 		escolasColocacaoFundamental = ranking.getColocacaoFundamental();
-		escolasColocacaoMedio = ranking.getColocacaoMedio();
+		escolasColocacaoMedio = ranking.getColocacaoMedio();	
 		
-
 		escolasColocacaoInfantil = ajustaLista(escolasColocacaoInfantil);
 		escolasColocacaoFundamental = ajustaLista(escolasColocacaoFundamental);
 		escolasColocacaoMedio = ajustaLista(escolasColocacaoMedio);
-		
+				
 		escolasColocacaoInfantil = sublist(escolasColocacaoInfantil, escola.getEscolaNome());
 		escolasColocacaoFundamental = sublist(escolasColocacaoFundamental, escola.getEscolaNome());
 		escolasColocacaoMedio = sublist(escolasColocacaoMedio, escola.getEscolaNome());
 		
-	
 		
 	}
 

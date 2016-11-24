@@ -44,12 +44,12 @@
 								<div class="detalhes"><p class="texto">Ranking Infantil:</p></div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheEscolaBean.escolasColocacao}">
+										value="#{detalheEscolaBean.escolasColocacaoInfantil}" rows="3">
 										<p:column headerText="Nº" class="width-posicao"> 
-											<h:outputText value="#{detalheEscolaBean.indexOf(es.escolaNome)}" />    
+											<h:outputText value="#{detalheEscolaBean.indexOfInfantil(es.escola.escolaNome)}" />    
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{es.escolaNome}" />
+											<h:outputText value="#{es.escola.escolaNome}" />
 										</p:column>
 									</p:dataTable>
 								</div>
@@ -57,12 +57,12 @@
 								<div class="detalhes"><p class="texto">Ranking Fundamental:</p></div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheEscolaBean.escolasColocacao}">
+										value="#{detalheEscolaBean.escolasColocacaoFundamental}" rows="3">
 										<p:column headerText="Nº" class="width-posicao"> 
-											<h:outputText value="#{detalheEscolaBean.indexOf(es.escolaNome)}" />    
+											<h:outputText value="#{detalheEscolaBean.indexOfFundamental(es.escola.escolaNome)}" />    
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{es.escolaNome}" />
+											<h:outputText value="#{es.escola.escolaNome}" />
 										</p:column>
 									</p:dataTable>
 								</div>
@@ -70,12 +70,12 @@
 								<div class="detalhes"><p class="texto">Ranking Medio:</p></div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheEscolaBean.escolasColocacao}"> 
+										value="#{detalheEscolaBean.escolasColocacaoMedio}" rows="3"> 
 										<p:column headerText="Nº" class="width-posicao"> 
-											<h:outputText value="#{detalheEscolaBean.indexOf(es.escolaNome)}" />    
+											<h:outputText value="#{detalheEscolaBean.indexOfMedio(es.escola.escolaNome)}" />    
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
-											<h:outputText value="#{es.escolaNome}" />
+											<h:outputText value="#{es.escola.escolaNome}" />
 										</p:column>
 									</p:dataTable>
 								</div>

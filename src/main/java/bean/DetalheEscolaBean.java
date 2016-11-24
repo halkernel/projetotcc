@@ -1,6 +1,7 @@
 package bean;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import entity.Escola;
 import entity.EscolaTaxa;
 import entity.TipoTaxa;
 import model.CalculoEscola;
+import model.CalculoRanking;
 import util.ConverteValor;
 import util.PegaValores;
 
@@ -43,7 +45,11 @@ public class DetalheEscolaBean {
 	private CalculoEscola calculoEscola;
 	private TipoTaxaDAO tipoTaxaDao = new TipoTaxaDAO();
 	private EscolaTaxaDAO escolaTaxaDao = new EscolaTaxaDAO();
-	private LinkedList<Escola> escolasColocacao = new LinkedList<Escola>();
+	
+	private List<EscolaTaxa> escolasColocacaoInfantil;
+	private List<EscolaTaxa> escolasColocacaoFundamental;
+	private List<EscolaTaxa> escolasColocacaoMedio;
+	private CalculoRanking ranking;;
     
 	
 	@PostConstruct
@@ -70,30 +76,69 @@ public class DetalheEscolaBean {
 		int indexOf = 0;
 		TipoTaxa tipoTaxa = tipoTaxaDao.listByName(taxa);
 		LinkedList<EscolaTaxa> taxasMunicipio = ConverteValor.toLinkedList(escolaTaxaDao.listByMunicipioAndTaxa(escola.getMunicipio().getId(), tipoTaxa.getId()));
-		for(int i = 0; i < taxasMunicipio.size(); i++){
-			escolasColocacao.add(taxasMunicipio.get(i).getEscola());
-		}
-		for(Escola e : escolasColocacao){
-			if(e.getEscolaNome().equals(escola.getEscolaNome())){
-				indexOf = escolasColocacao.indexOf(e);
-			}
-		}
-		LinkedList<Escola> escolasFinal = new LinkedList<>();
-		for(int i = indexOf; i < indexOf+3; i++){
-			escolasFinal.add(escolasColocacao.get(i));
-		}
-		escolasColocacao.clear();
-		escolasColocacao.addAll(escolasFinal);
+		ranking = new CalculoRanking(taxasMunicipio);
+		ranking.criaRankingInfantil();
+		ranking.criaRankingFundamental();
+		ranking.criaRankingMedio();
+
+		escolasColocacaoInfantil = ranking.getColocacaoInfantil();
+		escolasColocacaoFundamental = ranking.getColocacaoFundamental();
+		escolasColocacaoMedio = ranking.getColocacaoMedio();
+		
+
+		escolasColocacaoInfantil = ajustaLista(escolasColocacaoInfantil);
+		escolasColocacaoFundamental = ajustaLista(escolasColocacaoFundamental);
+		escolasColocacaoMedio = ajustaLista(escolasColocacaoMedio);
+		
+		escolasColocacaoInfantil = sublist(escolasColocacaoInfantil, escola.getEscolaNome());
+		escolasColocacaoFundamental = sublist(escolasColocacaoFundamental, escola.getEscolaNome());
+		escolasColocacaoMedio = sublist(escolasColocacaoMedio, escola.getEscolaNome());
 		
 	}
 	
-	public String indexOf(String esNome){
-		for (Escola escola : escolasColocacao) {
-			if(escola.getEscolaNome().equals(esNome)){
-				return new Integer(escolasColocacao.indexOf(escola) + 37).toString();
+	public String indexOfInfantil(String esNome){
+		for(int i = 0; i < escolasColocacaoInfantil.size(); i++){
+			if(escolasColocacaoInfantil.get(i).getEscola().getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacaoInfantil.get(i).getId()).toString();
 			}
 		}
-		return null;
+		return "0";
+	}
+
+	public String indexOfFundamental(String esNome){
+		for(int i = 0; i < escolasColocacaoFundamental.size(); i++){
+			if(escolasColocacaoFundamental.get(i).getEscola().getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacaoFundamental.get(i).getId()).toString();
+			}
+		}
+		return "0";
+	}
+
+	public String indexOfMedio(String esNome){
+		for(int i = 0; i < escolasColocacaoMedio.size(); i++){
+			if(escolasColocacaoMedio.get(i).getEscola().getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacaoMedio.get(i).getId()).toString();
+			}
+		}
+		return "0";
+	}
+
+	public List<EscolaTaxa> ajustaLista(List<EscolaTaxa> listaAjuste){
+		List<EscolaTaxa> estmp = new LinkedList<>();
+		for (int i = 0;  i < listaAjuste.size(); i++) {			
+			listaAjuste.get(i).setId(i+1);
+			estmp.add(listaAjuste.get(i));			
+		}		
+		return estmp;
+	}
+	
+	public List<EscolaTaxa> sublist(List<EscolaTaxa> list, String nome){
+		for (EscolaTaxa escolaTaxa : list) {
+			if(escolaTaxa.getEscola().getEscolaNome().equals(nome)){
+				return list.subList(list.indexOf(escolaTaxa), list.size());
+			}
+		}
+		return list;
 	}
 			
 	public Escola getEscola() {
@@ -141,14 +186,31 @@ public class DetalheEscolaBean {
 		this.taxa = taxa;
 	}
 
-	public LinkedList<Escola> getEscolasColocacao() {
-		return escolasColocacao;
+	public List<EscolaTaxa> getEscolasColocacaoInfantil() {
+		return escolasColocacaoInfantil;
 	}
 
-	public void setEscolasColocacao(LinkedList<Escola> escolasColocacao) {
-		this.escolasColocacao = escolasColocacao;
+	public void setEscolasColocacaoInfantil(List<EscolaTaxa> escolasColocacaoInfantil) {
+		this.escolasColocacaoInfantil = escolasColocacaoInfantil;
 	}
-	
+
+	public List<EscolaTaxa> getEscolasColocacaoFundamental() {
+		return escolasColocacaoFundamental;
+	}
+
+	public void setEscolasColocacaoFundamental(List<EscolaTaxa> escolasColocacaoFundamental) {
+		this.escolasColocacaoFundamental = escolasColocacaoFundamental;
+	}
+
+	public List<EscolaTaxa> getEscolasColocacaoMedio() {
+		return escolasColocacaoMedio;
+	}
+
+	public void setEscolasColocacaoMedio(List<EscolaTaxa> escolasColocacaoMedio) {
+		this.escolasColocacaoMedio = escolasColocacaoMedio;
+	}
+
+
 	
 	
 	
