@@ -20,11 +20,11 @@ public class CalculoRanking {
 
 
 	public void criaRankingInfantil(){
-		colocacaoInfantil = ConverteValor.mediaDeCadaNivel(colocacaoInfantil);		
+		colocacaoInfantil = ConverteValor.mediaInfantil(colocacaoInfantil);		
 		Collections.sort(colocacaoInfantil, new Comparator<EscolaTaxa>() {
 
 			@Override
-			public int compare(EscolaTaxa o1, EscolaTaxa o2) {
+			public int compare(EscolaTaxa o1, EscolaTaxa o2) {				
 				if (o1.getTotalInfantil() > o2.getTotalInfantil()) {
 					return 1;
 				} else if (o1.getTotalInfantil() < o2.getTotalInfantil()) {
@@ -37,11 +37,11 @@ public class CalculoRanking {
 	}
 
 	public void criaRankingFundamental(){
-		colocacaoFundamental = ConverteValor.mediaDeCadaNivel(colocacaoFundamental);
+		colocacaoFundamental = ConverteValor.mediaFundamental(colocacaoFundamental);
 		Collections.sort(colocacaoFundamental, new Comparator<EscolaTaxa>() {
 
 			@Override
-			public int compare(EscolaTaxa o1, EscolaTaxa o2) {
+			public int compare(EscolaTaxa o1, EscolaTaxa o2) {				
 				if (o1.getTotalFundamental() > o2.getTotalFundamental()) {
 					return 1;
 				} else if (o1.getTotalFundamental() < o2.getTotalFundamental()) {
@@ -54,7 +54,7 @@ public class CalculoRanking {
 	}
 
 	public void criaRankingMedio(){
-		colocacaoMedio = ConverteValor.mediaDeCadaNivel(colocacaoMedio);
+		colocacaoMedio = ConverteValor.mediaMedio(colocacaoMedio);
 		Collections.sort(colocacaoMedio, new Comparator<EscolaTaxa>() {
 
 			@Override
@@ -63,7 +63,7 @@ public class CalculoRanking {
 					return 1;
 				} else if (o1.getTotalMedio() < o2.getTotalMedio()) {
 					return -1;
-				}  
+				}  				
 				return 0;
 			}
 

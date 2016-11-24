@@ -48,7 +48,7 @@
 								</div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheComparaEscolaBean.escolasColocacaoInfantil}">
+										value="#{detalheComparaEscolaBean.escolasColocacaoInfantil}" rows="3">
 										<p:column headerText="Nº" class="width-posicao">
 											<h:outputText
 												value="#{detalheComparaEscolaBean.indexOfInfantil(es.escola.escolaNome)}" />
@@ -64,10 +64,26 @@
 								</div>
 								<div class="margin-top-rank">
 									<p:dataTable var="es"
-										value="#{detalheComparaEscolaBean.escolasColocacaoFundamental}">
+										value="#{detalheComparaEscolaBean.escolasColocacaoFundamental}" rows="3">
 										<p:column headerText="Nº" class="width-posicao">
 											<h:outputText
 												value="#{detalheComparaEscolaBean.indexOfFundamental(es.escola.escolaNome)}" />
+										</p:column>
+										<p:column headerText="Nome" class="width-nome">
+											<h:outputText value="#{es.escola.escolaNome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+								
+								<div class="detalhes">
+									<p class="texto">Ranking Médio:</p>
+								</div>
+								<div class="margin-top-rank">
+									<p:dataTable var="es"
+										value="#{detalheComparaEscolaBean.escolasColocacaoMedio}" rows="3" >
+										<p:column headerText="Nº" class="width-posicao">
+											<h:outputText
+												value="#{detalheComparaEscolaBean.indexOfMedio(es.escola.escolaNome)}" />
 										</p:column>
 										<p:column headerText="Nome" class="width-nome">
 											<h:outputText value="#{es.escola.escolaNome}" />

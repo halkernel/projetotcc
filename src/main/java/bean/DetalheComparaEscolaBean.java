@@ -49,7 +49,7 @@ public class DetalheComparaEscolaBean {
 	private List<EscolaTaxa> escolasColocacaoInfantil;
 	private List<EscolaTaxa> escolasColocacaoFundamental;
 	private List<EscolaTaxa> escolasColocacaoMedio;
-	
+
 
 
 	private CalculoRanking ranking;;
@@ -115,9 +115,17 @@ public class DetalheComparaEscolaBean {
 		escolasColocacaoFundamental = ranking.getColocacaoFundamental();
 		escolasColocacaoMedio = ranking.getColocacaoMedio();
 		
-		escolasColocacaoInfantil = ajustaLista(escola.getEscolaNome(), escolasColocacaoInfantil);
-		escolasColocacaoFundamental = ajustaLista(escola.getEscolaNome(), escolasColocacaoFundamental);
-		escolasColocacaoMedio = ajustaLista(escola.getEscolaNome(), escolasColocacaoMedio);
+
+		escolasColocacaoInfantil = ajustaLista(escolasColocacaoInfantil);
+		escolasColocacaoFundamental = ajustaLista(escolasColocacaoFundamental);
+		escolasColocacaoMedio = ajustaLista(escolasColocacaoMedio);
+		
+		escolasColocacaoInfantil = sublist(escolasColocacaoInfantil, escola.getEscolaNome());
+		escolasColocacaoFundamental = sublist(escolasColocacaoFundamental, escola.getEscolaNome());
+		escolasColocacaoMedio = sublist(escolasColocacaoMedio, escola.getEscolaNome());
+		
+	
+		
 	}
 
 	public String indexOfInfantil(String esNome){
@@ -126,41 +134,44 @@ public class DetalheComparaEscolaBean {
 				return new Integer(escolasColocacaoInfantil.get(i).getId()).toString();
 			}
 		}
-		return null;
-	}
-	
-	public List<EscolaTaxa> ajustaLista(String esNome, List<EscolaTaxa> listaAjuste){
-		List<EscolaTaxa> estmp = new LinkedList<>();
-		for (int i = 0;  i < listaAjuste.size(); i++) {
-			if(listaAjuste.get(i).getEscola().getEscolaNome().equals(esNome)){
-				for(int j = i; j < i + 3; j++){
-					listaAjuste.get(j).setId(j+1);
-					estmp.add(listaAjuste.get(j));					
-				}
-				return estmp;
-			}
-		}		
-		return null;
+		return "0";
 	}
 
 	public String indexOfFundamental(String esNome){
-		for (EscolaTaxa est : escolasColocacaoFundamental) {
-			if(est.getEscola().getEscolaNome().equals(esNome)){
-				return new Integer(escolasColocacaoFundamental.indexOf(est)).toString();
+		for(int i = 0; i < escolasColocacaoFundamental.size(); i++){
+			if(escolasColocacaoFundamental.get(i).getEscola().getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacaoFundamental.get(i).getId()).toString();
 			}
 		}
-		return null;
+		return "0";
 	}
 
 	public String indexOfMedio(String esNome){
-		for (EscolaTaxa est : escolasColocacaoMedio) {
-			if(est.getEscola().getEscolaNome().equals(esNome)){
-				return new Integer(escolasColocacaoMedio.indexOf(est)).toString();
+		for(int i = 0; i < escolasColocacaoMedio.size(); i++){
+			if(escolasColocacaoMedio.get(i).getEscola().getEscolaNome().equals(esNome)){
+				return new Integer(escolasColocacaoMedio.get(i).getId()).toString();
 			}
 		}
-		return null;
+		return "0";
 	}
 
+	public List<EscolaTaxa> ajustaLista(List<EscolaTaxa> listaAjuste){
+		List<EscolaTaxa> estmp = new LinkedList<>();
+		for (int i = 0;  i < listaAjuste.size(); i++) {			
+			listaAjuste.get(i).setId(i+1);
+			estmp.add(listaAjuste.get(i));			
+		}		
+		return estmp;
+	}
+	
+	public List<EscolaTaxa> sublist(List<EscolaTaxa> list, String nome){
+		for (EscolaTaxa escolaTaxa : list) {
+			if(escolaTaxa.getEscola().getEscolaNome().equals(nome)){
+				return list.subList(list.indexOf(escolaTaxa), list.size());
+			}
+		}
+		return list;
+	}
 
 	public Escola getEscola() {
 		return escola;

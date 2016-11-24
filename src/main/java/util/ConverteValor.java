@@ -107,7 +107,7 @@ public class ConverteValor {
 		return valores/n;
 	}
 
-	public static List<EscolaTaxa> mediaDeCadaNivel(List<EscolaTaxa> taxas){
+	public static List<EscolaTaxa> mediaMedio(List<EscolaTaxa> taxas){
 		List<EscolaTaxa> taxasConvertidas = new LinkedList<>();
 		List<EscolaTaxa> taxasConverter = taxas;
 
@@ -115,32 +115,68 @@ public class ConverteValor {
 		for (EscolaTaxa iterator : taxasConverter) {
 			escolaConversao = new EscolaTaxa();			
 			escolaConversao.setEscola(iterator.getEscola());
-			escolaConversao.setTotalInfantil(iterator.getCreche() + iterator.getPreEscola());
+			escolaConversao.setTotalMedio(iterator.getPrimeiroAnoMedio() + iterator.getSegundoAnoMedio() + iterator.getTerceiroAnoMedio());
+			escolaConversao.setTotalMedio(escolaConversao.getTotalMedio() + iterator.getQuartoAnoMedio());
+			if(escolaConversao.getQuartoAnoMedio() == 0.0){
+				escolaConversao.setTotalMedio(divisao(escolaConversao.getTotalMedio(), 3));
+			}
+			else
+				escolaConversao.setTotalMedio(divisao(escolaConversao.getTotalMedio(), 4));
+			if(!(escolaConversao.getTotalMedio().isInfinite() || escolaConversao.getTotalMedio().isNaN() || escolaConversao.getTotalMedio() == 0.0)){
+				taxasConvertidas.add(escolaConversao);
+			}
+		}
+		return taxasConvertidas;
+	}
+
+	public static List<EscolaTaxa> mediaFundamental(List<EscolaTaxa> taxas){
+		List<EscolaTaxa> taxasConvertidas = new LinkedList<>();
+		List<EscolaTaxa> taxasConverter = taxas;
+
+		EscolaTaxa escolaConversao;
+		for (EscolaTaxa iterator : taxasConverter) {
+			escolaConversao = new EscolaTaxa();			
+			escolaConversao.setEscola(iterator.getEscola());
 			escolaConversao.setTotalFundamental(iterator.getPrimeiroAnoFundamental() + iterator.getSegundoAnoFundamental() + iterator.getTerceiroAnoFundamental());
 			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getQuartoAnoFundamental() + iterator.getQuintoAnoFundamental());
 			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getSextoAnoFundamental() + iterator.getSetimoAnoFundamental());
 			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getOitavoAnoFundamental() + iterator.getNonoAnoFundamental());
 			escolaConversao.setTotalFundamental(iterator.getTotalFundamental() + iterator.getTurmasUnificadas());
-			escolaConversao.setTotalMedio(iterator.getPrimeiroAnoMedio() + iterator.getSegundoAnoMedio() + iterator.getTerceiroAnoMedio());
-			escolaConversao.setTotalMedio(escolaConversao.getTotalMedio() + iterator.getQuartoAnoMedio());
-
-			//faz a media pra calcular o ranking depois
-			
-			escolaConversao.setTotalInfantil(divisao(escolaConversao.getTotalInfantil(), 2));
-			if(!(escolaConversao.getTurmasUnificadas() == 0.0))
+			if(escolaConversao.getTurmasUnificadas() == 0.0){
 				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 10));
-			else
+			}
+			else{
 				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 9));
-			if(!(escolaConversao.getQuartoAnoMedio() == 0.0))
-				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 4));
-			else
-				escolaConversao.setTotalFundamental(divisao(escolaConversao.getTotalFundamental(), 3));
-			
-			taxasConvertidas.add(escolaConversao);
+			}
+			if(!(escolaConversao.getTotalFundamental().isInfinite() || escolaConversao.getTotalFundamental().isNaN() || escolaConversao.getTotalFundamental() == 0.0)){
+				taxasConvertidas.add(escolaConversao);
+			}
 		}
-
-
 		return taxasConvertidas;
 	}
+
+	public static List<EscolaTaxa> mediaInfantil(List<EscolaTaxa> taxas){
+		List<EscolaTaxa> taxasConvertidas = new LinkedList<>();
+		List<EscolaTaxa> taxasConverter = taxas;
+
+		EscolaTaxa escolaConversao;
+		for (EscolaTaxa iterator : taxasConverter) {
+			escolaConversao = new EscolaTaxa();			
+			escolaConversao.setEscola(iterator.getEscola());
+			escolaConversao.setTotalInfantil(iterator.getCreche() + iterator.getPreEscola());								
+			escolaConversao.setTotalInfantil(divisao(escolaConversao.getTotalInfantil(), 2));			
+			if(escolaConversao.getCreche() == 0.0 || escolaConversao.getPreEscola() == 0.0){
+				escolaConversao.setTotalInfantil(divisao(escolaConversao.getTotalInfantil(), 1));	
+			}
+			else{
+				escolaConversao.setTotalInfantil(divisao(escolaConversao.getTotalInfantil(), 2));
+			}
+			if(!(escolaConversao.getTotalInfantil().isInfinite() || escolaConversao.getTotalInfantil().isNaN() || escolaConversao.getTotalInfantil() == 0.0)){
+				taxasConvertidas.add(escolaConversao);
+			}
+		}
+		return taxasConvertidas;
+	}
+
 
 }
