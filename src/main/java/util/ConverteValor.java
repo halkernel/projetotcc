@@ -95,7 +95,7 @@ public class ConverteValor {
 		escolaTaxa.setTerceiroAnoMedio(escolaTaxa.getTerceiroAnoMedio() /escolaTaxaList.size());
 		escolaTaxa.setQuartoAnoMedio(escolaTaxa.getQuartoAnoMedio() /escolaTaxaList.size());			
 		escolaTaxa.setMedioNaoSeriado(escolaTaxa.getMedioNaoSeriado()/escolaTaxaList.size());
-				escolaTaxa.setTotalMedio(escolaTaxa.getTotalMedio() /escolaTaxaList.size());
+		escolaTaxa.setTotalMedio(escolaTaxa.getTotalMedio() /escolaTaxaList.size());
 
 		escolaTaxa.setTipoTaxa(new TipoTaxa());
 		escolaTaxa.getTipoTaxa().setTaxaNome(captalize(dimensao));

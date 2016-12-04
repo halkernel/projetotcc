@@ -101,5 +101,53 @@ public class EscolaTaxaDAO {
 			session.close();
 		}	
 	}
+	
+	public List<EscolaTaxa> listByEstadoAndTaxa(int id_estado, int id_taxa) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();			
+//			Query q = session.createQuery("from EscolaTaxa as est inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id = :idMunicipio and est.tipoTaxa.id = :idTaxa");
+			Query q = session.createQuery("from EscolaTaxa as est  WHERE est.escola.municipio.estado.id = :idEstado and est.tipoTaxa.id = :idTaxa");
+			//inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id in :id");
+			q.setParameter("idEstado", id_estado);
+			q.setParameter("idTaxa", id_taxa);
+			//45934
+			List<EscolaTaxa> escolasTaxas = q.list();
+			tx.commit();			
+			return escolasTaxas;
+			
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}	
+	}
+	
+	public List<EscolaTaxa> listByRegiaoAndTaxa(int id_regiao, int id_taxa) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();			
+//			Query q = session.createQuery("from EscolaTaxa as est inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id = :idMunicipio and est.tipoTaxa.id = :idTaxa");
+			Query q = session.createQuery("from EscolaTaxa as est  WHERE est.escola.municipio.estado.regiao.id = :idRegiao and est.tipoTaxa.id = :idTaxa");
+			//inner join fetch est.escola as esc inner join fetch esc.municipio as mun WHERE mun.id in :id");
+			q.setParameter("idRegiao", id_regiao);
+			q.setParameter("idTaxa", id_taxa);
+			//45934
+			List<EscolaTaxa> escolasTaxas = q.list();
+			tx.commit();			
+			return escolasTaxas;
+			
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}	
+	}
 
 }
