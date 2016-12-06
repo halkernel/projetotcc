@@ -34,6 +34,27 @@ public class EscolaTaxaDAO {
 		}
 	}
 	
+	public List<EscolaTaxa> listAll(int id_taxa){
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		 
+		try {
+			tx = session.beginTransaction();			
+			Query q = session.createQuery("from EscolaTaxa e where e.tipoTaxa.id = :idTaxa");
+			q.setInteger("idTaxa", id_taxa);
+			List<EscolaTaxa> escolasTaxas = q.list();				
+			tx.commit();			
+			return escolasTaxas;
+			
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e; // or display error message
+		} finally {
+			session.clear();
+			session.close();
+		}
+	}
+	
 	public List<EscolaTaxa> listTaxas(int id_escola){
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;

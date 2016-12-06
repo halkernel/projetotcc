@@ -156,5 +156,15 @@ public class CalculoRegiao {
 	}
 
 
+	public LinkedList<EscolaTaxa> getTaxasRegiao() {
+		return taxasRegiao;
+	}
+
+
+	public void setTaxasRegiao(LinkedList<EscolaTaxa> taxasRegiao) {
+		this.taxasRegiao = taxasRegiao;
+	}
+
+	
 
 }

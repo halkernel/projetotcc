@@ -156,5 +156,17 @@ public class CalculoEstado {
 	}
 
 
+	public LinkedList<EscolaTaxa> getTaxasEstado() {
+		return taxasEstado;
+	}
+
+
+	public void setTaxasEstado(LinkedList<EscolaTaxa> taxasEstado) {
+		this.taxasEstado = taxasEstado;
+	}
+	
+	
+
+
 
 }

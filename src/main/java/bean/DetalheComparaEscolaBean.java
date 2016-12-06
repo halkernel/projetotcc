@@ -19,6 +19,7 @@ import entity.EscolaTaxa;
 import entity.TipoTaxa;
 import model.CalculoEstado;
 import model.CalculoMunicipio;
+import model.CalculoPais;
 import model.CalculoRanking;
 import model.CalculoRegiao;
 import util.ConverteValor;
@@ -45,6 +46,7 @@ public class DetalheComparaEscolaBean {
 	private CalculoMunicipio calculoMunicipio;
 	private CalculoEstado calculoEstado;
 	private CalculoRegiao calculoRegiao;
+	private CalculoPais calculoPais;
 
 	private BarChartModel chartEducacaoInfantil;
 	private BarChartModel chartEnsinoFundamental;
@@ -53,8 +55,10 @@ public class DetalheComparaEscolaBean {
 	private List<EscolaTaxa> escolasColocacaoInfantil;
 	private List<EscolaTaxa> escolasColocacaoFundamental;
 	private List<EscolaTaxa> escolasColocacaoMedio;
+	private LinkedList<EscolaTaxa> taxasRanking;
 
-
+	
+	
 
 	private CalculoRanking ranking;;
 
@@ -92,21 +96,28 @@ public class DetalheComparaEscolaBean {
 			chartEducacaoInfantil = calculoMunicipio.calculaInfantilComparandoMunicipio();
 			chartEnsinoFundamental = calculoMunicipio.calculaFundamentalComparandoMunicipio();
 			chartEnsinoMedio = calculoMunicipio.calculaMedioComparandoMunicipio();
+			taxasRanking = calculoMunicipio.getTaxasMunicipio();
 		}
 		else if(dimensao.equals("ESTADO")){
 			calculoEstado = new CalculoEstado(taxa, escola, dimensao);
 			chartEducacaoInfantil = calculoEstado.calculaInfantilComparandoMunicipio();
 			chartEnsinoFundamental = calculoEstado.calculaFundamentalComparandoMunicipio();
 			chartEnsinoMedio = calculoEstado.calculaMedioComparandoMunicipio();
+			taxasRanking = calculoEstado.getTaxasEstado();
 
 		}else if(dimensao.equals("REGIAO")){
 			calculoRegiao = new CalculoRegiao(taxa, escola, dimensao);
 			chartEducacaoInfantil = calculoRegiao.calculaInfantilComparandoMunicipio();
 			chartEnsinoFundamental = calculoRegiao.calculaFundamentalComparandoMunicipio();
 			chartEnsinoMedio = calculoRegiao.calculaMedioComparandoMunicipio();
+			taxasRanking = calculoRegiao.getTaxasRegiao();
 
 		}else if (dimensao.equals("PAIS")){
-
+			calculoPais = new CalculoPais(taxa, escola, dimensao);
+			chartEducacaoInfantil = calculoPais.calculaInfantilComparandoMunicipio();
+			chartEnsinoFundamental = calculoPais.calculaFundamentalComparandoMunicipio();
+			chartEnsinoMedio = calculoPais.calculaMedioComparandoMunicipio();
+			taxasRanking = calculoPais.getTaxasPais();
 		}
 
 		initvalues();
@@ -116,9 +127,8 @@ public class DetalheComparaEscolaBean {
 
 	public void initvalues(){
 		int indexOf = 0;
-		TipoTaxa tipoTaxa = tipoTaxaDao.listByName(taxa);
-		LinkedList<EscolaTaxa> taxasMunicipio = ConverteValor.toLinkedList(escolaTaxaDao.listByMunicipioAndTaxa(escola.getMunicipio().getId(), tipoTaxa.getId()));
-		ranking = new CalculoRanking(taxasMunicipio);
+		TipoTaxa tipoTaxa = tipoTaxaDao.listByName(taxa);		
+		ranking = new CalculoRanking(taxasRanking);
 		ranking.criaRankingInfantil();
 		ranking.criaRankingFundamental();
 		ranking.criaRankingMedio();
