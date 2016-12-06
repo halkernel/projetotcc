@@ -20,6 +20,7 @@ import entity.TipoTaxa;
 import model.CalculoEstado;
 import model.CalculoMunicipio;
 import model.CalculoRanking;
+import model.CalculoRegiao;
 import util.ConverteValor;
 import util.PegaValores;
 
@@ -43,6 +44,7 @@ public class DetalheComparaEscolaBean {
 
 	private CalculoMunicipio calculoMunicipio;
 	private CalculoEstado calculoEstado;
+	private CalculoRegiao calculoRegiao;
 
 	private BarChartModel chartEducacaoInfantil;
 	private BarChartModel chartEnsinoFundamental;
@@ -98,6 +100,10 @@ public class DetalheComparaEscolaBean {
 			chartEnsinoMedio = calculoEstado.calculaMedioComparandoMunicipio();
 
 		}else if(dimensao.equals("REGIAO")){
+			calculoRegiao = new CalculoRegiao(taxa, escola, dimensao);
+			chartEducacaoInfantil = calculoRegiao.calculaInfantilComparandoMunicipio();
+			chartEnsinoFundamental = calculoRegiao.calculaFundamentalComparandoMunicipio();
+			chartEnsinoMedio = calculoRegiao.calculaMedioComparandoMunicipio();
 
 		}else if (dimensao.equals("PAIS")){
 

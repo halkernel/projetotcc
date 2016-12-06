@@ -51,6 +51,14 @@ public class Estado {
 	public void setMunicipios(List<Municipio> municipios) {
 		this.municipios = municipios;
 	}
+
+	public Regiao getRegiao() {
+		return regiao;
+	}
+
+	public void setRegiao(Regiao regiao) {
+		this.regiao = regiao;
+	}
 	
 	
 	
